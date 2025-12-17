@@ -1,0 +1,415 @@
+# Keymap Drawer YAML Generator Agent
+
+## Purpose
+This agent reads the `keymap.c` file, analyzes the keyboard layout using the ASCII art illustrations in comments, and generates a valid YAML file compatible with https://keymap-drawer.streamlit.app/ following the specification at https://github.com/caksoylar/keymap-drawer/blob/v0.22.1/KEYMAP_SPEC.md
+
+## Agent Behavior
+The agent is triggered whenever a change to the keymap is required. The agent:
+- **MUST read configuration files** (`rules.mk`, `config.h`) to determine settings instead of asking questions
+- **Fails gracefully** when lacking necessary resources or tools to generate the YAML
+- **Asks questions only** when configuration is missing or invalid
+- **Can generate YAML on demand** or automatically after keymap changes
+- **Uses shorthand notation** for cleaner YAML output (`t:` for tap, `s:` for shifted, `h:` for hold)
+
+## Input Sources
+- **Source file**: `keymap.c` in the same directory
+- **Configuration**: `rules.mk` (required), `config.h` (optional)
+- **Key information sources**:
+  - ASCII art layout illustrations in C comments (e.g., lines 71-84, 92-105, etc.)
+  - Layer definitions in `keymaps[][MATRIX_ROWS][MATRIX_COLS]` arrays
+  - Combo definitions in `combo_t key_combos[]` array
+  - Custom keycode definitions in `enum custom_keycodes`
+  - Home row mod (HRM) definitions in preprocessor macros (XC_S, XC_D, etc.)
+
+## Output
+A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.streamlit.app/
+
+## Configuration Reading Rules
+
+### MUST Read Before Generation:
+1. **`rules.mk`** - Check for:
+   - `XC_HRM = yes/no` - Determines if home row mods are enabled on Base layer (layer 0)
+   - `XC_HRM_LAYER = yes/no` - Determines if the dedicated HRM layer (layer 1) is included
+   - `COMBO_ENABLE = yes/no` - Determines if combos should be included
+   - Any other layer-specific flags
+
+2. **`config.h`** (if exists) - Check for:
+   - Tapping term settings
+   - Combo term settings
+   - Any layer-specific configurations
+
+### Decision Logic:
+- **HRM on Base layer**: Use `XC_HRM` value from `rules.mk`
+  - `yes` → Show S/D/F/V/M/J/K/L as mod-tap keys on layer 0
+  - `no` → Show them as plain keys on layer 0
+- **HRM Layer**: Use `XC_HRM_LAYER` value from `rules.mk`
+  - `yes` → Include HMR layer (layer 1) in YAML with modifiers and layer switching
+  - `no` → **Omit HMR layer from YAML** (layer 1 is in separate file `layer_hrm.h` and not compiled)
+- **Combos**: Use `COMBO_ENABLE` value from `rules.mk`
+  - `yes` → Include combos section in YAML
+  - `no` → Omit combos section
+- **Layers**: Include layers based on configuration flags; HMR layer is conditional
+
+## YAML Structure Requirements
+
+Based on the keymap-drawer specification, the output must include:
+
+### 1. Layout Definition
+```yaml
+layout:
+  qmk_keyboard: kaly/kaly42
+```
+
+**Note**: Use the QMK keyboard identifier, not manual ortho_layout specification.
+
+### 2. Layers
+For each layer (0-5), create entries with proper key mappings:
+```yaml
+layers:
+  Base:  # Layer 0
+    - ["", "", W, E, R, T, Y, U, I, O, "", ""]
+    - [Tab, A, S, D, F, G, H, J, K, L, ";", "'"]
+    - ["", Z, X, C, V, LCtl, RCtl, M, ",", ".", "/", ""]
+    - [Esc, Sft, {h: NAV}, {t: Bsp, s: Del}, Spc, Ent]
+```
+
+**Note**: Each row must have exactly 12 keys, thumb row has 6 keys (3 per side).
+
+### 3. Special Key Types
+Handle these QMK constructs using **shorthand notation**:
+
+- **Mod-Tap keys** (`MT(MOD_X, KC_Y)`): Use `{t: Y, h: X}` format
+  - Example: `MT(MOD_LGUI, KC_ESC)` → `{t: Esc, h: GUI}`
+  - Shorthand: `t` = tap, `h` = hold
+
+- **Layer access** (`MO(n)`, `TG(n)`, `TO(n)`):
+  - `MO(2)` → `{h: NAV, type: layer}` (momentary - hold to activate layer)
+  - `TG(3)` → `{h: NUM, type: layer}` (toggle - tap to toggle layer on/off)
+  - `TO(0)` → `{t: Base, type: layer}` (switch to layer - **CRITICAL: use plain text in `t:`, NOT `{to: Base}`**)
+
+  **CRITICAL RULE - Held Key Marking**:
+  - **ALWAYS** mark hold keys on their target layer with `type: held`
+  - When a key uses `{h: LAYER_NAME}` to access a layer via hold (MO, LT, or even TG shown as hold):
+    1. On the source layer: `{h: NAV, type: layer}`
+    2. On the target layer (NAV): at the same position, mark as `{type: held}`
+  - **CRITICAL**: A held key NEVER has tap (`t:`) or hold (`h:`) contents - only `type: held`
+  - The `held` type applies red shading to visually indicate the key must be held to remain on this layer
+  - This applies to ALL hold-to-activate layer keys, not just MO()
+
+  Example:
+  ```yaml
+  # Base layer
+  - [Esc, Shift, { h: NAV, type: layer }, Bsp, Spc, Ent]
+
+  # NAV layer (same thumb position)
+  - ["", "", { type: held }, "", "", ""]
+  ```
+
+- **Home Row Mods** (when XC_HRM is enabled in `rules.mk`):
+  - `XC_S` (Alt/S) → `{t: S, h: Alt}`
+  - `XC_D` (Ctrl/D) → `{t: D, h: Ctrl}`
+  - `XC_F` (Shift/F) → `{t: F, h: Shift}`
+  - `XC_V` (GUI/V) → `{t: V, h: GUI}`
+  - `XC_M` (GUI/M) → `{t: M, h: GUI}`
+  - `XC_J` (Shift/J) → `{t: J, h: Shift}`
+  - `XC_K` (Ctrl/K) → `{t: K, h: Ctrl}`
+  - `XC_L` (Alt/L) → `{t: L, h: Alt}`
+
+- **Custom dual-function keys with shift** - Use `{t: normal, s: shifted}`:
+  - `BSP_DEL` → `{t: Bsp, s: Del}`
+  - `PLS_MIN` → `{t: +, s: "-"}`
+  - `MUL_DIV` → `{t: "*", s: /}`
+  - `DOT_COM` → `{t: ., s: ","}`
+  - `PARENS` → `{t: "(", s: ")"}`
+  - `BRACES` → `{t: "{", s: "}"}`
+  - `BRACKETS` → `{t: "[", s: "]"}`
+  - `ANGLES` → `{t: <, s: ">"}`
+  - `SLASHES` → `{t: /, s: "\\"}`
+  - `QUOTE_DBL` → `{t: "'", s: "\""}`
+  - `EQUAL_EXCL` → `{t: =, s: "!"}`
+  - `TILDE_CARET` → `{t: "~", s: ^}`
+  - `AMP_DOLLAR` → `{t: "&", s: $}`
+  - `PIPE_TICK` → `{t: "|", s: "`"}`
+  - `MINUS_UNDER` → `{t: "-", s: _}`
+  - Shorthand: `s` = shifted
+
+### 4. Combos
+Extract from `combo_t key_combos[]` array. Parse the combo definitions and their associated layers.
+
+**Combo alignment rules**:
+- **ONLY use `align` property for non-adjacent keys** (e.g., when combo keys are separated)
+- **DO NOT use `align` for adjacent keys** (keymap-drawer automatically positions these correctly)
+- Adjacent combos don't need `align`
+- Non-adjacent combos (e.g., thumb + home row) need `align: top` or `align: bottom`
+
+**Critical combo parsing rules**:
+- **Custom keycodes in combos**: When a combo definition uses a custom keycode (like `SFT_LEAD`), find the physical position where that custom key is placed in the keymap layout
+  - Example: `const uint16_t PROGMEM sft_d_combo_l0[] = {SFT_LEAD, XC_D, COMBO_END};`
+  - Find where `SFT_LEAD` is in the layout (position 37 in thumb row)
+  - Find where `XC_D` or `KC_D` is in the layout (position 15)
+  - Create combo with `key_positions: [37, 15]`
+- **Multi-layer combos**: Parse the combo array names that end with layer indicators (e.g., `_l0`, `_l3`, `_l4`)
+  - `sft_d_combo_l0` → applies to layer 0 (Base)
+  - `sft_d_combo_l3` → applies to layer 3 (NUM)
+  - `sft_d_combo_l4` → applies to layer 4 (SYM)
+  - Create separate YAML combo entries for each layer, even if they use the same positions
+- **Position consistency**: The key positions are the physical positions, but the keys at those positions may differ per layer
+  - Position 15 is `D` on Base layer, `-` on NUM layer, `-` on SYM layer
+  - The combo uses the same physical positions across layers, but triggers from different visual keys
+
+## Key Position Mapping
+For the split 3x6+3 layout, positions are:
+```
+Row 1:  0   1   2   3   4   5  |   6   7   8   9  10  11
+Row 2: 12  13  14  15  16  17  |  18  19  20  21  22  23
+Row 3: 24  25  26  27  28  29  |  30  31  32  33  34  35
+Thumbs:            36  37  38  |  39  40  41
+
+Left hand:
+  Row 1: 0-5
+  Row 2: 12-17
+  Row 3: 24-29
+  Thumbs: 36, 37, 38
+
+Right hand:
+  Row 1: 6-11
+  Row 2: 18-23
+  Row 3: 30-35
+  Thumbs: 39, 40, 41
+```
+
+## Layer Name Mapping
+```
+0 → Base
+1 → HMR (Home Row Mods)
+2 → NAV (Navigation)
+3 → NUM (Numpad)
+4 → SYM (Symbols)
+5 → ACC (Compose/Accents)
+```
+
+## Processing Steps
+
+1. **Read keymap.c** - Parse the entire file
+2. **Extract layout info** - Use `LAYOUT_split_3x6_3` arrays
+3. **Parse illustrations** - Use ASCII art comments for visual reference
+4. **Identify key types**:
+   - Simple keys: `KC_A` → `A`
+   - Transparent: `KC_TRNS` → `""`
+   - No-op: `KC_NO` → `""`
+   - Custom keycodes: Look up in `enum custom_keycodes` comments
+   - Mod-tap: Parse `MT(mod, key)` format
+   - Layer keys: Parse `MO(n)`, `TG(n)`, `TO(n)`
+   - HRM keys: Check if `#ifdef XC_HRM` defines are used
+5. **Extract combos** - Parse `combo_t key_combos[]` array:
+   - Parse each combo definition array (e.g., `const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};`)
+   - Map keycodes to physical positions by finding them in the layout arrays
+   - For custom keycodes (e.g., `SFT_LEAD`, `XC_D`), search the layout to find their positions
+   - Parse the `key_combos[]` array to get the combo action and determine which layers it applies to
+   - Multi-layer combos have separate array definitions with layer suffixes (e.g., `_l0`, `_l3`, `_l4`)
+   - Create separate YAML entries for each layer variant of a combo
+6. **Generate YAML** - Format according to spec
+
+## Special Considerations
+
+- **XC_HRM flag**: When enabled, keys XC_S, XC_D, XC_F, XC_V, XC_M, XC_J, XC_K, XC_L become mod-tap keys. When disabled, they're plain keys.
+- **Custom keycodes**: Document dual-function behavior (e.g., BSP_DEL sends Bsp normally, Del when shifted)
+- **Empty positions**: Use empty string `""` for KC_NO and KC_TRNS
+- **Combo positions**: Calculate from the visual layout (0-indexed, left-to-right, top-to-bottom)
+
+## Material Design Icons
+
+keymap-drawer supports Material Design Icons using `$$mdi:ICON_NAME$$` syntax. **Always use icons for these keys**:
+
+- **Shift** (LSft, RSft) → `$$mdi:apple-keyboard-shift$$`
+- **Control** (LCtl, RCtl) → `$$mdi:apple-keyboard-control$$`
+- **GUI/Command** (LGUI, RGUI) → `$$mdi:apple-keyboard-command$$`
+- **Tab** → `$$mdi:keyboard-tab$$`
+- **Escape** → `$$mdi:keyboard-esc$$`
+- **Space** → `$$mdi:keyboard-space$$`
+- **Enter/Return** → `$$mdi:keyboard-return$$`
+- **Backspace** → `$$mdi:backspace-outline$$`
+- **Arrow keys**:
+  - **Up** → `$$mdi:arrow-up$$`
+  - **Down** → `$$mdi:arrow-down$$`
+  - **Left** → `$$mdi:arrow-left$$`
+  - **Right** → `$$mdi:arrow-right$$`
+- **Leader key** → `$$mdi:star$$` (reserved for future leader key implementation)
+- **Held key indicator** → `$$mdi:circle-slice-8$$` (marks keys that must be held to remain on current layer)
+
+**Icon usage rules**:
+1. Icons work in both simple keys and dual-function keys
+2. For dual-function: `{t: $$mdi:backspace-outline$$, s: Del}`
+3. Icon names must be lowercase with hyphens (e.g., `apple-keyboard-shift`, not `Apple-Keyboard-Shift`)
+4. **IMPORTANT**: Always use icons consistently - never mix icon and text for the same key type (e.g., don't use `RSft` when other shifts use the icon)
+5. **CRITICAL**: When marking a key as `type: held`, ALWAYS use `$$mdi:circle-slice-8$$` as the hold value
+
+## Key Styling with Types and CSS
+
+### Key Type Categories
+
+Assign `type` attribute to non-alphanumeric keys for color-coding. **Do NOT assign types to numbers (0-9) or letters (A-Z)**.
+
+Categories:
+1. **modifier** - Modifiers (Shift, Control, GUI, Alt)
+2. **nav** - Navigation (arrows, Home, End, PgUp, PgDn, Tab)
+3. **editing** - Editing/Actions (Backspace, Delete, Enter, Escape, Space)
+4. **layer** - Layer switching (NAV, NUM, SYM, ACC, Base)
+5. **system** - System commands (Copy, Paste, Cut, Undo, Redo via C-C, C-V, etc.)
+6. **symbol** - Symbols and punctuation (all dual-function symbol keys, `;`, `'`, etc.)
+7. **accent** - Accented characters (RA-', RA-N, RA-C, etc.)
+
+### Example Usage
+```yaml
+{ t: $$mdi:apple-keyboard-shift$$, type: modifier }
+{ t: $$mdi:arrow-left$$, type: nav }
+{ t: +, s: "-", type: symbol }
+{ t: Base, type: layer }
+```
+
+### CSS Styling Pattern
+
+In `draw_config.svg_extra_style`, use this pattern for each category:
+
+```yaml
+svg_extra_style: |
+  /* Category name - Color */
+  .key.typename rect { fill: #light-bg; stroke: #dark-border; }
+  .key.typename :not(rect) { fill: #dark-border; }
+```
+
+**How it works**:
+- `.key.typename rect` - Targets the key rectangle background
+  - `fill` - Light pastel background color
+  - `stroke` - Darker border color
+- `.key.typename :not(rect)` - Targets everything except the rectangle (text, shadows, icons)
+  - `fill` - Solid color matching the border
+
+**Color scheme** (current):
+- modifier: Blue (#d6e5f5 bg, #4a7ab8 border)
+- nav: Green (#d9f0d9 bg, #5ca75c border)
+- editing: Orange (#ffe4d1 bg, #e88a3a border)
+- layer: Purple (#ead9eb bg, #9a5fa1 border)
+- system: Yellow (#fff4d1 bg, #e8b52a border)
+- symbol: Cyan/Teal (#d4f0e8 bg, #4aa78a border)
+- accent: Pink/Coral (#ffe0d6 bg, #e86d4a border)
+
+## File Header
+
+Always include at the top of keymap.yaml:
+```yaml
+# Keymap visualization tool: https://keymap-drawer.streamlit.app/
+# Repository: https://github.com/caksoylar/keymap-drawer-web
+```
+
+## Critical YAML Syntax Rules (From Working Example)
+
+**MUST follow these rules exactly:**
+
+1. **Layer switching `TO(0)`**: Write as plain string `Base`, **NOT** `{to: Base}`
+2. **Equals sign**: **MUST** quote as `"="` (YAML treats unquoted `=` as key:value)
+3. **Spacing in objects**: **CRITICAL** - Always put space after colon:
+   - ✅ Correct: `{t: "|", s: "`"}`
+   - ❌ WRONG: `{t: "|", s:"`"}` (missing space after `s:` causes parse error)
+4. **Combos format**: Always use explicit layers list:
+   ```yaml
+   - key_positions: [2, 3]
+     key: Q
+     align: top
+     layers:
+       - Base
+   ```
+5. **Quoting rules** (based on working example):
+   - **Quote**: `"="`, `";"`, `"'"`, `","`, `"."`, punctuation
+   - **Don't quote**: Numbers, simple letters, layer names (`Base`, `NAV`)
+   - **In dual-function**: Quote special chars in both tap and shifted
+6. **Slash**: Can be unquoted `/` as simple key, context-dependent
+
+## Example Output Format
+
+```yaml
+layout:
+  qmk_keyboard: kaly/kaly42
+
+layers:
+  Base:
+    - ["", "", W, E, R, T, Y, U, I, O, "", ""]
+    - [Tab, A, {tap: S, hold: Alt}, {tap: D, hold: Ctrl}, {tap: F, hold: Shift}, G, H, {tap: J, hold: Shift}, {tap: K, hold: Ctrl}, {tap: L, hold: Alt}, ";", "'"]
+    - ["", Z, X, C, {tap: V, hold: GUI}, LCtl, RCtl, {tap: M, hold: GUI}, ",", ".", "/", ""]
+    - [{tap: Esc, hold: GUI}, {hold: Shift}, {hold: NAV}, {tap: Bsp, shifted: Del}, Spc, ""]
+
+  HMR:
+    # ... continue for all layers
+
+combos:
+  - key_positions: [2, 3]
+    key: Q
+  - key_positions: [21, 22]
+    key: B
+  # ... continue for all combos
+
+draw_config:
+  key_h: 60
+  combo_h: 22
+  arc_scale: 1.0
+```
+
+## Instructions for Agent
+
+### Mandatory Steps (in order):
+
+1. **Read configuration files FIRST**:
+   - Read `rules.mk` to get `XC_HRM` and `COMBO_ENABLE` values
+   - Read `config.h` if it exists (optional)
+   - **DO NOT ask about these settings** - read them from files
+
+2. **Parse keymap.c**:
+   - Read entire file
+   - Parse ASCII art comments for visual reference
+   - Extract all 6 layer definitions from `keymaps[][MATRIX_ROWS][MATRIX_COLS]`
+   - Extract combos from `combo_t key_combos[]`
+   - Note custom keycodes from `enum custom_keycodes`
+
+3. **Map QMK to YAML**:
+   - Use shorthand notation (`t:`, `h:`, `s:`)
+   - Handle HRM based on `XC_HRM` setting (yes = mod-tap, no = plain keys)
+   - Include combos only if `COMBO_ENABLE = yes`
+   - Map all custom dual-function keys using `{t: X, s: Y}` format
+
+4. **Generate YAML**:
+   - Use proper indentation (2 spaces)
+   - Include all 6 layers: Base, HMR, NAV, NUM, SYM, ACC
+   - Add combo alignment (`align: top/bottom`)
+   - Include `draw_config` section with sensible defaults
+
+5. **Save output**:
+   - Write to `keymap.yaml` in same directory
+   - Ensure valid YAML syntax
+
+### Error Handling:
+- If `rules.mk` is missing → Fail with error message
+- If `keymap.c` is missing → Fail with error message
+- If unable to parse a keycode → Ask for clarification
+- If layer count doesn't match → Ask for clarification
+
+## Notes
+- This keyboard uses a split ortholinear layout (Kaly42)
+- It has up to 6 layers with different purposes (HMR layer is optional)
+- Home row mods on Base layer are conditional (read `XC_HRM` flag from `rules.mk`)
+- HMR layer (layer 1) is conditional (read `XC_HRM_LAYER` flag from `rules.mk`)
+  - When disabled, layer 1 is not compiled (stored in `layer_hrm.h`)
+  - **Do not include HMR layer in YAML when `XC_HRM_LAYER = no`**
+- Many custom dual-function keys for symbols and modifiers
+- Combos are conditional (read `COMBO_ENABLE` from `rules.mk`)
+- Combos are extracted by parsing the `combo_t key_combos[]` array in keymap.c
+- Some combos use custom keycodes (e.g., `SFT_LEAD`) - must find their physical positions in the layout
+- Multi-layer combos are defined with multiple arrays (e.g., `sft_d_combo_l0`, `sft_d_combo_l3`, `sft_d_combo_l4`)
+- Always use shorthand notation for cleaner output
+
+## Layer Structure
+- **Layer 0**: Base (always included)
+- **Layer 1**: HMR - Home Row Mods (optional, controlled by `XC_HRM_LAYER`)
+- **Layer 2**: NAV - Navigation (always included)
+- **Layer 3**: NUM - Numpad (always included)
+- **Layer 4**: SYM - Symbols (always included)
+- **Layer 5**: ACC - Accents/Compose (always included)
