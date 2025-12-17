@@ -202,6 +202,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   RALT(KC_GRV), KC_NO, KC_NO,   KC_NO,   KC_NO,                           KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO,   KC_NO,   KC_NO,   RALT(KC_C),   KC_NO,   KC_NO,                         KC_NO,   RALT(KC_N), KC_NO, KC_NO, KC_NO, KC_NO,
                                             KC_NO,   KC_NO,   TO(0),            KC_NO,   KC_NO,   KC_NO
+    ),
+     /*
+      * Layer 6 - DEL (Delete/Editing shortcuts)
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │   │       │   │   │   │S-D│   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │Alt│Ctl│Sft│   │       │   │Bsp│Ent│Del│   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │Gui│   │       │   │C-B│   │C-D│   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤   ├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
+      *                       └───┘   └───┘
+      */
+    [6] = LAYOUT_split_3x6_3(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, S(KC_DEL), KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_LALT, KC_LCTL, KC_LSFT, KC_TRNS,                            KC_TRNS, KC_BSPC, KC_ENT,  KC_DEL,  KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS,                            KC_TRNS, C(KC_BSPC), KC_TRNS, C(KC_DEL), KC_TRNS, KC_TRNS,
+                                            KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
 
