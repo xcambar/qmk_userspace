@@ -16,7 +16,7 @@
       *                   └───┤   │   │NUM├───┘
       *                       └───┘   └───┘
       */
-    [1] = LAYOUT_split_3x6_3(
+    [HRM] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_NO,                              KC_NO,   KC_RSFT, KC_RCTL, KC_RALT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
