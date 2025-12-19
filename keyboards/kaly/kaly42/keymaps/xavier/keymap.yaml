@@ -3,6 +3,7 @@
 
 layout:
   qmk_keyboard: kaly/kaly42
+  layout_name: LAYOUT_split_3x6_3
 
 layers:
   Base:
@@ -39,9 +40,9 @@ layers:
         { t: $$mdi:keyboard-esc$$, type: editing },
         { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
         { h: NAV, type: layer },
-        { t: $$mdi:backspace-outline$$, s: Del, type: editing },
+        { t: $$mdi:backspace-outline$$, h: DEL, type: editing },
         { t: $$mdi:keyboard-space$$, type: editing },
-        { t: $$mdi:keyboard-return$$, type: editing },
+        { t: $$mdi:keyboard-space$$, type: editing },
       ]
 
   NAV:
@@ -52,11 +53,11 @@ layers:
         { t: NUM, type: layer },
         { t: SYM, type: layer },
         "",
-        { t: C-Y, type: system },
-        { t: C-V, type: system },
-        { t: C-C, type: system },
-        { t: C-X, type: system },
-        { t: C-Z, type: system },
+        { t: Redo, h: C-Y, type: system },
+        { t: Paste, h: C-V, type: system },
+        { t: Copy, h: C-C, type: system },
+        { t: Cut, h: C-X, type: system },
+        { t: Undo, h: C-Z, type: system },
         "",
       ]
     - [
@@ -114,7 +115,7 @@ layers:
         "",
         { t: $$mdi:apple-keyboard-shift$$, type: modifier },
         { t: Base, type: layer },
-        { t: $$mdi:backspace-outline$$, s: Del, type: editing },
+        { h: DEL, type: layer },
         { t: $$mdi:keyboard-space$$, type: editing },
         "",
       ]
@@ -166,16 +167,48 @@ layers:
         "",
         { t: $$mdi:apple-keyboard-shift$$, type: modifier },
         { t: Base, type: layer },
-        { t: $$mdi:backspace-outline$$, s: Del, type: editing },
+        { h: DEL, type: layer },
         { t: $$mdi:keyboard-space$$, type: editing },
         "",
       ]
 
   ACC:
-    - ["", "", "", { t: RA-', type: accent }, "", "", "", { t: RA-S-', type: accent }, "", { t: RA-S-6, type: accent }, "", ""]
-    - ["", { t: RA-`, type: accent }, "", "", "", "", "", "", "", "", "", ""]
-    - ["", "", "", { t: RA-C, type: accent }, "", "", "", { t: RA-N, type: accent }, "", "", "", ""]
+    - ["", "", "", { t: "´", h: RA-', type: accent }, "", "", "", { t: "¨", h: RA-S-', type: accent }, "", { t: "^", h: RA-S-6, type: accent }, "", ""]
+    - ["", { t: "`", h: RA-`, type: accent }, "", "", "", "", "", "", "", "", "", ""]
+    - ["", "", "", { t: "ç", h: RA-C, type: accent }, "", "", "", { t: "ñ", h: RA-N, type: accent }, "", "", "", ""]
     - ["", "", { t: Base, type: layer }, "", "", ""]
+
+  DEL:
+    - ["", "", "", "", "", "", "", "", "", { t: S-Del, type: editing }, "", ""]
+    - [
+        "",
+        "",
+        { t: LAlt, type: modifier },
+        { t: $$mdi:apple-keyboard-control$$, type: modifier },
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+        "",
+        "",
+        { t: $$mdi:backspace-outline$$, type: editing },
+        { t: $$mdi:keyboard-return$$, type: editing },
+        { t: Del, type: editing },
+        "",
+        "",
+      ]
+    - [
+        "",
+        "",
+        "",
+        "",
+        { t: $$mdi:apple-keyboard-command$$, type: modifier },
+        "",
+        "",
+        { t: C-Bsp, type: editing },
+        "",
+        { t: C-Del, type: editing },
+        "",
+        "",
+      ]
+    - ["", "", "", { type: held }, "", ""]
 
 combos:
   - key_positions: [2, 3]
@@ -194,7 +227,7 @@ combos:
     key: P
     layers:
       - Base
-  - key_positions: [40, 41]
+  - key_positions: [12, 23]
     key: QK_BOOT
     layers:
       - Base
@@ -203,30 +236,10 @@ combos:
     layers:
       - Base
     align: top
-  - key_positions: [37, 15]
-    key: { t: SYM, type: layer }
-    layers:
-      - NUM
-    align: top
-  - key_positions: [37, 15]
-    key: { t: SYM, type: layer }
-    layers:
-      - SYM
-    align: top
   - key_positions: [40, 20]
     key: { t: NUM, type: layer }
     layers:
       - Base
-    align: top
-  - key_positions: [40, 20]
-    key: { t: NUM, type: layer }
-    layers:
-      - NUM
-    align: top
-  - key_positions: [40, 20]
-    key: { t: NUM, type: layer }
-    layers:
-      - SYM
     align: top
 
 draw_config:
