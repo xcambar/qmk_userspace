@@ -285,8 +285,10 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
 <text x="0" y="0" class="key symbol tap">&#x27;</text>
 </g>
-<g transform="translate(30, 165)" class="key keypos-24">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(30, 165)" class="key modifier keypos-24">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<text x="0" y="0" class="key modifier tap">Ctrl</text>
+<text x="0" y="-26" class="key modifier shifted">Alt</text>
 </g>
 <g transform="translate(90, 165)" class="key keypos-25">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -304,13 +306,11 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 <text x="0" y="0" class="key tap">V</text>
 </g>
-<g transform="translate(330, 165)" class="key modifier keypos-29">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<use href="#mdi:apple-keyboard-control" xlink:href="#mdi:apple-keyboard-control" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-control"/>
+<g transform="translate(330, 165)" class="key keypos-29">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(510, 165)" class="key modifier keypos-30">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<use href="#mdi:apple-keyboard-control" xlink:href="#mdi:apple-keyboard-control" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-control"/>
+<g transform="translate(510, 165)" class="key keypos-30">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 <g transform="translate(570, 158)" class="key keypos-31">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -328,8 +328,10 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
 <text x="0" y="0" class="key symbol tap">/</text>
 </g>
-<g transform="translate(810, 165)" class="key keypos-35">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(810, 165)" class="key modifier keypos-35">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<text x="0" y="0" class="key modifier tap">Alt</text>
+<text x="0" y="-26" class="key modifier shifted">Ctrl</text>
 </g>
 <g transform="translate(240, 225)" class="key editing keypos-36">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>

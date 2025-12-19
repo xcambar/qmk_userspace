@@ -75,6 +75,8 @@ enum custom_keycodes {
     MINUS_UNDER,         // - normally, _ when shifted
     BSP_DEL,             // Backspace normally, Delete when shifted
     SFT_LEAD,            // Shift on hold, Leader on tap
+    CTL_ALT_L,           // LCtrl normally, LAlt when shifted (position 24)
+    ALT_CTL_R,           // LAlt normally, Ctrl when shifted (position 35)
 };
 
 enum combo_events {
@@ -129,19 +131,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │Tab│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ Z │ X │ C[B]V │Ctl│       │Ctl│ M[N], │ . │ / │   │
+      * │C/A│ Z │ X │ C[B]V │   │       │   │ M[N], │ . │ / │A/C│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │Esc├───┐           ┌───┤SPC│
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
       *                   └───┤NAV│   │Bsp├───┘       Bsp=Backspace, hold for DEL layer
       *                       └───┘   └───┘
+      * C/A=Ctrl (Alt when shifted) | A/C=Alt (Ctrl when shifted)
       * Combos: S/L+D → SYM | SPC+K → NUM
       */
     [BASE] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    KC_NO,   KC_NO,
-        _00_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
-        KC_NO,   _25_,    _26_,    _27_,    _28_,    KC_LCTL,                            KC_RCTL, _31_,    _32_,    _33_,    _34_,    KC_NO,
+        KC_NO,     KC_NO,   _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    KC_NO,     KC_NO,
+        _00_,      _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,      _23_,
+        CTL_ALT_L, _25_,    _26_,    _27_,    _28_,    KC_NO,                              KC_NO,   _31_,    _32_,    _33_,    _34_,      ALT_CTL_R,
                                             KC_ESC,  SFT_LEAD, MO(NAV),            LT(DEL, KC_BSPC), KC_SPC,  KC_SPC
     ),
 #ifdef XC_HRM_LAYER
@@ -314,6 +317,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PROCESS_DUAL_KEY(PIPE_TICK,   KC_PIPE, KC_GRV)
         PROCESS_DUAL_KEY(MINUS_UNDER, KC_MINS, KC_UNDS)
         PROCESS_DUAL_KEY(BSP_DEL,     KC_BSPC, KC_DEL)
+        PROCESS_DUAL_KEY(CTL_ALT_L,   KC_LCTL, KC_LALT)
+        PROCESS_DUAL_KEY(ALT_CTL_R,   KC_LALT, KC_LCTL)
     }
     return true;
 }

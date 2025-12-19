@@ -23,18 +23,18 @@ layers:
         { t: "'", type: symbol },
       ]
     - [
-        "",
+        { t: Ctrl, s: Alt, type: modifier },
         Z,
         X,
         C,
         V,
-        { t: $$mdi:apple-keyboard-control$$, type: modifier },
-        { t: $$mdi:apple-keyboard-control$$, type: modifier },
+        "",
+        "",
         M,
         { t: ",", type: symbol },
         { t: ".", type: symbol },
         { t: /, type: symbol },
-        "",
+        { t: Alt, s: Ctrl, type: modifier },
       ]
     - [
         { t: $$mdi:keyboard-esc$$, type: editing },
