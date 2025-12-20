@@ -22,3 +22,7 @@
 // Use strict timer mode - combo window starts on first key press
 // This prevents accidental triggers during normal typing
 #define COMBO_STRICT_TIMER
+
+// Auto Shift configuration
+// Keys held longer than this threshold will produce shifted characters
+#define AUTO_SHIFT_TIMEOUT 220
