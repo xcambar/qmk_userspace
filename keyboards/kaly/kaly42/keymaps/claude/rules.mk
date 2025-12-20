@@ -6,6 +6,9 @@ COMBO_ENABLE = yes
 # Enable layer lock for sticky layers
 LAYER_LOCK_ENABLE = yes
 
+# Enable Auto Shift for automatic capitalization
+AUTO_SHIFT_ENABLE = yes
+
 # Keep firmware size reasonable
 LTO_ENABLE = yes
 
