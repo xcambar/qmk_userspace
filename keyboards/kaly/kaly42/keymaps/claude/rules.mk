@@ -1,5 +1,8 @@
 # Claude Keymap Configuration
 
+# Enable combos for layer switching
+COMBO_ENABLE = yes
+
 # Enable layer lock for sticky layers
 LAYER_LOCK_ENABLE = yes
 

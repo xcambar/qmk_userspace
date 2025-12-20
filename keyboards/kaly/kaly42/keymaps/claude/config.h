@@ -14,3 +14,11 @@
 
 // Quick tap term to allow fast repeated taps
 #define QUICK_TAP_TERM 100
+
+// Combo configuration
+// Increased timeout for reliable 4-key combo activation
+#define COMBO_TERM 150  // Time window for combo activation (ms)
+
+// Use strict timer mode - combo window starts on first key press
+// This prevents accidental triggers during normal typing
+#define COMBO_STRICT_TIMER
