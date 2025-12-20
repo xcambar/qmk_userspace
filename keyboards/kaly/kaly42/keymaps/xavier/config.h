@@ -12,3 +12,4 @@
 
 // Enable chordal hold for home row mods
 #define CHORDAL_HOLD
+#define AUTO_SHIFT_TIMEOUT 200
