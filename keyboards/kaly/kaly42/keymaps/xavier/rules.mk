@@ -20,6 +20,7 @@ XC_LAYOUT ?= qwerty
 
 XC_HRM = yes
 XC_HRM_LAYER = no
+XC_WEAK_CORNERS = yes
 
 
 
@@ -36,4 +37,8 @@ endif
 
 ifeq ($(strip $(XC_HRM_LAYER)), yes)
     OPT_DEFS += -DXC_HRM_LAYER
+endif
+
+ifeq ($(strip $(XC_WEAK_CORNERS)), yes)
+    OPT_DEFS += -DXC_WEAK_CORNERS
 endif

@@ -24,26 +24,11 @@
 #include "keymap_eurkey.h"
 #include QMK_KEYBOARD_H
 
-// Layout selection based on rules.mk configuration
-// XC_LAYOUT is passed from rules.mk (e.g., -DXC_LAYOUT=QWERTY)
-// Default value is set in rules.mk as "qwerty" and converted to uppercase
+// Base layer switch
+#include "feature_base_layer.h"
 
-// Define layout constants for comparison
-#define LAYOUT_QWERTY 1
-#define LAYOUT_GALLIUM 2
-
-// Convert XC_LAYOUT token to a numeric constant
-#define QWERTY LAYOUT_QWERTY
-#define GALLIUM LAYOUT_GALLIUM
-
-#if XC_LAYOUT == LAYOUT_QWERTY
-    #include "layout_qwerty.h"
-#elif XC_LAYOUT == LAYOUT_GALLIUM
-    #include "layout_gallium.h"
-#else
-    #error "Unknown layout specified"
-#endif
-
+// Weak corners feature
+#include "feature_weak_corners.h"
 
 enum layers {
     BASE = 0,
@@ -79,28 +64,7 @@ enum custom_keycodes {
     ALT_CTL_R,           // LAlt normally, Ctrl when shifted (position 35)
 };
 
-enum combo_events {
-    WEAK_CORNERS_L_TL,
-    WEAK_CORNERS_L_BR,
-    WEAK_CORNERS_R_BL,
-    WEAK_CORNERS_R_TR,
-    BOOT_RESET,
-    SFT_D_SYM_L0,
-    SFT_D_SYM_L3,
-    SFT_D_SYM_L4,
-    SPC_K_NUM_L0,
-    SPC_K_NUM_L3,
-    SPC_K_NUM_L4,
-    COMBO_LENGTH
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM we_combo[] = {_02_, _03_, COMBO_END};
-const uint16_t PROGMEM cv_combo[] = {_27_, _28_, COMBO_END};
-const uint16_t PROGMEM mcomm_combo[] = {_31_, _32_, COMBO_END};
-const uint16_t PROGMEM io_combo[] = {_08_, _09_, COMBO_END};
-const uint16_t PROGMEM boot_combo[] = {_00_, _23_, COMBO_END};  // Tab + Quote
+const uint16_t PROGMEM boot_combo[] = {_12_, _23_, COMBO_END};  // Tab + Quote
 // Shift + D → SYM layer (works on all layers)
 const uint16_t PROGMEM sft_d_combo_l0[] = {SFT_LEAD, _15_, COMBO_END};  // Base layer: Shift + D
 const uint16_t PROGMEM sft_d_combo_l3[] = {KC_LSFT, KC_MINS, COMBO_END};  // NUM layer: Shift + -
@@ -111,40 +75,37 @@ const uint16_t PROGMEM spc_k_combo_l3[] = {KC_SPC, KC_5, COMBO_END};  // NUM lay
 const uint16_t PROGMEM spc_k_combo_l4[] = {KC_SPC, KC_UNDS, COMBO_END};  // SYM layer: Space + _
 
 combo_t key_combos[] = {
-    [WEAK_CORNERS_L_TL] = COMBO(we_combo, _01_),
-    [WEAK_CORNERS_L_BR] = COMBO(cv_combo, _29_),
-    [WEAK_CORNERS_R_BL] = COMBO(mcomm_combo, _30_),
-    [WEAK_CORNERS_R_TR] = COMBO(io_combo, _10_),
-    [BOOT_RESET] = COMBO(boot_combo, QK_BOOT),
-    [SFT_D_SYM_L0] = COMBO(sft_d_combo_l0, TO(SYM)),
-    [SFT_D_SYM_L3] = COMBO(sft_d_combo_l3, TO(SYM)),
-    [SFT_D_SYM_L4] = COMBO(sft_d_combo_l4, TO(SYM)),
-    [SPC_K_NUM_L0] = COMBO(spc_k_combo_l0, TO(NUM)),
-    [SPC_K_NUM_L3] = COMBO(spc_k_combo_l3, TO(NUM)),
-    [SPC_K_NUM_L4] = COMBO(spc_k_combo_l4, TO(NUM)),
+    XC_WEAK_CORNERS_COMBOS
+    COMBO(boot_combo, QK_BOOT),
+    COMBO(sft_d_combo_l0, TO(SYM)),
+    COMBO(sft_d_combo_l3, TO(SYM)),
+    COMBO(sft_d_combo_l4, TO(SYM)),
+    COMBO(spc_k_combo_l0, TO(NUM)),
+    COMBO(spc_k_combo_l3, TO(NUM)),
+    COMBO(spc_k_combo_l4, TO(NUM)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │ W[Q]E │ R │ T │       │ Y │ U | I[P]O │   │   │
+      * │   │[Q]│ W[Q]E │ R │ T │       │ Y │ U | I[P]O │[P]│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │Tab│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │C/A│ Z │ X │ C[B]V │   │       │   │ M[N], │ . │ / │A/C│
+      * │Ctl│ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │Alt│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │Esc├───┐           ┌───┤SPC│
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
       *                   └───┤NAV│   │Bsp├───┘       Bsp=Backspace, hold for DEL layer
       *                       └───┘   └───┘
-      * C/A=Ctrl (Alt when shifted) | A/C=Alt (Ctrl when shifted)
-      * Combos: S/L+D → SYM | SPC+K → NUM
+      * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
+      * Combos: S/L+D → SYM | SPC+K → NUM | W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
       */
     [BASE] = LAYOUT_split_3x6_3(
-        KC_NO,     KC_NO,   _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    KC_NO,     KC_NO,
-        _00_,      _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,      _23_,
-        CTL_ALT_L, _25_,    _26_,    _27_,    _28_,    KC_NO,                              KC_NO,   _31_,    _32_,    _33_,    _34_,      ALT_CTL_R,
+        _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
+        _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
+        KC_LCTL, _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_LALT,
                                             KC_ESC,  SFT_LEAD, MO(NAV),            LT(DEL, KC_BSPC), KC_SPC,  KC_SPC
     ),
 #ifdef XC_HRM_LAYER

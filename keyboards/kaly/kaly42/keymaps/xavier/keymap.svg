@@ -287,8 +287,7 @@ path.combo {
 </g>
 <g transform="translate(30, 165)" class="key modifier keypos-24">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<text x="0" y="0" class="key modifier tap">Ctrl</text>
-<text x="0" y="-26" class="key modifier shifted">Alt</text>
+<use href="#mdi:apple-keyboard-control" xlink:href="#mdi:apple-keyboard-control" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-control"/>
 </g>
 <g transform="translate(90, 165)" class="key keypos-25">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -330,8 +329,7 @@ path.combo {
 </g>
 <g transform="translate(810, 165)" class="key modifier keypos-35">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<text x="0" y="0" class="key modifier tap">Alt</text>
-<text x="0" y="-26" class="key modifier shifted">Ctrl</text>
+<text x="0" y="0" class="key modifier tap">LAlt</text>
 </g>
 <g transform="translate(240, 225)" class="key editing keypos-36">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
@@ -366,16 +364,16 @@ path.combo {
 <text x="180" y="34" class="combo tap">Q</text>
 </g>
 <g class="combo combopos-1">
+<rect rx="6" ry="6" x="646" y="23" width="28" height="22" class="combo"/>
+<text x="660" y="34" class="combo tap">P</text>
+</g>
+<g class="combo combopos-2">
 <rect rx="6" ry="6" x="226" y="143" width="28" height="22" class="combo"/>
 <text x="240" y="154" class="combo tap">B</text>
 </g>
-<g class="combo combopos-2">
+<g class="combo combopos-3">
 <rect rx="6" ry="6" x="586" y="143" width="28" height="22" class="combo"/>
 <text x="600" y="154" class="combo tap">N</text>
-</g>
-<g class="combo combopos-3">
-<rect rx="6" ry="6" x="646" y="23" width="28" height="22" class="combo"/>
-<text x="660" y="34" class="combo tap">P</text>
 </g>
 <g class="combo combopos-4">
 <path d="M420,105 l-370,0" class="combo"/>

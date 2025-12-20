@@ -23,7 +23,7 @@ layers:
         { t: "'", type: symbol },
       ]
     - [
-        { t: Ctrl, s: Alt, type: modifier },
+        { t: $$mdi:apple-keyboard-control$$, type: modifier },
         Z,
         X,
         C,
@@ -34,7 +34,7 @@ layers:
         { t: ",", type: symbol },
         { t: ".", type: symbol },
         { t: /, type: symbol },
-        { t: Alt, s: Ctrl, type: modifier },
+        { t: LAlt, type: modifier },
       ]
     - [
         { t: $$mdi:keyboard-esc$$, type: editing },
@@ -211,8 +211,13 @@ layers:
     - ["", "", "", { type: held }, "", ""]
 
 combos:
+  # Weak corner combos (only active when XC_WEAK_CORNERS=yes)
   - key_positions: [2, 3]
     key: Q
+    layers:
+      - Base
+  - key_positions: [8, 9]
+    key: P
     layers:
       - Base
   - key_positions: [27, 28]
@@ -223,10 +228,7 @@ combos:
     key: N
     layers:
       - Base
-  - key_positions: [8, 9]
-    key: P
-    layers:
-      - Base
+  # Other combos
   - key_positions: [12, 23]
     key: QK_BOOT
     layers:
