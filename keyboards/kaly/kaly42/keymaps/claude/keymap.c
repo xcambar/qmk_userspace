@@ -118,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * NUM Layer - Numbers and Special Functions
      * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
-     * │     │  1  │  2  │  3  │  4  │  5  │       │  6  │  7  │  8  │  9  │  0  │     │
+     * │     │     │     │     │     │     │       │  *  │  7  │  8  │  9  │  0  │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │     │     │     │     │     │     │       │  +  │  4  │  5  │  6  │  -  │  *  │
+     * │     │     │     │     │     │     │       │  +  │  4  │  5  │  6  │  -  │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
      * │     │     │     │     │     │     │       │  0  │  1  │  2  │  3  │  /  │     │
      * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
@@ -131,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 └─────┘   └─────┘
      */
     [NUM] = LAYOUT_split_3x6_3(
-        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS, KC_ASTR,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ASTR, KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_0,    KC_1,    KC_2,    KC_3,    KC_SLSH, _______,
                                    _______, _______, _______,      KC_DOT,  _______, _______
     )
