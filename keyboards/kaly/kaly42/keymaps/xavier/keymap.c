@@ -41,10 +41,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    TO_NUM = SAFE_RANGE, // Tap to switch to layer 3 (numpad)
-    TO_SYM,              // Tap to switch to layer 4 (symbols)
-    TO_ACC,              // Tap to switch to layer 5 (compose)
-    PLS_MIN,             // + normally, - when shifted
+    PLS_MIN = SAFE_RANGE,// + normally, - when shifted
     MUL_DIV,             // * normally, / when shifted
     DOT_COM,             // . normally, , when shifted
     PARENS,              // ( normally, ) when shifted
@@ -60,8 +57,6 @@ enum custom_keycodes {
     MINUS_UNDER,         // - normally, _ when shifted
     BSP_DEL,             // Backspace normally, Delete when shifted
     SFT_LEAD,            // Shift on hold, Leader on tap
-    CTL_ALT_L,           // LCtrl normally, LAlt when shifted (position 24)
-    ALT_CTL_R,           // LAlt normally, Ctrl when shifted (position 35)
 };
 
 const uint16_t PROGMEM boot_combo[] = {_12_, _23_, COMBO_END};  // Tab + Quote
@@ -278,8 +273,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PROCESS_DUAL_KEY(PIPE_TICK,   KC_PIPE, KC_GRV)
         PROCESS_DUAL_KEY(MINUS_UNDER, KC_MINS, KC_UNDS)
         PROCESS_DUAL_KEY(BSP_DEL,     KC_BSPC, KC_DEL)
-        PROCESS_DUAL_KEY(CTL_ALT_L,   KC_LCTL, KC_LALT)
-        PROCESS_DUAL_KEY(ALT_CTL_R,   KC_LALT, KC_LCTL)
     }
     return true;
 }
