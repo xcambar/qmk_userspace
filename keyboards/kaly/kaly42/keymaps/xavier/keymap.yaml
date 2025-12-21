@@ -37,21 +37,21 @@ layers:
         { t: LAlt, type: modifier },
       ]
     - [
-        { t: $$mdi:keyboard-esc$$, type: editing },
+        "",
         { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
         { h: NAV, type: layer },
         { t: $$mdi:backspace-outline$$, h: DEL, type: editing },
         { t: $$mdi:keyboard-space$$, type: editing },
-        { t: $$mdi:keyboard-space$$, type: editing },
+        "",
       ]
 
   NAV:
     - [
         "",
         "",
-        { t: ACC, type: layer },
-        { t: NUM, type: layer },
-        { t: SYM, type: layer },
+        "",
+        "",
+        "",
         "",
         { t: Redo, h: C-Y, type: system },
         { t: Paste, h: C-V, type: system },
@@ -171,12 +171,6 @@ layers:
         { t: $$mdi:keyboard-space$$, type: editing },
         "",
       ]
-
-  ACC:
-    - ["", "", "", { t: "´", h: RA-', type: accent }, "", "", "", { t: "¨", h: RA-S-', type: accent }, "", { t: "^", h: RA-S-6, type: accent }, "", ""]
-    - ["", { t: "`", h: RA-`, type: accent }, "", "", "", "", "", "", "", "", "", ""]
-    - ["", "", "", { t: "ç", h: RA-C, type: accent }, "", "", "", { t: "ñ", h: RA-N, type: accent }, "", "", "", ""]
-    - ["", "", { t: Base, type: layer }, "", "", ""]
 
   DEL:
     - ["", "", "", "", "", "", "", "", "", { t: S-Del, type: editing }, "", ""]

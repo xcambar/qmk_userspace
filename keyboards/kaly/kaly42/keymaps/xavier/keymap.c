@@ -36,7 +36,6 @@ enum layers {
     NAV,
     NUM,
     SYM,
-    ACC,
     DEL
 };
 
@@ -90,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * │Ctl│ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │Alt│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │Esc├───┐           ┌───┤SPC│
+      *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
       *                   └───┤NAV│   │Bsp├───┘       Bsp=Backspace, hold for DEL layer
       *                       └───┘   └───┘
@@ -101,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
         _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
         KC_LCTL, _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_LALT,
-                                            KC_ESC,  SFT_LEAD, MO(NAV),            LT(DEL, KC_BSPC), KC_SPC,  KC_SPC
+                                            KC_NO,   SFT_LEAD, MO(NAV),            LT(DEL, KC_BSPC), KC_SPC,  KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -109,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer (Layer 2)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │ACC│NUM│SYM│   │       │Rdo│Pst│Cpy│Cut│Udo│   │
+      * │   │   │   │   │   │   │       │Rdo│Pst│Cpy│Cut│Udo│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -122,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   TO(ACC),   TO(NUM),   TO(SYM),   KC_NO,                              C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), KC_NO,
         KC_NO,   KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   MT(MOD_LGUI, KC_ESC), KC_LSFT, KC_TAB, KC_NO,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
                                             KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
@@ -172,28 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_NO,   KC_LSFT, TO(BASE),            MO(DEL), KC_SPC,  KC_NO
     ),
      /*
-      * Layer 5 - Compose (dead keys and special characters)
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │RA'│   │   │       │   │RA"│   │RA^│   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │RA`│   │   │   │   │       │   │   │   │   │   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │   │RAç│   │   │       │   │RAñ│   │   │   │   │
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
-      *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤L#0│   │   ├───┘
-      *                       └───┘   └───┘
-      */
-    [ACC] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   RALT(KC_QUOT), KC_NO, KC_NO,                          KC_NO,   RALT(S(KC_QUOT)), KC_NO, RALT(S(KC_6)), KC_NO,   KC_NO,
-        KC_NO,   RALT(KC_GRV), KC_NO, KC_NO,   KC_NO,   KC_NO,                           KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   RALT(KC_C),   KC_NO,   KC_NO,                         KC_NO,   RALT(KC_N), KC_NO, KC_NO, KC_NO, KC_NO,
-                                            KC_NO,   KC_NO,   TO(BASE),            KC_NO,   KC_NO,   KC_NO
-    ),
-     /*
-      * Layer 6 - DEL (Delete/Editing shortcuts)
+      * Layer 5 - DEL (Delete/Editing shortcuts)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │S-D│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
