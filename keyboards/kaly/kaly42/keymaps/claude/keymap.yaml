@@ -1,0 +1,317 @@
+# Keymap visualization tool: https://keymap-drawer.streamlit.app/
+# Repository: https://github.com/caksoylar/keymap-drawer-web
+
+layout:
+  qmk_keyboard: kaly/kaly42
+  layout_name: LAYOUT_split_3x6_3
+
+layers:
+  BASE:
+    - [
+        { t: $$mdi:keyboard-esc$$, type: editing },
+        Q,
+        W,
+        E,
+        R,
+        T,
+        Y,
+        U,
+        I,
+        O,
+        P,
+        { t: $$mdi:backspace-outline$$, type: editing },
+      ]
+    - [
+        { t: $$mdi:keyboard-tab$$, type: nav },
+        A,
+        S,
+        D,
+        F,
+        G,
+        H,
+        J,
+        K,
+        L,
+        { t: ";", type: symbol },
+        { t: "'", type: symbol },
+      ]
+    - [
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+        Z,
+        X,
+        C,
+        V,
+        B,
+        N,
+        M,
+        { t: ",", type: symbol },
+        { t: ".", type: symbol },
+        { t: /, type: symbol },
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+      ]
+    - [
+        { t: $$mdi:apple-keyboard-control$$, type: modifier },
+        { t: $$mdi:keyboard-space$$, type: editing },
+        { h: CODE, type: layer },
+        { h: NAV, type: layer },
+        { t: $$mdi:keyboard-space$$, type: editing },
+        { t: RAlt, type: modifier },
+      ]
+
+  GALLIUM:
+    - [
+        { t: $$mdi:keyboard-esc$$, type: editing },
+        B,
+        L,
+        D,
+        C,
+        V,
+        J,
+        Y,
+        O,
+        U,
+        { t: ",", type: symbol },
+        { t: $$mdi:backspace-outline$$, type: editing },
+      ]
+    - [
+        { t: $$mdi:keyboard-tab$$, type: nav },
+        N,
+        R,
+        T,
+        S,
+        G,
+        P,
+        H,
+        A,
+        E,
+        I,
+        { t: "'", type: symbol },
+      ]
+    - [
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+        Z,
+        X,
+        M,
+        W,
+        Q,
+        K,
+        F,
+        { t: ";", type: symbol },
+        { t: ".", type: symbol },
+        { t: /, type: symbol },
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+      ]
+    - [
+        { t: $$mdi:apple-keyboard-control$$, type: modifier },
+        { t: $$mdi:keyboard-space$$, type: editing },
+        { h: CODE, type: layer },
+        { h: NAV, type: layer },
+        { t: $$mdi:keyboard-space$$, type: editing },
+        { t: RAlt, type: modifier },
+      ]
+
+  CODE:
+    - [
+        { t: "`", type: symbol },
+        { t: "!", type: symbol },
+        { t: "@", type: symbol },
+        { t: "#", type: symbol },
+        { t: "$", type: symbol },
+        { t: "%", type: symbol },
+        { t: "^", type: symbol },
+        { t: "&", type: symbol },
+        { t: "*", type: symbol },
+        { t: "(", type: symbol },
+        { t: ")", type: symbol },
+        { t: Del, type: editing },
+      ]
+    - [
+        "",
+        { t: "{", type: symbol },
+        { t: "}", type: symbol },
+        { t: "[", type: symbol },
+        { t: "]", type: symbol },
+        { t: "|", type: symbol },
+        { t: "-", type: symbol },
+        { t: "=", type: symbol },
+        { t: "_", type: symbol },
+        { t: "+", type: symbol },
+        { t: ":", type: symbol },
+        { t: '"', type: symbol },
+      ]
+    - [
+        "",
+        { t: "<", type: symbol },
+        { t: ">", type: symbol },
+        { t: "(", type: symbol },
+        { t: ")", type: symbol },
+        { t: "\\", type: symbol },
+        "",
+        "",
+        { t: ",", type: symbol },
+        { t: ".", type: symbol },
+        { t: "?", type: symbol },
+        "",
+      ]
+    - [
+        "",
+        "",
+        { type: held },
+        { h: NUM, type: layer },
+        { t: $$mdi:keyboard-return$$, type: editing },
+        "",
+      ]
+
+  NAV:
+    - [
+        { t: F1, type: system },
+        { t: F2, type: system },
+        { t: F3, type: system },
+        { t: F4, type: system },
+        { t: F5, type: system },
+        { t: F6, type: system },
+        { t: F7, type: system },
+        { t: F8, type: system },
+        { t: F9, type: system },
+        { t: F10, type: system },
+        { t: F11, type: system },
+        { t: F12, type: system },
+      ]
+    - [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        { t: $$mdi:arrow-left$$, type: nav },
+        { t: $$mdi:arrow-down$$, type: nav },
+        { t: $$mdi:arrow-up$$, type: nav },
+        { t: $$mdi:arrow-right$$, type: nav },
+        "",
+        "",
+      ]
+    - [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        { t: Home, type: nav },
+        { t: PgDn, type: nav },
+        { t: PgUp, type: nav },
+        { t: End, type: nav },
+        "",
+        "",
+      ]
+    - [
+        "",
+        { h: NUM, type: layer },
+        "",
+        "",
+        { type: held },
+        "",
+      ]
+
+  NUM:
+    - [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        { t: "*", type: symbol },
+        7,
+        8,
+        9,
+        0,
+        "",
+      ]
+    - [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        { t: "+", type: symbol },
+        4,
+        5,
+        6,
+        { t: "-", type: symbol },
+        "",
+      ]
+    - [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        0,
+        1,
+        2,
+        3,
+        { t: "/", type: symbol },
+        "",
+      ]
+    - [
+        "",
+        "",
+        "",
+        { t: ".", type: symbol },
+        "",
+        "",
+      ]
+
+combos:
+  # Boot combo: Tab + '
+  - key_positions: [12, 23]
+    key: QK_BOOT
+    layers:
+      - BASE
+      - GALLIUM
+    align: top
+  # Toggle layout: Esc + LSft + Bsp + RSft
+  - key_positions: [0, 24, 11, 35]
+    key: { t: "Toggle\nLayout", type: system }
+    layers:
+      - BASE
+      - GALLIUM
+    align: bottom
+
+draw_config:
+  key_h: 60
+  combo_h: 22
+  arc_scale: 1.0
+  append_colon_to_layer_header: false
+  svg_extra_style: |
+    /* Category 1: Modifiers - Blue */
+    .key.modifier rect { fill: #d6e5f5; stroke: #4a7ab8; }
+    .key.modifier :not(rect) { fill: #4a7ab8; }
+
+    /* Category 2: Navigation - Green */
+    .key.nav rect { fill: #d9f0d9; stroke: #5ca75c; }
+    .key.nav :not(rect) { fill: #5ca75c; }
+
+    /* Category 3: Editing/Actions - Orange */
+    .key.editing rect { fill: #ffe4d1; stroke: #e88a3a; }
+    .key.editing :not(rect) { fill: #e88a3a; }
+
+    /* Category 4: Layer switching - Purple */
+    .key.layer rect { fill: #ead9eb; stroke: #9a5fa1; }
+    .key.layer :not(rect) { fill: #9a5fa1; }
+
+    /* Category 5: System commands - Yellow */
+    .key.system rect { fill: #fff4d1; stroke: #e8b52a; }
+    .key.system :not(rect) { fill: #e8b52a; }
+
+    /* Category 6: Symbols - Cyan/Teal */
+    .key.symbol rect { fill: #d4f0e8; stroke: #4aa78a; }
+    .key.symbol :not(rect) { fill: #4aa78a; }
+
+    /* Category 7: Accented characters - Pink/Coral */
+    .key.accent rect { fill: #ffe0d6; stroke: #e86d4a; }
+    .key.accent :not(rect) { fill: #e86d4a; }
