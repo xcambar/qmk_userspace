@@ -40,7 +40,7 @@ layers:
         "",
         { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
         { h: NAV, type: layer },
-        { t: $$mdi:backspace-outline$$, h: DEL, type: editing },
+        { h: DEL, type: layer },
         { t: $$mdi:keyboard-space$$, type: editing },
         "",
       ]

@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
-      *                   └───┤NAV│   │Bsp├───┘       Bsp=Backspace, hold for DEL layer
+      *                   └───┤NAV│   │DEL├───┘       DEL=DEL layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: S/L+D → SYM | SPC+K → NUM | W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
         _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
         KC_LCTL, _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_LALT,
-                                            KC_NO,   SFT_LEAD, MO(NAV),            LT(DEL, KC_BSPC), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(NAV),            MO(DEL), KC_SPC,  KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -253,6 +253,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PROCESS_DUAL_KEY(BSP_DEL,     KC_BSPC, KC_DEL)
     }
     return true;
+}
+
+// Per-key hold on other key press - enable for NAV layer
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MO(NAV):
+            return true;  // Immediately activate NAV on other key press
+        default:
+            return false;
+    }
+}
+
+// Per-key retro tapping - disable for layer keys
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MO(NAV):
+        case MO(DEL):
+            return false;  // Don't retro tap layer keys
+        default:
+            return true;
+    }
+}
+
+// Per-key tapping force hold - enable for layer keys
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MO(NAV):
+            return true;  // Always commit to hold for NAV
+        default:
+            return false;
+    }
 }
 
 // Leader key sequences
