@@ -34,49 +34,19 @@ enum layers {
     BASE = 0,
     HRM,
     NAV,
-    NUM,
-    SYM,
+    EZ_SYM_NUM,
     DEL
 };
 
 enum custom_keycodes {
-    PLS_MIN = SAFE_RANGE,// + normally, - when shifted
-    MUL_DIV,             // * normally, / when shifted
-    DOT_COM,             // . normally, , when shifted
-    PARENS,              // ( normally, ) when shifted
-    BRACES,              // { normally, } when shifted
-    BRACKETS,            // [ normally, ] when shifted
-    ANGLES,              // < normally, > when shifted
-    SLASHES,             // / normally, \ when shifted
-    QUOTE_DBL,           // ' normally, " when shifted
-    EQUAL_EXCL,          // = normally, ! when shifted
-    TILDE_CARET,         // ~ normally, ^ when shifted
-    AMP_DOLLAR,          // & normally, $ when shifted
-    PIPE_TICK,           // | normally, ` when shifted
-    MINUS_UNDER,         // - normally, _ when shifted
-    BSP_DEL,             // Backspace normally, Delete when shifted
-    SFT_LEAD,            // Shift on hold, Leader on tap
+    SFT_LEAD = SAFE_RANGE,  // Shift on hold, Leader on tap
 };
 
 const uint16_t PROGMEM boot_combo[] = {_12_, _23_, COMBO_END};  // Tab + Quote
-// Shift + D → SYM layer (works on all layers)
-const uint16_t PROGMEM sft_d_combo_l0[] = {SFT_LEAD, _15_, COMBO_END};  // Base layer: Shift + D
-const uint16_t PROGMEM sft_d_combo_l3[] = {KC_LSFT, KC_MINS, COMBO_END};  // NUM layer: Shift + -
-const uint16_t PROGMEM sft_d_combo_l4[] = {KC_LSFT, KC_MINS, COMBO_END};  // SYM layer: Shift + -
-// Space + K → NUM layer (works on all layers)
-const uint16_t PROGMEM spc_k_combo_l0[] = {KC_SPC, _20_, COMBO_END};  // Base layer: Space + K
-const uint16_t PROGMEM spc_k_combo_l3[] = {KC_SPC, KC_5, COMBO_END};  // NUM layer: Space + 5
-const uint16_t PROGMEM spc_k_combo_l4[] = {KC_SPC, KC_UNDS, COMBO_END};  // SYM layer: Space + _
 
 combo_t key_combos[] = {
     XC_WEAK_CORNERS_COMBOS
     COMBO(boot_combo, QK_BOOT),
-    COMBO(sft_d_combo_l0, TO(SYM)),
-    COMBO(sft_d_combo_l3, TO(SYM)),
-    COMBO(sft_d_combo_l4, TO(SYM)),
-    COMBO(spc_k_combo_l0, TO(NUM)),
-    COMBO(spc_k_combo_l3, TO(NUM)),
-    COMBO(spc_k_combo_l4, TO(NUM)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -121,57 +91,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_ESC,  KC_NO,   KC_NO,   KC_NO,                              C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), KC_NO,
+        KC_NO,   KC_NO,   KC_ESC,  C(KC_Z), KC_NO,   KC_NO,                              C(KC_A), C(KC_V), C(KC_C), C(KC_X), KC_NO,   KC_NO,
         KC_NO,   KC_NO,   OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_LGUI, KC_LSFT, KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
                                             KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
     ),
      /*
-      * Layer 3 - Numpad
+      * Layer 3 - Easy Symbols and Numbers
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │ * │ + │   │   │       │   │ 7 │ 8 │ 9 │   │   │
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │ / │ - │ = │   │       │   │ 4 │ 5 │ 6 │ 0 │   │
+      * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │ % │ , │ . │   │       │   │ 1 │ 2 │ 3 │   │   │
+      * │   │ - │ = │ \ │ ' │ [ │       │ ] │ ; │ , │ . │ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤SPC├───┘
-      *                   └───┤L#0│   │DEL├───┘
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
-      * Combos: Sft+D → layer 4 | Spc+K → layer 3
       */
-    [NUM] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_ASTR, KC_PLUS, KC_NO,   KC_NO,                              KC_NO,   KC_7,    KC_8,    KC_9,    KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_SLSH, KC_MINS, KC_EQL,  KC_NO,                              KC_NO,   KC_4,    KC_5,    KC_6,    KC_0,    KC_NO,
-        KC_NO,   KC_NO,   KC_PERC, KC_COMM, KC_DOT,   KC_NO,                              KC_NO,   KC_1,    KC_2,    KC_3,    KC_NO,   KC_NO,
-                                            KC_NO,   KC_LSFT, TO(BASE),            MO(DEL), KC_SPC,  KC_NO
+    [EZ_SYM_NUM] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NO,
+        KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
+                                            KC_NO,   KC_LSFT, KC_NO,            KC_NO,   KC_LSFT, KC_NO
     ),
      /*
-      * Layer 4 - Symbols (compact pairs)
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │[/]│{/}│(/)│   │       │   │ @ │</>│   │   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │ / │ - │ = │   │       │   │ ! │ _ │ \ │   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ % │ ~ │ & │ | │   │       │   │ $ │ ^ │ ` │ # │   │
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
-      *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤   ├───┘
-      *                   └───┤L#0│   │DEL├───┘
-      *                       └───┘   └───┘
-      * Combos: Sft+D → layer 4 | Spc+K → layer 3
-      */
-    [SYM] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   BRACKETS, BRACES, PARENS,  KC_NO,                              KC_NO,   KC_AT,   ANGLES,  KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_SLSH, KC_MINS, KC_EQL,   KC_NO,                              KC_NO,   KC_EXLM, KC_UNDS, KC_BSLS, KC_NO,   KC_NO,
-        KC_NO,   KC_PERC, KC_TILD, KC_AMPR, KC_PIPE,  KC_NO,                              KC_NO,   KC_DLR,  KC_CIRC, KC_GRV,  KC_HASH, KC_NO,
-                                            KC_NO,   KC_LSFT, TO(BASE),            MO(DEL), KC_SPC,  KC_NO
-    ),
-     /*
-      * Layer 5 - DEL (Delete/Editing shortcuts)
+      * Layer 4 - DEL (Delete/Editing shortcuts)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │S-D│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -193,29 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// Macro to handle dual-function keys
-#define PROCESS_DUAL_KEY(kc, normal, shifted) \
-    case kc: { \
-        uint8_t saved_mods = get_mods(); \
-        if (saved_mods & MOD_MASK_SHIFT) { \
-            if (record->event.pressed) { \
-                unregister_code16(normal); \
-                del_mods(MOD_MASK_SHIFT); \
-                register_code16(shifted); \
-            } else { \
-                unregister_code16(shifted); \
-            } \
-            set_mods(saved_mods); \
-        } else { \
-            if (record->event.pressed) { \
-                register_code16(normal); \
-            } else { \
-                unregister_code16(normal); \
-            } \
-        } \
-        return false; \
-    }
-
 // Variables for SFT_LEAD tap-hold behavior
 static bool sft_lead_held = false;
 static uint16_t sft_lead_timer = 0;
@@ -236,21 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 sft_lead_held = false;
             }
             return false;
-        PROCESS_DUAL_KEY(PLS_MIN,     KC_PLUS, KC_MINS)
-        PROCESS_DUAL_KEY(MUL_DIV,     KC_ASTR, KC_SLSH)
-        PROCESS_DUAL_KEY(DOT_COM,     KC_DOT,  KC_COMM)
-        PROCESS_DUAL_KEY(PARENS,      KC_LPRN, KC_RPRN)
-        PROCESS_DUAL_KEY(BRACES,      KC_LCBR, KC_RCBR)
-        PROCESS_DUAL_KEY(BRACKETS,    KC_LBRC, KC_RBRC)
-        PROCESS_DUAL_KEY(ANGLES,      KC_LT,   KC_GT)
-        PROCESS_DUAL_KEY(SLASHES,     KC_SLSH, KC_BSLS)
-        PROCESS_DUAL_KEY(QUOTE_DBL,   KC_QUOT, KC_DQUO)
-        PROCESS_DUAL_KEY(EQUAL_EXCL,  KC_EQL,  KC_EXLM)
-        PROCESS_DUAL_KEY(TILDE_CARET, KC_TILD, KC_CIRC)
-        PROCESS_DUAL_KEY(AMP_DOLLAR,  KC_AMPR, KC_DLR)
-        PROCESS_DUAL_KEY(PIPE_TICK,   KC_PIPE, KC_GRV)
-        PROCESS_DUAL_KEY(MINUS_UNDER, KC_MINS, KC_UNDS)
-        PROCESS_DUAL_KEY(BSP_DEL,     KC_BSPC, KC_DEL)
     }
     return true;
 }
@@ -259,6 +168,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
+        case MO(DEL):
+        case MO(EZ_SYM_NUM):
             return true;  // Immediately activate NAV on other key press
         default:
             return false;
@@ -270,6 +181,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
         case MO(DEL):
+        case MO(EZ_SYM_NUM):
             return false;  // Don't retro tap layer keys
         default:
             return true;
@@ -280,6 +192,8 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
+        case MO(DEL):
+        case MO(EZ_SYM_NUM):
             return true;  // Always commit to hold for NAV
         default:
             return false;
