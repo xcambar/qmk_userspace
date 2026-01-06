@@ -50,14 +50,14 @@ layers:
         "",
         "",
         { t: $$mdi:keyboard-esc$$, type: editing },
+        { t: Undo, h: C-Z, type: system },
         "",
         "",
-        "",
-        { t: Redo, h: C-Y, type: system },
+        { t: "Select All", h: C-A, type: system },
         { t: Paste, h: C-V, type: system },
         { t: Copy, h: C-C, type: system },
         { t: Cut, h: C-X, type: system },
-        { t: Undo, h: C-Z, type: system },
+        "",
         "",
       ]
     - [
@@ -90,81 +90,42 @@ layers:
       ]
     - ["", "", { type: held }, "", "", ""]
 
-  NUM:
-    - ["", "", { t: "*", type: symbol }, { t: "+", type: symbol }, "", "", "", 7, 8, 9, "", ""]
+  EZ_SYM_NUM:
+    - ["", "", "", "", "", "", "", "", "", "", "", ""]
     - [
-        "",
-        "",
-        { t: "/", type: symbol },
-        { t: "-", type: symbol },
-        { t: "=", type: symbol },
-        "",
-        "",
+        { t: "`", type: symbol },
+        1,
+        2,
+        3,
         4,
         5,
         6,
+        7,
+        8,
+        9,
         0,
         "",
       ]
-    - ["", "", { t: "%", type: symbol }, { t: ",", type: symbol }, { t: ".", type: symbol }, "", "", 1, 2, 3, "", ""]
     - [
         "",
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        { t: Base, type: layer },
-        { h: DEL, type: layer },
-        { t: $$mdi:keyboard-space$$, type: editing },
-        "",
-      ]
-
-  SYM:
-    - [
-        "",
-        "",
-        { t: "[", s: "]", type: symbol },
-        { t: "{", s: "}", type: symbol },
-        { t: "(", s: ")", type: symbol },
-        "",
-        "",
-        { t: "@", type: symbol },
-        { t: "<", s: ">", type: symbol },
-        "",
-        "",
-        "",
-      ]
-    - [
-        "",
-        "",
-        { t: "/", type: symbol },
         { t: "-", type: symbol },
         { t: "=", type: symbol },
-        "",
-        "",
-        { t: "!", type: symbol },
-        { t: "_", type: symbol },
         { t: "\\", type: symbol },
-        "",
-        "",
-      ]
-    - [
-        "",
-        { t: "%", type: symbol },
-        { t: "~", type: symbol },
-        { t: "&", type: symbol },
-        { t: "|", type: symbol },
-        "",
-        "",
-        { t: "$", type: symbol },
-        { t: "^", type: symbol },
-        { t: "`", type: symbol },
-        { t: "#", type: symbol },
+        { t: "'", type: symbol },
+        { t: "[", type: symbol },
+        { t: "]", type: symbol },
+        { t: ";", type: symbol },
+        { t: ",", type: symbol },
+        { t: ".", type: symbol },
+        { t: "/", type: symbol },
         "",
       ]
     - [
         "",
         { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        { t: Base, type: layer },
-        { h: DEL, type: layer },
-        { t: $$mdi:keyboard-space$$, type: editing },
+        "",
+        "",
+        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
         "",
       ]
 
@@ -223,16 +184,6 @@ combos:
     key: QK_BOOT
     layers:
       - Base
-  - key_positions: [37, 15]
-    key: { t: SYM, type: layer }
-    layers:
-      - Base
-    align: top
-  - key_positions: [40, 20]
-    key: { t: NUM, type: layer }
-    layers:
-      - Base
-    align: top
 
 draw_config:
   key_h: 60
