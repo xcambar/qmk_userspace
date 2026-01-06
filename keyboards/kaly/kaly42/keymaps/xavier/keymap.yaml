@@ -2,219 +2,233 @@
 # Repository: https://github.com/caksoylar/keymap-drawer-web
 
 layout:
-  qmk_keyboard: kaly/kaly42
-  layout_name: LAYOUT_split_3x6_3
+    qmk_keyboard: kaly/kaly42
+    layout_name: LAYOUT_split_3x6_3
 
 layers:
-  Base:
-    - ["", "", W, E, R, T, Y, U, I, O, "", ""]
-    - [
-        { t: $$mdi:keyboard-tab$$, type: nav },
-        A,
-        S,
-        D,
-        F,
-        G,
-        H,
-        J,
-        K,
-        L,
-        { t: ";", type: symbol },
-        { t: "'", type: symbol },
-      ]
-    - [
-        { t: $$mdi:apple-keyboard-control$$, type: modifier },
-        Z,
-        X,
-        C,
-        V,
-        "",
-        "",
-        M,
-        { t: ",", type: symbol },
-        { t: ".", type: symbol },
-        { t: /, type: symbol },
-        { t: LAlt, type: modifier },
-      ]
-    - [
-        "",
-        { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
-        { h: NAV, type: layer },
-        { h: DEL, type: layer },
-        { t: $$mdi:keyboard-space$$, type: editing },
-        "",
-      ]
+    "Base (default)":
+        - ["", "", W, E, R, T, Y, U, I, O, "", ""]
+        - [
+              { t: $$mdi:keyboard-tab$$, type: nav },
+              A,
+              S,
+              D,
+              F,
+              G,
+              H,
+              J,
+              K,
+              L,
+              { t: ";", type: symbol },
+              { t: "'", type: symbol },
+          ]
+        - [
+              { t: $$mdi:apple-keyboard-control$$, type: modifier },
+              Z,
+              X,
+              C,
+              V,
+              "",
+              "",
+              M,
+              { t: ",", type: symbol },
+              { t: ".", type: symbol },
+              { t: /, type: symbol },
+              { t: LAlt, type: modifier },
+          ]
+        - [
+              "",
+              { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
+              { t: $$mdi:layers-outline$$, h: SYMBOLS, type: layer },
+              { t: $$mdi:layers-outline$$, h: DEL, type: layer },
+              { t: $$mdi:keyboard-space$$, type: editing },
+              "",
+          ]
 
-  NAV:
-    - [
-        "",
-        "",
-        { t: $$mdi:keyboard-esc$$, type: editing },
-        { t: Undo, h: C-Z, type: system },
-        "",
-        "",
-        { t: "Select All", h: C-A, type: system },
-        { t: Paste, h: C-V, type: system },
-        { t: Copy, h: C-C, type: system },
-        { t: Cut, h: C-X, type: system },
-        "",
-        "",
-      ]
-    - [
-        "",
-        "",
-        { t: LAlt, type: modifier },
-        { t: $$mdi:apple-keyboard-control$$, type: modifier },
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        "",
-        { t: $$mdi:arrow-left$$, type: nav },
-        { t: $$mdi:arrow-down$$, type: nav },
-        { t: $$mdi:arrow-up$$, type: nav },
-        { t: $$mdi:arrow-right$$, type: nav },
-        "",
-        "",
-      ]
-    - [
-        "",
-        "",
-        { t: $$mdi:apple-keyboard-command$$, type: modifier },
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        { t: $$mdi:keyboard-tab$$, type: nav },
-        "",
-        { t: Home, type: nav },
-        { t: PgDn, type: nav },
-        { t: PgUp, type: nav },
-        { t: End, type: nav },
-        "",
-        "",
-      ]
-    - ["", "", { type: held }, "", "", ""]
+    "NAV (sticky)":
+        - [
+              "",
+              "",
+              { t: $$mdi:keyboard-esc$$, type: editing },
+              { t: Undo, h: C-Z, type: system },
+              "",
+              "",
+              { t: "Select All", h: C-A, type: system },
+              { t: Paste, h: C-V, type: system },
+              { t: Copy, h: C-C, type: system },
+              { t: Cut, h: C-X, type: system },
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              { t: LAlt, type: modifier },
+              { t: $$mdi:apple-keyboard-control$$, type: modifier },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+              { t: $$mdi:arrow-left$$, type: nav },
+              { t: $$mdi:arrow-down$$, type: nav },
+              { t: $$mdi:arrow-up$$, type: nav },
+              { t: $$mdi:arrow-right$$, type: nav },
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              { t: $$mdi:apple-keyboard-command$$, type: modifier },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { t: $$mdi:keyboard-tab$$, type: nav },
+              "",
+              { t: Home, type: nav },
+              { t: PgDn, type: nav },
+              { t: PgUp, type: nav },
+              { t: End, type: nav },
+              "",
+              "",
+          ]
+        - [
+              "",
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+              { t: $$mdi:layers$$, h: Base, type: layer },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+          ]
 
-  EZ_SYM_NUM:
-    - ["", "", "", "", "", "", "", "", "", "", "", ""]
-    - [
-        { t: "`", type: symbol },
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        0,
-        "",
-      ]
-    - [
-        "",
-        { t: "-", type: symbol },
-        { t: "=", type: symbol },
-        { t: "\\", type: symbol },
-        { t: "'", type: symbol },
-        { t: "[", type: symbol },
-        { t: "]", type: symbol },
-        { t: ";", type: symbol },
-        { t: ",", type: symbol },
-        { t: ".", type: symbol },
-        { t: "/", type: symbol },
-        "",
-      ]
-    - [
-        "",
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        "",
-        "",
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        "",
-      ]
+    "SYMBOLS (one-shot)":
+        - ["", "", "", "", "", "", "", "", "", "", "", ""]
+        - [{ t: "`", type: symbol }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, ""]
+        - [
+              "",
+              { t: "-", type: symbol },
+              { t: "=", type: symbol },
+              { t: "\\", type: symbol },
+              { t: "'", type: symbol },
+              { t: "[", type: symbol },
+              { t: "]", type: symbol },
+              { t: ";", type: symbol },
+              { t: ",", type: symbol },
+              { t: ".", type: symbol },
+              { t: "/", type: symbol },
+              "",
+          ]
+        - [
+              "",
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { t: $$mdi:lock$$, type: layer },
+              { t: $$mdi:layers$$, h: NAV, type: layer },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+          ]
 
-  DEL:
-    - ["", "", "", "", "", "", "", "", "", { t: S-Del, type: editing }, "", ""]
-    - [
-        "",
-        "",
-        { t: LAlt, type: modifier },
-        { t: $$mdi:apple-keyboard-control$$, type: modifier },
-        { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-        "",
-        "",
-        { t: $$mdi:backspace-outline$$, type: editing },
-        { t: $$mdi:keyboard-return$$, type: editing },
-        { t: Del, type: editing },
-        "",
-        "",
-      ]
-    - [
-        "",
-        "",
-        "",
-        "",
-        { t: $$mdi:apple-keyboard-command$$, type: modifier },
-        "",
-        "",
-        { t: C-Bsp, type: editing },
-        "",
-        { t: C-Del, type: editing },
-        "",
-        "",
-      ]
-    - ["", "", "", { type: held }, "", ""]
+    "DEL (one-shot)":
+        - [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              { t: LAlt, type: modifier },
+              { t: $$mdi:apple-keyboard-control$$, type: modifier },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+              "",
+              { t: $$mdi:backspace-outline$$, type: editing },
+              { t: $$mdi:keyboard-return$$, type: editing },
+              { t: Del, type: editing },
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              "",
+              "",
+              { t: $$mdi:apple-keyboard-command$$, type: modifier },
+              "",
+              "",
+              { t: C-Bsp, type: editing },
+              "",
+              { t: C-Del, type: editing },
+              "",
+              "",
+          ]
+        - [
+              "",
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+              { t: $$mdi:lock$$, type: layer },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              "",
+          ]
 
 combos:
-  # Weak corner combos (only active when XC_WEAK_CORNERS=yes)
-  - key_positions: [2, 3]
-    key: Q
-    layers:
-      - Base
-  - key_positions: [8, 9]
-    key: P
-    layers:
-      - Base
-  - key_positions: [27, 28]
-    key: B
-    layers:
-      - Base
-  - key_positions: [31, 32]
-    key: N
-    layers:
-      - Base
-  # Other combos
-  - key_positions: [12, 23]
-    key: QK_BOOT
-    layers:
-      - Base
+    # Weak corner combos (only active when XC_WEAK_CORNERS=yes)
+    - key_positions: [2, 3]
+      key: Q
+      layers:
+          - "Base (default)"
+    - key_positions: [8, 9]
+      key: P
+      layers:
+          - "Base (default)"
+    - key_positions: [27, 28]
+      key: B
+      layers:
+          - "Base (default)"
+    - key_positions: [31, 32]
+      key: N
+      layers:
+          - "Base (default)"
+    # Other combos
+    - key_positions: [12, 23]
+      key: QK_BOOT
+      layers:
+          - "Base (default)"
 
 draw_config:
-  key_h: 60
-  combo_h: 22
-  arc_scale: 1.0
-  append_colon_to_layer_header: false
-  svg_extra_style: |
-    /* Category 1: Modifiers - Blue */
-    .key.modifier rect { fill: #d6e5f5; stroke: #4a7ab8; }
-    .key.modifier :not(rect) { fill: #4a7ab8; }
+    key_h: 60
+    combo_h: 22
+    arc_scale: 1.0
+    append_colon_to_layer_header: false
+    svg_extra_style: |
+        /* Category 1: Modifiers - Blue */
+        .key.modifier rect { fill: #d6e5f5; stroke: #4a7ab8; }
+        .key.modifier :not(rect) { fill: #4a7ab8; }
 
-    /* Category 2: Navigation - Green */
-    .key.nav rect { fill: #d9f0d9; stroke: #5ca75c; }
-    .key.nav :not(rect) { fill: #5ca75c; }
+        /* Category 2: Navigation - Green */
+        .key.nav rect { fill: #d9f0d9; stroke: #5ca75c; }
+        .key.nav :not(rect) { fill: #5ca75c; }
 
-    /* Category 3: Editing/Actions - Orange */
-    .key.editing rect { fill: #ffe4d1; stroke: #e88a3a; }
-    .key.editing :not(rect) { fill: #e88a3a; }
+        /* Category 3: Editing/Actions - Orange */
+        .key.editing rect { fill: #ffe4d1; stroke: #e88a3a; }
+        .key.editing :not(rect) { fill: #e88a3a; }
 
-    /* Category 4: Layer switching - Purple */
-    .key.layer rect { fill: #ead9eb; stroke: #9a5fa1; }
-    .key.layer :not(rect) { fill: #9a5fa1; }
+        /* Category 4: Layer switching - Purple */
+        .key.layer rect { fill: #ead9eb; stroke: #9a5fa1; }
+        .key.layer :not(rect) { fill: #9a5fa1; }
 
-    /* Category 5: System commands - Yellow */
-    .key.system rect { fill: #fff4d1; stroke: #e8b52a; }
-    .key.system :not(rect) { fill: #e8b52a; }
+        /* Category 5: System commands - Yellow */
+        .key.system rect { fill: #fff4d1; stroke: #e8b52a; }
+        .key.system :not(rect) { fill: #e8b52a; }
 
-    /* Category 6: Symbols - Cyan/Teal */
-    .key.symbol rect { fill: #d4f0e8; stroke: #4aa78a; }
-    .key.symbol :not(rect) { fill: #4aa78a; }
+        /* Category 6: Symbols - Cyan/Teal */
+        .key.symbol rect { fill: #d4f0e8; stroke: #4aa78a; }
+        .key.symbol :not(rect) { fill: #4aa78a; }
 
-    /* Category 7: Accented characters - Pink/Coral */
-    .key.accent rect { fill: #ffe0d6; stroke: #e86d4a; }
-    .key.accent :not(rect) { fill: #e86d4a; }
+        /* Category 7: Accented characters - Pink/Coral */
+        .key.accent rect { fill: #ffe0d6; stroke: #e86d4a; }
+        .key.accent :not(rect) { fill: #e86d4a; }
