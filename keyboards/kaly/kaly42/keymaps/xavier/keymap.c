@@ -34,7 +34,7 @@ enum layers {
     BASE = 0,
     HRM,
     NAV,
-    EZ_SYM_NUM,
+    SYMBOLS,
     DEL
 };
 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
-      *                   └───┤NAV│   │DEL├───┘       DEL=DEL layer
+      *                   └───┤SYM│   │DEL├───┘       SYM=SYMBOLS, DEL=DEL layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: S/L+D → SYM | SPC+K → NUM | W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
         _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
         KC_LCTL, _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_LALT,
-                                            KC_NO,   SFT_LEAD, MO(NAV),            MO(DEL), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, OSL(SYMBOLS),            OSL(DEL), KC_SPC,  KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer (Layer 2)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │Esc│   │   │   │       │Rdo│Pst│Cpy│Cut│Udo│   │
+      * │   │   │Esc│Udo│   │   │       │C-A│Pst│Cpy│Cut│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -86,15 +86,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤///│   │   ├───┘
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤///│   │L#0├───┘    L#0=To Base Layer
       *                       └───┘   └───┘
       */
     [NAV] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_ESC,  C(KC_Z), KC_NO,   KC_NO,                              C(KC_A), C(KC_V), C(KC_C), C(KC_X), KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_LGUI, KC_LSFT, KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
-                                            KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
+                                            KC_NO,   KC_LSFT,   KC_NO,            TO(BASE),   KC_LSFT,   KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -108,19 +108,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤   │   │   ├───┘
+      *                   └───┤Lck│   │NAV├───┘    Lck=Layer Lock
       *                       └───┘   └───┘
       */
-    [EZ_SYM_NUM] = LAYOUT_split_3x6_3(
+    [SYMBOLS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NO,
         KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, KC_NO,            KC_NO,   KC_LSFT, KC_NO
+                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            TO(NAV),   KC_LSFT, KC_NO
     ),
      /*
       * Layer 4 - DEL (Delete/Editing shortcuts)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │   │   │   │       │   │   │   │S-D│   │   │
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Alt│Ctl│Sft│   │       │   │Bsp│Ent│Del│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -128,15 +128,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │///├───┘
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤   │   │Lck├───┘    Lck=Layer Lock
       *                       └───┘   └───┘
       */
     [DEL] = LAYOUT_split_3x6_3(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, S(KC_DEL), KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_LALT, KC_LCTL, KC_LSFT, KC_TRNS,                            KC_TRNS, KC_BSPC, KC_ENT,  KC_DEL,  KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS,                            KC_TRNS, C(KC_BSPC), KC_TRNS, C(KC_DEL), KC_TRNS, KC_TRNS,
-                                            KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_TRNS,          KC_TRNS, KC_BSPC, KC_ENT,  KC_DEL,  KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, OSM(MOD_LGUI), KC_TRNS,                      KC_TRNS, C(KC_BSPC), KC_TRNS, C(KC_DEL), KC_TRNS, KC_TRNS,
+                                            KC_TRNS, KC_LSFT, KC_TRNS,          QK_LAYER_LOCK, KC_LSFT, KC_TRNS
     )
 };
 
@@ -169,7 +169,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
         case MO(DEL):
-        case MO(EZ_SYM_NUM):
+        case MO(SYMBOLS):
             return true;  // Immediately activate NAV on other key press
         default:
             return false;
@@ -181,7 +181,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
         case MO(DEL):
-        case MO(EZ_SYM_NUM):
+        case MO(SYMBOLS):
             return false;  // Don't retro tap layer keys
         default:
             return true;
@@ -193,7 +193,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(NAV):
         case MO(DEL):
-        case MO(EZ_SYM_NUM):
+        case MO(SYMBOLS):
             return true;  // Always commit to hold for NAV
         default:
             return false;

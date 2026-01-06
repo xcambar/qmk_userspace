@@ -36,6 +36,15 @@
 <svg id="mdi:keyboard-tab">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-tab" viewBox="0 0 24 24"><path d="M20,18H22V6H20M11.59,7.41L15.17,11H1V13H15.17L11.59,16.58L13,18L19,12L13,6L11.59,7.41Z" /></svg>
 </svg>
+<svg id="mdi:layers">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-layers" viewBox="0 0 24 24"><path d="M12,16L19.36,10.27L21,9L12,2L3,9L4.63,10.27M12,18.54L4.62,12.81L3,14.07L12,21.07L21,14.07L19.37,12.8L12,18.54Z" /></svg>
+</svg>
+<svg id="mdi:layers-outline">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-layers-outline" viewBox="0 0 24 24"><path d="M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z" /></svg>
+</svg>
+<svg id="mdi:lock">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-lock" viewBox="0 0 24 24"><path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" /></svg>
+</svg>
 </defs>/* end glyphs */
 <style>/* inherit to force styles through use tags */
 svg path {
@@ -190,8 +199,8 @@ path.combo {
 .key.accent rect { fill: #ffe0d6; stroke: #e86d4a; }
 .key.accent :not(rect) { fill: #e86d4a; }
 </style>
-<g transform="translate(30, 0)" class="layer-Base">
-<text x="0" y="28" class="label" id="Base">Base</text>
+<g transform="translate(30, 0)" class="layer-Base (default)">
+<text x="0" y="28" class="label" id="Base-default">Base (default)</text>
 <g transform="translate(0, 56)">
 <g transform="translate(30, 45)" class="key keypos-0">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -341,14 +350,14 @@ path.combo {
 </g>
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
-<a href="#NAV">
-<text x="0" y="26" class="key layer hold layer-activator">NAV</text>
-</a></g>
+<use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
+<text x="0" y="26" class="key layer hold">SYMBOLS</text>
+</g>
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
-<a href="#DEL">
-<text x="0" y="26" class="key layer hold layer-activator">DEL</text>
-</a></g>
+<use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
+<text x="0" y="26" class="key layer hold">DEL</text>
+</g>
 <g transform="translate(540, 240)" class="key editing keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
 <use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
@@ -380,8 +389,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 341)" class="layer-NAV">
-<text x="0" y="28" class="label" id="NAV">NAV</text>
+<g transform="translate(30, 341)" class="layer-NAV (sticky)">
+<text x="0" y="28" class="label" id="NAV-sticky">NAV (sticky)</text>
 <g transform="translate(0, 56)">
 <g transform="translate(30, 45)" class="key keypos-0">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -521,25 +530,29 @@ path.combo {
 <g transform="translate(240, 225)" class="key keypos-36">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(300, 240)" class="key keypos-37">
+<g transform="translate(300, 240)" class="key modifier keypos-37">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+</g>
+<g transform="translate(360, 255)" class="key keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(360, 255)" class="key held keypos-38">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key held"/>
+<g transform="translate(480, 255)" class="key layer keypos-39">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:layers" xlink:href="#mdi:layers" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers"/>
+<text x="0" y="26" class="key layer hold">Base</text>
 </g>
-<g transform="translate(480, 255)" class="key keypos-39">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
-</g>
-<g transform="translate(540, 240)" class="key keypos-40">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(540, 240)" class="key modifier keypos-40">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
 </g>
 <g transform="translate(600, 225)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 </g>
 </g>
-<g transform="translate(30, 682)" class="layer-EZ_SYM_NUM">
-<text x="0" y="28" class="label" id="EZ_SYM_NUM">EZ_SYM_NUM</text>
+<g transform="translate(30, 682)" class="layer-SYMBOLS (one-shot)">
+<text x="0" y="28" class="label" id="SYMBOLS-one-shot">SYMBOLS (one-shot)</text>
 <g transform="translate(0, 56)">
 <g transform="translate(30, 45)" class="key keypos-0">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -677,11 +690,14 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
 </g>
-<g transform="translate(360, 255)" class="key keypos-38">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(360, 255)" class="key layer keypos-38">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:lock" xlink:href="#mdi:lock" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:lock"/>
 </g>
-<g transform="translate(480, 255)" class="key keypos-39">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(480, 255)" class="key layer keypos-39">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:layers" xlink:href="#mdi:layers" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers"/>
+<text x="0" y="26" class="key layer hold">NAV</text>
 </g>
 <g transform="translate(540, 240)" class="key modifier keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
@@ -692,8 +708,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 1023)" class="layer-DEL">
-<text x="0" y="28" class="label" id="DEL">DEL</text>
+<g transform="translate(30, 1023)" class="layer-DEL (one-shot)">
+<text x="0" y="28" class="label" id="DEL-one-shot">DEL (one-shot)</text>
 <g transform="translate(0, 56)">
 <g transform="translate(30, 45)" class="key keypos-0">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -722,9 +738,8 @@ path.combo {
 <g transform="translate(630, 30)" class="key keypos-8">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(690, 38)" class="key editing keypos-9">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<text x="0" y="0" class="key editing tap">S-Del</text>
+<g transform="translate(690, 38)" class="key keypos-9">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 <g transform="translate(750, 45)" class="key keypos-10">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -816,17 +831,20 @@ path.combo {
 <g transform="translate(240, 225)" class="key keypos-36">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(300, 240)" class="key keypos-37">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(300, 240)" class="key modifier keypos-37">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
 </g>
 <g transform="translate(360, 255)" class="key keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(480, 255)" class="key held keypos-39">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key held"/>
+<g transform="translate(480, 255)" class="key layer keypos-39">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:lock" xlink:href="#mdi:lock" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:lock"/>
 </g>
-<g transform="translate(540, 240)" class="key keypos-40">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(540, 240)" class="key modifier keypos-40">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
 </g>
 <g transform="translate(600, 225)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
