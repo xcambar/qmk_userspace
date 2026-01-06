@@ -108,11 +108,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer (Layer 2)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │   │   │   │       │Rdo│Pst│Cpy│Cut│Udo│   │
+      * │   │   │Esc│   │   │   │       │Rdo│Pst│Cpy│Cut│Udo│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │E/G│Sft│Tab│   │       │Hom│PgD│PgU│End│   │   │
+      * │   │   │Gui│Sft│Tab│   │       │Hom│PgD│PgU│End│   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
@@ -121,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), KC_NO,
-        KC_NO,   KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   MT(MOD_LGUI, KC_ESC), KC_LSFT, KC_TAB, KC_NO,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_ESC,  KC_NO,   KC_NO,   KC_NO,                              C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), KC_NO,
+        KC_NO,   KC_NO,   OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_LGUI, KC_LSFT, KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
                                             KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
     ),
      /*
