@@ -344,11 +344,10 @@ path.combo {
 <a href="#NAV">
 <text x="0" y="26" class="key layer hold layer-activator">NAV</text>
 </a></g>
-<g transform="translate(480, 255)" class="key editing keypos-39">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
+<g transform="translate(480, 255)" class="key layer keypos-39">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <a href="#DEL">
-<text x="0" y="26" class="key editing hold layer-activator">DEL</text>
+<text x="0" y="26" class="key layer hold layer-activator">DEL</text>
 </a></g>
 <g transform="translate(540, 240)" class="key editing keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
@@ -404,8 +403,9 @@ path.combo {
 <g transform="translate(90, 45)" class="key keypos-1">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(150, 38)" class="key keypos-2">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(150, 38)" class="key editing keypos-2">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
+<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-esc"/>
 </g>
 <g transform="translate(210, 30)" class="key keypos-3">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -493,10 +493,9 @@ path.combo {
 <g transform="translate(90, 165)" class="key keypos-25">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(150, 158)" class="key editing keypos-26">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-esc"/>
-<use href="#mdi:apple-keyboard-command" xlink:href="#mdi:apple-keyboard-command" x="-6" y="14" height="12" width="12.0" class="key editing hold glyph mdi:apple-keyboard-command"/>
+<g transform="translate(150, 158)" class="key modifier keypos-26">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-command" xlink:href="#mdi:apple-keyboard-command" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-command"/>
 </g>
 <g transform="translate(210, 150)" class="key modifier keypos-27">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
