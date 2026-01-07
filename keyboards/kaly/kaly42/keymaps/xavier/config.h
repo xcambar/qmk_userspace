@@ -3,17 +3,15 @@
 
 #pragma once
 
-// Tapping term for mod-tap keys (in milliseconds)
+// Callum style mods - faster, more responsive home row mods
 #undef TAPPING_TERM
-#define TAPPING_TERM 250
+#define TAPPING_TERM 200
 
-// Enable permissive hold for better mod-tap behavior
-#define PERMISSIVE_HOLD
+// Callum style: IGNORE_MOD_TAP_INTERRUPT is now default behavior in QMK
+// No PERMISSIVE_HOLD - this is the key difference from aggressive settings
+
+// Per-key hold on other key press for layers only (not for home row mods)
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-
-// Enable chordal hold for home row mods
-#define CHORDAL_HOLD
-// #define AUTO_SHIFT_TIMEOUT 200
 
 // One-shot modifier timeout (in ms) - keeps OSM active after layer release
 #define ONESHOT_TIMEOUT 3000
