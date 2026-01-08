@@ -30,6 +30,9 @@
 // Weak corners feature
 #include "feature_weak_corners.h"
 
+// Callum-style oneshot modifiers
+#include "oneshot.h"
+
 enum layers {
     BASE = 0,
     HRM,
@@ -39,6 +42,10 @@ enum layers {
 
 enum custom_keycodes {
     SFT_LEAD = SAFE_RANGE,  // Shift on hold, Leader on tap
+    OS_SHFT,                 // Oneshot shift
+    OS_CTRL,                 // Oneshot control
+    OS_ALT,                  // Oneshot alt
+    OS_GUI,                  // Oneshot GUI
 };
 
 const uint16_t PROGMEM boot_combo[] = {_12_, _23_, COMBO_END};  // Tab + Quote
@@ -75,25 +82,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #include "layer_hrm.h"
 #endif
      /*
-      * Navigation Layer (Layer 2)
+      * Navigation Layer (Layer 2) - Optimized arrow + editing layout
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │Udo│Cpy│Pst│       │C-A│Bsp│Ent│Del│   │   │
+      * │   │   │   │Udo│Cpy│Pst│       │   │C-A│ ↑ │PgU│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │L#0│   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
+      * │#BS│   │Alt│Ctl│Sft│   │       │ ← │Bsp│Ent│ → │Hom│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Gui│Sft│Tab│   │       │Hom│PgD│PgU│End│   │   │
+      * │   │   │Gui│Sft│Tab│   │       │   │Del│ ↓ │PgD│End│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤SYM│   │Lck├───┘    L#0=To Base, Cpy=Copy (Cut when shifted), Lck=Layer Lock, OSM=One Shot Mods
+      *               └───┤Sft├───┐   ┌───┤Lck├───┘
+      *                   └───┤SYM│   │Lck├───┘
       *                       └───┘   └───┘
+      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock
+      * Alt/Ctl/Sft/Gui are oneshot modifiers (tap to queue, hold to use)
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            C(KC_A), KC_BSPC, KC_ENT,  KC_DEL,  KC_NO,   KC_NO,
-        TO(BASE),   KC_NO,   OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   OSM(MOD_LGUI), OSM(MOD_LSFT), KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
-                                            KC_NO,   KC_LSFT,   OSL(SYMBOLS),            QK_LAYER_LOCK,   KC_LSFT,   KC_NO
+        KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            KC_NO,   C(KC_A), KC_UP,   KC_PGUP, KC_NO,   KC_NO,
+        TO(BASE), KC_NO,   OS_ALT,  OS_CTRL, OS_SHFT, KC_NO,                             KC_LEFT, KC_BSPC, KC_ENT,  KC_RGHT, KC_HOME, KC_NO,
+        KC_NO,   KC_NO,   OS_GUI,  OS_SHFT, KC_TAB,  KC_NO,                              KC_NO,   KC_DEL,  KC_DOWN, KC_PGDN, KC_END,  KC_NO,
+                                            KC_NO,   KC_LSFT,   OSL(SYMBOLS),            QK_LAYER_LOCK, KC_LSFT, KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -122,7 +131,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static bool sft_lead_held = false;
 static uint16_t sft_lead_timer = 0;
 
+// Oneshot modifier states
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+oneshot_state os_gui_state = os_up_unqueued;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Update oneshot modifiers
+    update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
+    update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
+    update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
+    update_oneshot(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
+
     switch (keycode) {
         case SFT_LEAD:
             if (record->event.pressed) {
@@ -140,6 +161,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return true;
+}
+
+// Define keys that cancel oneshot modifiers
+bool is_oneshot_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+        case KC_ESC:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// Define keys that should be ignored by oneshot logic (allows stacking modifiers)
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+        case OS_SHFT:
+        case OS_CTRL:
+        case OS_ALT:
+        case OS_GUI:
+        case KC_LSFT:
+        case KC_RSFT:
+        case KC_LCTL:
+        case KC_RCTL:
+        case KC_LALT:
+        case KC_RALT:
+        case KC_LGUI:
+        case KC_RGUI:
+        case OSL(NAV):
+        case OSL(SYMBOLS):
+        case QK_LAYER_LOCK:
+        case TO(BASE):
+            return true;
+        default:
+            return false;
+    }
 }
 
 // Per-key hold on other key press - enable for layer keys
