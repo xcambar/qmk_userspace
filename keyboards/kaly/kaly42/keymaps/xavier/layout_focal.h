@@ -1,15 +1,15 @@
-// QWERTY Layout Key Definitions
-// This file maps abstract key positions (_XX_) to actual QWERTY keycodes
-// This is the STANDARD QWERTY layout for a 42-key split keyboard
+// FOCAL Layout Key Definitions
+// This file maps abstract key positions (_XX_) to actual FOCAL keycodes
+// FOCAL is an optimized layout designed for English typing efficiency
 
 /*
- * QWERTY Layout - Actual Keycodes
+ * FOCAL Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │     │  Q  │  W  │  E  │  R  │  T  │       │  Y  │  U  │  I  │  O  │  P  │ Bsp │
+ * │     │  B  │  L  │  D  │  W  │  Z  │       │  '  │  F  │  O  │  U  │  J  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Esc │  A  │  S  │  D  │  F  │  G  │       │  H  │  J  │  K  │  L  │  ;  │  '  │
+ * │ Esc │  N  │  R  │  T  │  S  │  G  │       │  Y  │  H  │  A  │  E  │  I  │  ;  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Sft │  Z  │  X  │  C  │  V  │  B  │       │  N  │  M  │  ,  │  .  │  /  │ Sft │
+ * │     │  Q  │  X  │  M  │  C  │  V  │       │  K  │  P  │  ,  │  .  │  -  │     │
  * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
  *                     ┌─────┐                           ┌─────┐
  *                     │ Gui ├─────┐               ┌─────┤ Alt │
@@ -20,45 +20,45 @@
 
 // Row 0 (top row, columns 0-11)
 #define _00_ KC_NO
-#define _01_ KC_Q
-#define _02_ KC_W
-#define _03_ KC_E
-#define _04_ KC_R
-#define _05_ KC_T
-#define _06_ KC_Y
-#define _07_ KC_U
-#define _08_ KC_I
-#define _09_ KC_O
-#define _10_ KC_P
+#define _01_ KC_B
+#define _02_ KC_L
+#define _03_ KC_D
+#define _04_ KC_W
+#define _05_ KC_Z
+#define _06_ KC_QUOT
+#define _07_ KC_F
+#define _08_ KC_O
+#define _09_ KC_U
+#define _10_ KC_J
 #define _11_ KC_BSPC
 
 // Row 1 (home row, columns 12-23)
 #define _12_ KC_ESC
-#define _13_ KC_A
-#define _14_ KC_S
-#define _15_ KC_D
-#define _16_ KC_F
+#define _13_ KC_N
+#define _14_ KC_R
+#define _15_ KC_T
+#define _16_ KC_S
 #define _17_ KC_G
-#define _18_ KC_H
-#define _19_ KC_J
-#define _20_ KC_K
-#define _21_ KC_L
-#define _22_ KC_SCLN
-#define _23_ KC_QUOT
+#define _18_ KC_Y
+#define _19_ KC_H
+#define _20_ KC_A
+#define _21_ KC_E
+#define _22_ KC_I
+#define _23_ KC_SCLN
 
 // Row 2 (bottom row, columns 24-35)
-#define _24_ KC_LSFT
-#define _25_ KC_Z
+#define _24_ KC_NO
+#define _25_ KC_Q
 #define _26_ KC_X
-#define _27_ KC_C
-#define _28_ KC_V
-#define _29_ KC_B
-#define _30_ KC_N
-#define _31_ KC_M
+#define _27_ KC_M
+#define _28_ KC_C
+#define _29_ KC_V
+#define _30_ KC_K
+#define _31_ KC_P
 #define _32_ KC_COMM
 #define _33_ KC_DOT
-#define _34_ KC_SLSH
-#define _35_ KC_RSFT
+#define _34_ KC_MINS
+#define _35_ KC_NO
 
 // Thumb cluster (keys 36-41)
 #define _36_ KC_LGUI

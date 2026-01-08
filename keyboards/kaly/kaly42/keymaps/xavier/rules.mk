@@ -15,7 +15,7 @@ LEADER_ENABLE = yes
 # Custom options
 #
 
-# Layout selection: qwerty or gallium
+# Layout selection: qwerty, gallium, focal, or graphite
 XC_LAYOUT ?= qwerty
 
 XC_HRM = yes
