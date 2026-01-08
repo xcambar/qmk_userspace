@@ -417,24 +417,23 @@ path.combo {
 <text x="0" y="0" class="key system tap">Paste</text>
 <text x="0" y="26" class="key system hold">C-V</text>
 </g>
-<g transform="translate(510, 45)" class="key system keypos-6">
+<g transform="translate(510, 45)" class="key keypos-6">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+</g>
+<g transform="translate(570, 38)" class="key system keypos-7">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
 <text x="0" y="0" class="key system tap">
 <tspan x="0" dy="-1.2em">Select</tspan><tspan x="0" dy="1.2em">All</tspan>
 </text>
 <text x="0" y="26" class="key system hold">C-A</text>
 </g>
-<g transform="translate(570, 38)" class="key editing keypos-7">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
+<g transform="translate(630, 30)" class="key nav keypos-8">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
+<use href="#mdi:arrow-up" xlink:href="#mdi:arrow-up" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-up"/>
 </g>
-<g transform="translate(630, 30)" class="key editing keypos-8">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-return"/>
-</g>
-<g transform="translate(690, 38)" class="key editing keypos-9">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<text x="0" y="0" class="key editing tap">Del</text>
+<g transform="translate(690, 38)" class="key nav keypos-9">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
+<text x="0" y="0" class="key nav tap">PgUp</text>
 </g>
 <g transform="translate(750, 45)" class="key keypos-10">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -445,7 +444,7 @@ path.combo {
 <g transform="translate(30, 105)" class="key layer keypos-12">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers" xlink:href="#mdi:layers" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers"/>
-<text x="0" y="26" class="key layer hold">Base</text>
+<text x="0" y="26" class="key layer hold">To Base</text>
 </g>
 <g transform="translate(90, 105)" class="key keypos-13">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -469,20 +468,21 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
 <use href="#mdi:arrow-left" xlink:href="#mdi:arrow-left" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-left"/>
 </g>
-<g transform="translate(570, 98)" class="key nav keypos-19">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<use href="#mdi:arrow-down" xlink:href="#mdi:arrow-down" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-down"/>
+<g transform="translate(570, 98)" class="key editing keypos-19">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
+<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
 </g>
-<g transform="translate(630, 90)" class="key nav keypos-20">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<use href="#mdi:arrow-up" xlink:href="#mdi:arrow-up" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-up"/>
+<g transform="translate(630, 90)" class="key editing keypos-20">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
+<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-return"/>
 </g>
 <g transform="translate(690, 98)" class="key nav keypos-21">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
 <use href="#mdi:arrow-right" xlink:href="#mdi:arrow-right" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-right"/>
 </g>
-<g transform="translate(750, 105)" class="key keypos-22">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(750, 105)" class="key nav keypos-22">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
+<text x="0" y="0" class="key nav tap">Home</text>
 </g>
 <g transform="translate(810, 105)" class="key keypos-23">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -508,24 +508,24 @@ path.combo {
 <g transform="translate(330, 165)" class="key keypos-29">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(510, 165)" class="key nav keypos-30">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<text x="0" y="0" class="key nav tap">Home</text>
+<g transform="translate(510, 165)" class="key keypos-30">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(570, 158)" class="key nav keypos-31">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<text x="0" y="0" class="key nav tap">PgDn</text>
+<g transform="translate(570, 158)" class="key editing keypos-31">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
+<text x="0" y="0" class="key editing tap">Del</text>
 </g>
 <g transform="translate(630, 150)" class="key nav keypos-32">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<text x="0" y="0" class="key nav tap">PgUp</text>
+<use href="#mdi:arrow-down" xlink:href="#mdi:arrow-down" x="-7" y="-7" height="14" width="14.0" class="key nav tap glyph mdi:arrow-down"/>
 </g>
 <g transform="translate(690, 158)" class="key nav keypos-33">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
-<text x="0" y="0" class="key nav tap">End</text>
+<text x="0" y="0" class="key nav tap">PgDn</text>
 </g>
-<g transform="translate(750, 165)" class="key keypos-34">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(750, 165)" class="key nav keypos-34">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key nav"/>
+<text x="0" y="0" class="key nav tap">End</text>
 </g>
 <g transform="translate(810, 165)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -546,6 +546,7 @@ path.combo {
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:lock" xlink:href="#mdi:lock" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:lock"/>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 70%">Layer Lock</tspan></text>
 </g>
 <g transform="translate(540, 240)" class="key modifier keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
