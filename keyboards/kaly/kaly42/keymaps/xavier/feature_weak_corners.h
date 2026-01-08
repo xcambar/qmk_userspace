@@ -28,6 +28,16 @@
         #define WC_OUT_10 KC_COMM
         #define WC_OUT_29 KC_Z
         #define WC_OUT_30 KC_K
+    #elif XC_LAYOUT == LAYOUT_FOCAL
+        #define WC_OUT_01 KC_B
+        #define WC_OUT_10 KC_J
+        #define WC_OUT_29 KC_V
+        #define WC_OUT_30 KC_K
+    #elif XC_LAYOUT == LAYOUT_GRAPHITE
+        #define WC_OUT_01 KC_B
+        #define WC_OUT_10 KC_J
+        #define WC_OUT_29 KC_V
+        #define WC_OUT_30 KC_K
     #endif
 
     const uint16_t PROGMEM weak_corner_l_tl_combo[] = {_02_, _03_, COMBO_END};  // W+E → Q/B

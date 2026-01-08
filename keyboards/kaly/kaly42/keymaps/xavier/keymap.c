@@ -34,8 +34,7 @@ enum layers {
     BASE = 0,
     HRM,
     NAV,
-    SYMBOLS,
-    DEL
+    SYMBOLS
 };
 
 enum custom_keycodes {
@@ -54,23 +53,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │[Q]│ W[Q]E │ R │ T │       │ Y │ U | I[P]O │[P]│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Tab│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
+      * │Esc│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Ctl│ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │Alt│
+      * │   │ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
-      *                   └───┤SYM│   │DEL├───┘       SYM=SYMBOLS, DEL=DEL layer
+      *                   └───┤SYM│   │NAV├───┘       SYM=SYMBOLS layer, NAV=NAV layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
-      * Combos: S/L+D → SYM | SPC+K → NUM | W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
+      * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
       */
     [BASE] = LAYOUT_split_3x6_3(
         _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
         _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
-        KC_LCTL, _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_LALT,
-                                            KC_NO,   SFT_LEAD, OSL(SYMBOLS),            OSL(DEL), KC_SPC,  KC_NO
+        KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
+                                            KC_NO,   SFT_LEAD, OSL(SYMBOLS),            OSL(NAV), KC_SPC,  KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -78,65 +77,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer (Layer 2)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │Esc│Udo│   │   │       │C-A│Pst│Cpy│Cut│   │   │
+      * │   │   │   │Udo│Cpy│Pst│       │C-A│Bsp│Ent│Del│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
+      * │L#0│   │Alt│Ctl│Sft│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Gui│Sft│Tab│   │       │Hom│PgD│PgU│End│   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤///│   │L#0├───┘    L#0=To Base Layer
+      *                   └───┤SYM│   │Lck├───┘    L#0=To Base, Cpy=Copy (Cut when shifted), Lck=Layer Lock, OSM=One Shot Mods
       *                       └───┘   └───┘
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_ESC,  C(KC_Z), KC_NO,   KC_NO,                              C(KC_A), C(KC_V), C(KC_C), C(KC_X), KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_LGUI, KC_LSFT, KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
-                                            KC_NO,   KC_LSFT,   KC_NO,            TO(BASE),   KC_LSFT,   KC_NO
+        KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            C(KC_A), KC_BSPC, KC_ENT,  KC_DEL,  KC_NO,   KC_NO,
+        TO(BASE),   KC_NO,   OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_NO,            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   OSM(MOD_LGUI), OSM(MOD_LSFT), KC_TAB, KC_NO,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
+                                            KC_NO,   KC_LSFT,   OSL(SYMBOLS),            QK_LAYER_LOCK,   KC_LSFT,   KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │   │
+      * │L#0│ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │ ` │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │ - │ = │ \ │ ' │ [ │       │ ] │ ; │ , │ . │ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤Lck│   │NAV├───┘    Lck=Layer Lock
+      *                   └───┤Lck│   │NAV├───┘    L#0=To Base, Lck=Layer Lock
       *                       └───┘   └───┘
       */
     [SYMBOLS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NO,
+        TO(BASE),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
         KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            TO(NAV),   KC_LSFT, KC_NO
-    ),
-     /*
-      * Layer 4 - DEL (Delete/Editing shortcuts)
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Alt│Ctl│Sft│   │       │   │Bsp│Ent│Del│   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │   │   │Gui│   │       │   │C-B│   │C-D│   │   │
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
-      *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤   │   │Lck├───┘    Lck=Layer Lock
-      *                       └───┘   └───┘
-      */
-    [DEL] = LAYOUT_split_3x6_3(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_TRNS,          KC_TRNS, KC_BSPC, KC_ENT,  KC_DEL,  KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, OSM(MOD_LGUI), KC_TRNS,                      KC_TRNS, C(KC_BSPC), KC_TRNS, C(KC_DEL), KC_TRNS, KC_TRNS,
-                                            KC_TRNS, KC_LSFT, KC_TRNS,          QK_LAYER_LOCK, KC_LSFT, KC_TRNS
+                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            OSL(NAV),   KC_LSFT, KC_NO
     )
 };
 
@@ -164,13 +142,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Per-key hold on other key press - enable for NAV layer
+// Per-key hold on other key press - enable for layer keys
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MO(NAV):
-        case MO(DEL):
-        case MO(SYMBOLS):
-            return true;  // Immediately activate NAV on other key press
+        case OSL(NAV):
+        case OSL(SYMBOLS):
+            return true;  // Immediately activate layer on other key press
         default:
             return false;
     }
@@ -179,9 +156,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 // Per-key retro tapping - disable for layer keys
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MO(NAV):
-        case MO(DEL):
-        case MO(SYMBOLS):
+        case OSL(NAV):
+        case OSL(SYMBOLS):
             return false;  // Don't retro tap layer keys
         default:
             return true;
@@ -191,10 +167,9 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 // Per-key tapping force hold - enable for layer keys
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MO(NAV):
-        case MO(DEL):
-        case MO(SYMBOLS):
-            return true;  // Always commit to hold for NAV
+        case OSL(NAV):
+        case OSL(SYMBOLS):
+            return true;  // Always commit to hold for layer keys
         default:
             return false;
     }
