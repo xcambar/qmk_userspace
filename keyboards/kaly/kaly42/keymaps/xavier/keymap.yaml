@@ -9,7 +9,7 @@ layers:
     "Base (default)":
         - ["", "", W, E, R, T, Y, U, I, O, "", ""]
         - [
-              { t: $$mdi:keyboard-esc$$, type: editing },
+              { t: $$mdi:apple-keyboard-shift$$, h: LShift, type: modifier },
               A,
               S,
               D,
@@ -20,7 +20,7 @@ layers:
               K,
               L,
               { t: ";", type: symbol },
-              { t: "'", type: symbol },
+              { t: $$mdi:apple-keyboard-shift$$, h: RShift, type: modifier },
           ]
         - [
               "",
@@ -38,10 +38,10 @@ layers:
           ]
         - [
               "",
-              { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
+              { t: $$mdi:keyboard-space$$, type: editing },
               { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
               { t: $$mdi:layers-outline$$, h: NAV (MO), type: layer },
-              { t: $$mdi:keyboard-space$$, type: editing },
+              { t: $$mdi:backspace-outline$$, type: editing },
               "",
           ]
 
@@ -62,13 +62,13 @@ layers:
           ]
         - [
               { t: $$mdi:layers$$, h: "To Base", type: layer },
-              "",
+              { t: $$mdi:keyboard-esc$$, type: editing },
               { t: LAlt, type: modifier },
               { t: $$mdi:apple-keyboard-control$$, type: modifier },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
               { t: $$mdi:arrow-left$$, type: nav },
-              { t: $$mdi:backspace-outline$$, type: editing },
+              "",
               { t: $$mdi:keyboard-return$$, type: editing },
               { t: $$mdi:arrow-right$$, type: nav },
               { t: Home, type: nav },
