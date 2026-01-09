@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _00_,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    _11_,
         _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   SFT_LEAD, OSL(SYMBOLS),            OSL(NAV), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(SYMBOLS),            MO(NAV), KC_SPC,  KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            KC_NO,   C(KC_A), KC_UP,   KC_PGUP, KC_NO,   KC_NO,
         TO(BASE), KC_NO,   OS_ALT,  OS_CTRL, OS_SHFT, KC_NO,                             KC_LEFT, KC_BSPC, KC_ENT,  KC_RGHT, KC_HOME, KC_NO,
         KC_NO,   KC_NO,   OS_GUI,  OS_SHFT, KC_TAB,  KC_NO,                              KC_NO,   KC_DEL,  KC_DOWN, KC_PGDN, KC_END,  KC_NO,
-                                            KC_NO,   KC_LSFT,   OSL(SYMBOLS),            QK_LAYER_LOCK, KC_LSFT, KC_NO
+                                            KC_NO,   KC_LSFT,   MO(SYMBOLS),            QK_LAYER_LOCK, KC_LSFT, KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         TO(BASE),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
         KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            OSL(NAV),   KC_LSFT, KC_NO
+                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            MO(NAV),   KC_LSFT, KC_NO
     )
 };
 
@@ -188,44 +188,11 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case KC_RALT:
         case KC_LGUI:
         case KC_RGUI:
-        case OSL(NAV):
-        case OSL(SYMBOLS):
+        case MO(NAV):
+        case MO(SYMBOLS):
         case QK_LAYER_LOCK:
         case TO(BASE):
             return true;
-        default:
-            return false;
-    }
-}
-
-// Per-key hold on other key press - enable for layer keys
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSL(NAV):
-        case OSL(SYMBOLS):
-            return true;  // Immediately activate layer on other key press
-        default:
-            return false;
-    }
-}
-
-// Per-key retro tapping - disable for layer keys
-bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSL(NAV):
-        case OSL(SYMBOLS):
-            return false;  // Don't retro tap layer keys
-        default:
-            return true;
-    }
-}
-
-// Per-key tapping force hold - enable for layer keys
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSL(NAV):
-        case OSL(SYMBOLS):
-            return true;  // Always commit to hold for layer keys
         default:
             return false;
     }

@@ -349,15 +349,13 @@ path.combo {
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<a href="#SYMBOLS">
-<text x="0" y="26" class="key layer hold layer-activator">SYMBOLS</text>
-</a></g>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">SYMBOLS (M…</tspan></text>
+</g>
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<a href="#NAV">
-<text x="0" y="26" class="key layer hold layer-activator">NAV</text>
-</a></g>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 88%">NAV (MO)</tspan></text>
+</g>
 <g transform="translate(540, 240)" class="key editing keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
 <use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
@@ -540,9 +538,8 @@ path.combo {
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<a href="#SYMBOLS">
-<text x="0" y="26" class="key layer hold layer-activator">SYMBOLS</text>
-</a></g>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">SYMBOLS (M…</tspan></text>
+</g>
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:lock" xlink:href="#mdi:lock" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:lock"/>
@@ -726,9 +723,8 @@ path.combo {
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<a href="#NAV">
-<text x="0" y="26" class="key layer hold layer-activator">NAV</text>
-</a></g>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 88%">NAV (MO)</tspan></text>
+</g>
 <g transform="translate(540, 240)" class="key modifier keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
