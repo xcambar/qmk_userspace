@@ -39,8 +39,8 @@ layers:
         - [
               "",
               { t: $$mdi:apple-keyboard-shift$$, h: Leader, type: modifier },
-              { t: $$mdi:layers-outline$$, h: SYMBOLS, type: layer },
-              { t: $$mdi:layers-outline$$, h: NAV, type: layer },
+              { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
+              { t: $$mdi:layers-outline$$, h: NAV (MO), type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
               "",
           ]
@@ -91,7 +91,7 @@ layers:
         - [
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-              { t: $$mdi:layers-outline$$, h: SYMBOLS, type: layer },
+              { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
               { t: $$mdi:lock$$, h: "Layer Lock", type: layer },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
@@ -131,7 +131,7 @@ layers:
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               { t: $$mdi:lock$$, type: layer },
-              { t: $$mdi:layers-outline$$, h: NAV, type: layer },
+              { t: $$mdi:layers-outline$$, h: NAV (MO), type: layer },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
           ]
