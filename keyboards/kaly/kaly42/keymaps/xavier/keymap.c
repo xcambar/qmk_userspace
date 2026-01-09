@@ -48,7 +48,7 @@ enum custom_keycodes {
     OS_GUI,                  // Oneshot GUI
 };
 
-const uint16_t PROGMEM boot_combo[] = {_12_, _23_, COMBO_END};  // Tab + Quote
+const uint16_t PROGMEM boot_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};  // LShift + RShift
 
 combo_t key_combos[] = {
     XC_WEAK_CORNERS_COMBOS
@@ -60,23 +60,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │[Q]│ W[Q]E │ R │ T │       │ Y │ U | I[P]O │[P]│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Esc│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
+      * │LSf│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │RSf│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤S/L├───┐   ┌───┤SPC├───┘   S/L=Shift/Leader
+      *               └───┤SPC├───┐   ┌───┤Bsp├───┘
       *                   └───┤SYM│   │NAV├───┘       SYM=SYMBOLS layer, NAV=NAV layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
-      * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on)
+      * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), LSf+RSf→QK_BOOT
       */
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
-        _12_,    _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    _23_,
+        KC_LSFT, _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_RSFT,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   SFT_LEAD, MO(SYMBOLS),            MO(NAV), KC_SPC,  KC_NO
+                                            KC_NO,   KC_SPC,  MO(SYMBOLS),            MO(NAV), KC_BSPC, KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │Udo│Cpy│Pst│       │   │C-A│ ↑ │PgU│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│   │Alt│Ctl│Sft│   │       │ ← │Bsp│Ent│ → │Hom│   │
+      * │#BS│Esc│Alt│Ctl│Sft│   │       │ ← │   │Ent│ → │Hom│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Gui│Sft│Tab│   │       │   │Del│ ↓ │PgD│End│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [NAV] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            KC_NO,   C(KC_A), KC_UP,   KC_PGUP, KC_NO,   KC_NO,
-        TO(BASE), KC_NO,   OS_ALT,  OS_CTRL, OS_SHFT, KC_NO,                             KC_LEFT, KC_BSPC, KC_ENT,  KC_RGHT, KC_HOME, KC_NO,
+        TO(BASE), KC_ESC,  OS_ALT,  OS_CTRL, OS_SHFT, KC_NO,                             KC_LEFT, KC_NO,   KC_ENT,  KC_RGHT, KC_HOME, KC_NO,
         KC_NO,   KC_NO,   OS_GUI,  OS_SHFT, KC_TAB,  KC_NO,                              KC_NO,   KC_DEL,  KC_DOWN, KC_PGDN, KC_END,  KC_NO,
                                             KC_NO,   KC_LSFT,   MO(SYMBOLS),            QK_LAYER_LOCK, KC_LSFT, KC_NO
     ),
