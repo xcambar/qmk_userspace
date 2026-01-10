@@ -39,9 +39,56 @@ layers:
         - [
               "",
               { t: $$mdi:keyboard-space$$, type: editing },
+              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
+              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
+              { t: $$mdi:backspace-outline$$, type: editing },
+              "",
+          ]
+
+    FAVS:
+        - ["", "", "", "", "", "", "", "", "", "", "", ""]
+        - [
+              { t: $$mdi:keyboard-esc$$, type: editing },
+              "",
+              "",
+              "",
+              { t: $$mdi:star-four-points-box$$, type: modifier },
+              { t: $$mdi:swap-horizontal$$, type: system },
+              { t: $$mdi:backspace-outline$$, type: editing },
+              { t: Del, type: editing },
+              { t: $$mdi:keyboard-return$$, type: editing },
+              "",
+              "",
+              "",
+          ]
+        - [
+              "",
+              { t: LAlt, type: modifier },
+              { t: $$mdi:apple-keyboard-command$$, type: modifier },
+              { t: $$mdi:apple-keyboard-control$$, type: modifier },
+              { t: $$mdi:keyboard-tab$$, type: nav },
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+          ]
+        - [
+              "",
+              {
+                  t: $$mdi:apple-keyboard-shift$$,
+                  h: "Oneshot Shift",
+                  type: modifier,
+              },
               { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
               { t: $$mdi:layers-outline$$, h: NAV (MO), type: layer },
-              { t: $$mdi:backspace-outline$$, type: editing },
+              {
+                  t: $$mdi:apple-keyboard-shift$$,
+                  h: "Oneshot Shift",
+                  type: modifier,
+              },
               "",
           ]
 
@@ -54,38 +101,38 @@ layers:
               { t: Paste, h: C-V, type: system },
               "",
               "",
-              { t: Undo, h: C-Z, type: system },
-              { t: "Select All", h: C-A, type: system },
+              { t: Home, type: nav },
               { t: PgUp, type: nav },
+              "",
               "",
               "",
           ]
         - [
               { t: $$mdi:layers$$, h: "To Base", type: layer },
-              { t: $$mdi:keyboard-esc$$, type: editing },
-              { t: $$mdi:apple-keyboard-command$$, type: modifier },
-              { t: $$mdi:apple-keyboard-control$$, type: modifier },
-              { t: $$mdi:star-four-points-box$$, type: modifier },
-              { t: $$mdi:swap-horizontal$$, type: system },
-              "",
-              { t: $$mdi:keyboard-return$$, type: editing },
-              { t: Del, type: editing },
-              { t: PgDn, type: nav },
-              { t: Home, type: nav },
-              "",
-          ]
-        - [
               "",
               "",
-              { t: LAlt, type: modifier },
-              "",
-              { t: $$mdi:keyboard-tab$$, type: nav },
+              { t: Undo, h: C-Z, type: system },
+              { t: "Select All", h: C-A, type: system },
               "",
               { t: $$mdi:arrow-left$$, type: nav },
               { t: $$mdi:arrow-down$$, type: nav },
               { t: $$mdi:arrow-up$$, type: nav },
               { t: $$mdi:arrow-right$$, type: nav },
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              { t: PgDn, type: nav },
               { t: End, type: nav },
+              "",
+              "",
               "",
           ]
         - [
@@ -96,7 +143,7 @@ layers:
                   type: modifier,
               },
               { t: $$mdi:lock$$, h: "Layer Lock", type: layer },
-              { type: held },
+              "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
           ]
@@ -134,7 +181,7 @@ layers:
         - [
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-              { type: held },
+              "",
               { t: $$mdi:lock$$, h: "Layer Lock", type: layer },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
