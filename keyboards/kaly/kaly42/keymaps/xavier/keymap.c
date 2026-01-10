@@ -23,6 +23,7 @@
 
 #include "keymap_eurkey.h"
 #include QMK_KEYBOARD_H
+#include <stdbool.h>
 
 // Base layer switch
 #include "feature_base_layer.h"
@@ -32,6 +33,9 @@
 
 // Callum-style oneshot modifiers
 #include "oneshot.h"
+
+// Callum-style swapper
+#include "swapper.h"
 
 enum layers {
     BASE = 0,
@@ -46,6 +50,7 @@ enum custom_keycodes {
     OS_CTRL,                 // Oneshot control
     OS_ALT,                  // Oneshot alt
     OS_GUI,                  // Oneshot GUI
+    SW_WIN,                  // Switch window (cmd-tab)
 };
 
 const uint16_t PROGMEM boot_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};  // LShift + RShift
@@ -86,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │Cpy│Pst│   │       │   │Udo│C-A│PgU│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│Esc│Alt│Ctl│   │   │       │   │Ent│Del│PgD│Hom│   │
+      * │#BS│Esc│Gui│Ctl│   │SWn│       │   │Ent│Del│PgD│Hom│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Gui│   │Tab│   │       │ ← │ ↓ │ ↑ │ → │End│   │
+      * │   │   │Alt│   │Tab│   │       │ ← │ ↓ │ ↑ │ → │End│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
@@ -96,12 +101,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤Lck│   │   ├───┘
       *                       └───┘   └───┘
       * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock, OSf=Oneshot Shift
-      * Alt/Ctl/Gui are oneshot modifiers (tap to queue, hold to use)
+      * SWn=Switch Window (cmd-tab), Alt/Ctl/Gui are oneshot modifiers (tap to queue, hold to use)
       */
     [NAV] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   C(KC_Z), C(KC_A), KC_PGUP, KC_NO,   KC_NO,
-        TO(BASE), KC_ESC,  OS_ALT,  OS_CTRL, KC_NO,   KC_NO,                             KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
-        KC_NO,   KC_NO,   OS_GUI,  KC_NO,   KC_TAB,  KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,  KC_NO,
+        TO(BASE), KC_ESC,  OS_GUI,  OS_CTRL, KC_NO,   SW_WIN,                            KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
+        KC_NO,   KC_NO,   OS_ALT,  KC_NO,   KC_TAB,  KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,  KC_NO,
                                             KC_NO,   OS_SHFT,   QK_LAYER_LOCK,            KC_NO, KC_LSFT, KC_NO
     ),
      /*
@@ -137,7 +142,13 @@ oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_gui_state = os_up_unqueued;
 
+// Swapper state
+static bool sw_win_active = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Update swapper
+    update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
+
     // Update oneshot modifiers
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);

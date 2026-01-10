@@ -63,10 +63,10 @@ layers:
         - [
               { t: $$mdi:layers$$, h: "To Base", type: layer },
               { t: $$mdi:keyboard-esc$$, type: editing },
-              { t: LAlt, type: modifier },
+              { t: $$mdi:apple-keyboard-command$$, type: modifier },
               { t: $$mdi:apple-keyboard-control$$, type: modifier },
               "",
-              "",
+              { t: $$mdi:swap-horizontal$$, type: system },
               "",
               { t: $$mdi:keyboard-return$$, type: editing },
               { t: Del, type: editing },
@@ -77,7 +77,7 @@ layers:
         - [
               "",
               "",
-              { t: $$mdi:apple-keyboard-command$$, type: modifier },
+              { t: LAlt, type: modifier },
               "",
               { t: $$mdi:keyboard-tab$$, type: nav },
               "",
@@ -90,7 +90,11 @@ layers:
           ]
         - [
               "",
-              { t: $$mdi:apple-keyboard-shift$$, h: "Oneshot Shift", type: modifier },
+              {
+                  t: $$mdi:apple-keyboard-shift$$,
+                  h: "Oneshot Shift",
+                  type: modifier,
+              },
               { t: $$mdi:lock$$, h: "Layer Lock", type: layer },
               { type: held },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
