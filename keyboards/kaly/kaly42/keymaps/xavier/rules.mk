@@ -10,8 +10,9 @@ LAYER_LOCK_ENABLE = yes
 LEADER_ENABLE = yes
 #AUTO_SHIFT_ENABLE = yes
 
-# Callum-style oneshot modifiers
+# Callum-style oneshot modifiers and swapper
 SRC += oneshot.c
+SRC += swapper.c
 
 
 ###################
