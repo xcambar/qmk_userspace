@@ -1,6 +1,15 @@
-# QMK Userspace
+# Xavier's 36-key keymap
 
-This is a template repository which allows for an external set of QMK keymaps to be defined and compiled. This is useful for users who want to maintain their own keymaps without having to fork the main QMK repository.
+This keymap currently runs a (5/6/5)_2 split keyboard. I personally think 42 keys is too much and I couldn't go as down as 34 keys. So far.
+
+I might document the process and features at a later tage, but since the keymaps is still a bit of a moving target, I'll just share the current keymap. If you're reading this page and you're not the author, first of all, thanks, and don't hesitate to contact me if you have comments or questions.
+
+## The keymap
+
+![Xavier's 36-key layout](./keyboards/kaly/kaly42/keymaps/xavier/keymap.svg)
+
+
+# QMK instructions (from the original repository)
 
 ## Howto configure your build targets
 
