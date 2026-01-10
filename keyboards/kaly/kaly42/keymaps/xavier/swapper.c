@@ -20,6 +20,10 @@ void update_swapper(
             // Don't unregister cmdish until some other key is hit or released.
         }
     } else if (*active) {
+        // Don't deactivate if it's an ignored key (e.g., shift for direction change)
+        if (is_swapper_ignored_key(keycode)) {
+            return;
+        }
         unregister_code(cmdish);
         *active = false;
     }
