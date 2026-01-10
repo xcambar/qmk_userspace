@@ -13,6 +13,7 @@ LEADER_ENABLE = yes
 # Callum-style oneshot modifiers and swapper
 SRC += oneshot.c
 SRC += swapper.c
+SRC += mod_morph.c
 
 
 ###################

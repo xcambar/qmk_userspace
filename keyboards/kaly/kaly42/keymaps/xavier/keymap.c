@@ -37,6 +37,9 @@
 // Callum-style swapper
 #include "swapper.h"
 
+// Modifier morph (GUI/Ctrl toggle)
+#include "mod_morph.h"
+
 enum layers {
     BASE = 0,
     HRM,
@@ -54,8 +57,10 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM boot_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};  // LShift + RShift
+const uint16_t PROGMEM toggle_morph_combo[] = {_04_, _28_, COMBO_END};  // GUI + Ctrl oneshots to toggle mod morph
 
 combo_t key_combos[] = {
+    COMBO(toggle_morph_combo, KC_NO),  // Handled in process_combo_event
     XC_WEAK_CORNERS_COMBOS
     COMBO(boot_combo, QK_BOOT),
 };
@@ -91,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │Cpy│Pst│   │       │   │Udo│C-A│PgU│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│Esc│Gui│Ctl│   │SWn│       │   │Ent│Del│PgD│Hom│   │
+      * │#BS│Esc│Gui│Ctl│G/C│SWn│       │   │Ent│Del│PgD│Hom│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │   │Alt│   │Tab│   │       │ ← │ ↓ │ ↑ │ → │End│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -105,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [NAV] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   C(KC_Z), C(KC_A), KC_PGUP, KC_NO,   KC_NO,
-        TO(BASE), KC_ESC,  OS_GUI,  OS_CTRL, KC_NO,   SW_WIN,                            KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
+        TO(BASE), KC_ESC,  OS_GUI,  OS_CTRL, MM_GUICTRL,   SW_WIN,                            KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
         KC_NO,   KC_NO,   OS_ALT,  KC_NO,   KC_TAB,  KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,  KC_NO,
                                             KC_NO,   OS_SHFT,   QK_LAYER_LOCK,            KC_NO, KC_LSFT, KC_NO
     ),
@@ -155,6 +160,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
     update_oneshot(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 
+    // Update oneshot morphing modifier
+    update_mod_morph_oneshot(keycode, record);
+
     switch (keycode) {
         case SFT_LEAD:
             if (record->event.pressed) {
@@ -191,6 +199,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case OS_CTRL:
         case OS_ALT:
         case OS_GUI:
+        case MM_GUICTRL:
         case KC_LSFT:
         case KC_RSFT:
         case KC_LCTL:
@@ -206,6 +215,17 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
             return true;
         default:
             return false;
+    }
+}
+
+// Combo event handler
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case 0:  // toggle_morph_combo (4 weak corner combos + 1 boot combo = index 5)
+            if (pressed) {
+                toggle_mod_morph();
+            }
+            break;
     }
 }
 
