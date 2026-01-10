@@ -349,7 +349,7 @@ path.combo {
 </g>
 <g transform="translate(300, 240)" class="key editing keypos-37">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
+<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
 </g>
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
@@ -363,7 +363,7 @@ path.combo {
 </g>
 <g transform="translate(540, 240)" class="key editing keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
+<use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
 </g>
 <g transform="translate(600, 225)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>

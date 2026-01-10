@@ -38,10 +38,10 @@ layers:
           ]
         - [
               "",
-              { t: $$mdi:keyboard-space$$, type: editing },
-              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
-              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
               { t: $$mdi:backspace-outline$$, type: editing },
+              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
+              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
+              { t: $$mdi:keyboard-space$$, type: editing },
               "",
           ]
 

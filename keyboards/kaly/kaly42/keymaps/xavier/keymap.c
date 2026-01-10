@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤SPC├───┐   ┌───┤Bsp├───┘
+      *               └───┤Bsp├───┐   ┌───┤SPC├───┘
       *                   └───┤FAV│   │FAV├───┘       FAV=FAVS layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_LSFT, _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_RSFT,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   KC_SPC,  MO(FAVS),               MO(FAVS), KC_BSPC, KC_NO
+                                            KC_NO,   KC_BSPC, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
      /*
       * FAVS Layer (Layer 1) - Favorite shortcuts and modifiers
