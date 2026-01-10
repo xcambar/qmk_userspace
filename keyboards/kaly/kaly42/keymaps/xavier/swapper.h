@@ -9,6 +9,8 @@
 //     trigger, trigger, a -> cmd down, tab, tab, cmd up, a
 //     nav down, trigger, nav up -> nav down, cmd down, tab, cmd up, nav up
 //
+// If Shift is held while trigger is pressed, sends Shift+Tab for reverse direction.
+//
 // This behaviour is useful for more than just cmd-tab, hence: cmdish, tabish.
 void update_swapper(
     bool *active,
@@ -18,3 +20,7 @@ void update_swapper(
     uint16_t keycode,
     keyrecord_t *record
 );
+
+// To be implemented by the consumer. Defines keys that should not interrupt
+// the swapper when active (e.g., shift keys for changing direction).
+bool is_swapper_ignored_key(uint16_t keycode);

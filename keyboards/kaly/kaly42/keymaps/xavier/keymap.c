@@ -218,6 +218,18 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     }
 }
 
+// Define keys that should be ignored by swapper (allows changing direction)
+bool is_swapper_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+        case OS_SHFT:
+        case KC_LSFT:
+        case KC_RSFT:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // Combo event handler
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
