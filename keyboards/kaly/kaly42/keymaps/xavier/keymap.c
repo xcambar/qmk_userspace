@@ -84,25 +84,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer (Layer 2) - Optimized arrow + editing layout
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │Udo│Cpy│Pst│       │   │C-A│ ↑ │PgU│   │   │
+      * │   │   │   │Cpy│Pst│   │       │   │Udo│C-A│PgU│   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│Esc│Alt│Ctl│Sft│   │       │ ← │   │Ent│ → │Hom│   │
+      * │#BS│Esc│Alt│Ctl│   │   │       │   │Ent│Del│PgD│Hom│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Gui│Sft│Tab│   │       │   │Del│ ↓ │PgD│End│   │
+      * │   │   │Gui│   │Tab│   │       │ ← │ ↓ │ ↑ │ → │End│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤Lck├───┘
-      *                   └───┤SYM│   │Lck├───┘
+      *               └───┤OSf├───┐   ┌───┤Sft├───┘
+      *                   └───┤Lck│   │   ├───┘
       *                       └───┘   └───┘
-      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock
-      * Alt/Ctl/Sft/Gui are oneshot modifiers (tap to queue, hold to use)
+      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock, OSf=Oneshot Shift
+      * Alt/Ctl/Gui are oneshot modifiers (tap to queue, hold to use)
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   C(KC_Z), C(KC_C), C(KC_V),                            KC_NO,   C(KC_A), KC_UP,   KC_PGUP, KC_NO,   KC_NO,
-        TO(BASE), KC_ESC,  OS_ALT,  OS_CTRL, OS_SHFT, KC_NO,                             KC_LEFT, KC_NO,   KC_ENT,  KC_RGHT, KC_HOME, KC_NO,
-        KC_NO,   KC_NO,   OS_GUI,  OS_SHFT, KC_TAB,  KC_NO,                              KC_NO,   KC_DEL,  KC_DOWN, KC_PGDN, KC_END,  KC_NO,
-                                            KC_NO,   KC_LSFT,   MO(SYMBOLS),            QK_LAYER_LOCK, KC_LSFT, KC_NO
+        KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   C(KC_Z), C(KC_A), KC_PGUP, KC_NO,   KC_NO,
+        TO(BASE), KC_ESC,  OS_ALT,  OS_CTRL, KC_NO,   KC_NO,                             KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
+        KC_NO,   KC_NO,   OS_GUI,  KC_NO,   KC_TAB,  KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,  KC_NO,
+                                            KC_NO,   OS_SHFT,   QK_LAYER_LOCK,            KC_NO, KC_LSFT, KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -116,14 +116,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤Lck│   │NAV├───┘    L#0=To Base, Lck=Layer Lock
+      *                   └───┤   │   │Lck├───┘    L#0=To Base, Lck=Layer Lock
       *                       └───┘   └───┘
       */
     [SYMBOLS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         TO(BASE),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
         KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, QK_LAYER_LOCK,            MO(NAV),   KC_LSFT, KC_NO
+                                            KC_NO,   KC_LSFT, KC_NO,            QK_LAYER_LOCK,   KC_LSFT, KC_NO
     )
 };
 
