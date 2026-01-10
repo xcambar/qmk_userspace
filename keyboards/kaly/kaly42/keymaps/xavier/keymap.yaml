@@ -9,7 +9,7 @@ layers:
     "Base (default)":
         - ["", "", W, E, R, T, Y, U, I, O, "", ""]
         - [
-              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { t: $$mdi:keyboard-tab$$, type: nav },
               A,
               S,
               D,
@@ -20,7 +20,7 @@ layers:
               K,
               L,
               { t: ";", type: symbol },
-              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { t: $$mdi:backspace-outline$$, type: editing },
           ]
         - [
               "",
@@ -38,7 +38,7 @@ layers:
           ]
         - [
               "",
-              { t: $$mdi:backspace-outline$$, type: editing },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
               { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
@@ -49,9 +49,9 @@ layers:
         - ["", "", "", "", "", "", "", "", "", "", "", ""]
         - [
               { t: $$mdi:keyboard-esc$$, type: editing },
-              "",
-              "",
-              "",
+              { t: LAlt, type: modifier },
+              { t: $$mdi:apple-keyboard-command$$, type: modifier },
+              { t: $$mdi:apple-keyboard-control$$, type: modifier },
               { t: $$mdi:star-four-points-box$$, type: modifier },
               { t: $$mdi:swap-horizontal$$, type: system },
               { t: $$mdi:backspace-outline$$, type: editing },
@@ -61,20 +61,7 @@ layers:
               "",
               "",
           ]
-        - [
-              "",
-              { t: LAlt, type: modifier },
-              { t: $$mdi:apple-keyboard-command$$, type: modifier },
-              { t: $$mdi:apple-keyboard-control$$, type: modifier },
-              { t: $$mdi:keyboard-tab$$, type: nav },
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-          ]
+        - ["", "", "", "", "", "", "", "", "", "", "", ""]
         - [
               "",
               {
@@ -166,13 +153,13 @@ layers:
           ]
         - [
               "",
-              { t: "-", s: "_", type: symbol },
+              { t: ";", s: ":", type: symbol },
               { t: "=", s: "+", type: symbol },
               { t: "\\", s: "|", type: symbol },
               { t: "'", s: '"', type: symbol },
               { t: "[", s: "{", type: symbol },
               { t: "]", s: "}", type: symbol },
-              { t: ";", s: ":", type: symbol },
+              { t: "-", s: "_", type: symbol },
               { t: ",", s: "<", type: symbol },
               { t: ".", s: ">", type: symbol },
               { t: "/", s: "?", type: symbol },
@@ -207,7 +194,7 @@ combos:
           - "Base (default)"
     # Other combos
     - key_positions: [12, 23]
-      key: QK_BOOT
+      key: QK_BOOT (Tab+Bsp)
       layers:
           - "Base (default)"
 
