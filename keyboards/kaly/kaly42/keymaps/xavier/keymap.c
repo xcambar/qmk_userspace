@@ -42,6 +42,7 @@
 
 enum layers {
     BASE = 0,
+    FAVS,
     HRM,
     NAV,
     SYMBOLS
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤SPC├───┐   ┌───┤Bsp├───┘
-      *                   └───┤SYM│   │NAV├───┘       SYM=SYMBOLS layer, NAV=NAV layer
+      *                   └───┤FAV│   │FAV├───┘       FAV=FAVS layer
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), LSf+RSf→QK_BOOT
@@ -87,19 +88,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_LSFT, _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_RSFT,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   KC_SPC,  MO(SYMBOLS),            MO(NAV), KC_BSPC, KC_NO
+                                            KC_NO,   KC_SPC,  MO(FAVS),               MO(FAVS), KC_BSPC, KC_NO
+    ),
+     /*
+      * FAVS Layer (Layer 1) - Favorite shortcuts and modifiers
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │Esc│   │   │   │G/C│SWn│       │Bsp│Del│Ent│   │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │Alt│Gui│Ctl│Tab│   │       │   │   │   │   │   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤OSf├───┐   ┌───┤OSf├───┘
+      *                   └───┤SYM│   │NAV├───┘
+      *                       └───┘   └───┘
+      * G/C=MM_GUICTRL (morphing GUI/Ctrl), SWn=Switch Window, OSf=Oneshot Shift
+      * Alt/Gui/Ctl are oneshot modifiers
+      */
+    [FAVS] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_ESC,  KC_NO,   KC_NO,   KC_NO,   MM_GUICTRL, SW_WIN,                          KC_BSPC, KC_DEL,  KC_ENT,  KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   OS_ALT,  OS_GUI,  OS_CTRL, KC_TAB,  KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                            KC_NO,   OS_SHFT, MO(SYMBOLS),            MO(NAV), OS_SHFT, KC_NO
     ),
 #ifdef XC_HRM_LAYER
     #include "layer_hrm.h"
 #endif
      /*
-      * Navigation Layer (Layer 2) - Optimized arrow + editing layout
+      * Navigation Layer - Arrow keys and navigation
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │Cpy│Pst│   │       │   │Udo│C-A│PgU│   │   │
+      * │   │   │   │Cpy│Pst│   │       │   │Hom│PgU│   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│Esc│Gui│Ctl│G/C│SWn│       │   │Ent│Del│PgD│Hom│   │
+      * │#BS│   │   │Udo│C-A│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │Alt│   │Tab│   │       │ ← │ ↓ │ ↑ │ → │End│   │
+      * │   │   │   │   │   │   │       │   │PgD│End│   │   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
@@ -107,13 +131,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤Lck│   │   ├───┘
       *                       └───┘   └───┘
       * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock, OSf=Oneshot Shift
-      * SWn=Switch Window (cmd-tab), Alt/Ctl/Gui are oneshot modifiers (tap to queue, hold to use)
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   C(KC_Z), C(KC_A), KC_PGUP, KC_NO,   KC_NO,
-        TO(BASE), KC_ESC,  OS_GUI,  OS_CTRL, MM_GUICTRL,   SW_WIN,                            KC_NO,   KC_ENT,  KC_DEL,  KC_PGDN, KC_HOME, KC_NO,
-        KC_NO,   KC_NO,   OS_ALT,  KC_NO,   KC_TAB,  KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,  KC_NO,
-                                            KC_NO,   OS_SHFT,   QK_LAYER_LOCK,            KC_NO, KC_LSFT, KC_NO
+        KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   KC_HOME, KC_PGUP, KC_NO,   KC_NO,   KC_NO,
+        TO(BASE), KC_NO,   KC_NO,   C(KC_Z), C(KC_A), KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_PGDN, KC_END,  KC_NO,   KC_NO,   KC_NO,
+                                            KC_NO,   OS_SHFT, QK_LAYER_LOCK,          KC_NO, KC_LSFT, KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -134,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         TO(BASE),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
         KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_SCLN, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, KC_NO,            QK_LAYER_LOCK,   KC_LSFT, KC_NO
+                                            KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
     )
 };
 
@@ -210,6 +233,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case KC_LGUI:
         case KC_RGUI:
         case MO(NAV):
+        case MO(FAVS):
         case MO(SYMBOLS):
         case QK_LAYER_LOCK:
         case TO(BASE):
