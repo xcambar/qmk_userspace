@@ -14,6 +14,7 @@ void update_swapper(
                 *active = true;
                 register_code(cmdish);
             }
+            // Shift is already registered by oneshot or held key, just tap tabish
             register_code(tabish);
         } else {
             unregister_code(tabish);

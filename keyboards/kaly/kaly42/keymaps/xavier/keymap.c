@@ -54,13 +54,14 @@ enum custom_keycodes {
     OS_ALT,                  // Oneshot alt
     OS_GUI,                  // Oneshot GUI
     SW_WIN,                  // Switch window (cmd-tab)
+    MM_GUICTRL              // Modifier swappable between GUI and Ctrl
 };
 
 const uint16_t PROGMEM boot_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};  // LShift + RShift
 const uint16_t PROGMEM toggle_morph_combo[] = {_04_, _28_, COMBO_END};  // GUI + Ctrl oneshots to toggle mod morph
 
 combo_t key_combos[] = {
-    COMBO(toggle_morph_combo, KC_NO),  // Handled in process_combo_event
+    COMBO_ACTION(toggle_morph_combo),  // Handled in process_combo_event
     XC_WEAK_CORNERS_COMBOS
     COMBO(boot_combo, QK_BOOT),
 };
@@ -161,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_oneshot(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 
     // Update oneshot morphing modifier
-    update_mod_morph_oneshot(keycode, record);
+    update_mod_morph_oneshot(MM_GUICTRL, keycode, record);
 
     switch (keycode) {
         case SFT_LEAD:
@@ -233,7 +234,7 @@ bool is_swapper_ignored_key(uint16_t keycode) {
 // Combo event handler
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-        case 0:  // toggle_morph_combo (4 weak corner combos + 1 boot combo = index 5)
+        case 0:
             if (pressed) {
                 toggle_mod_morph();
             }
