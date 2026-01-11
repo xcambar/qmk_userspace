@@ -15,13 +15,13 @@
 #define GRAPHITE LAYOUT_GRAPHITE
 
 #if XC_LAYOUT == LAYOUT_QWERTY
-    #include "layout_qwerty.h"
+    #include "layouts/qwerty.h"
 #elif XC_LAYOUT == LAYOUT_GALLIUM
-    #include "layout_gallium.h"
+    #include "layouts/gallium.h"
 #elif XC_LAYOUT == LAYOUT_FOCAL
-    #include "layout_focal.h"
+    #include "layouts/focal.h"
 #elif XC_LAYOUT == LAYOUT_GRAPHITE
-    #include "layout_graphite.h"
+    #include "layouts/graphite.h"
 #else
     #error "Unknown layout specified"
 #endif
