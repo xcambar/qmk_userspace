@@ -11,9 +11,9 @@ LEADER_ENABLE = yes
 #AUTO_SHIFT_ENABLE = yes
 
 # Callum-style oneshot modifiers and swapper
-SRC += oneshot.c
-SRC += swapper.c
-SRC += mod_morph.c
+SRC += features/oneshot.c
+SRC += features/swapper.c
+SRC += features/mod_morph.c
 
 
 ###################
