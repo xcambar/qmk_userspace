@@ -28,13 +28,13 @@
 #include "feature_weak_corners.h"
 
 // Callum-style oneshot modifiers
-#include "oneshot.h"
+#include "features/oneshot.h"
 
 // Callum-style swapper
-#include "swapper.h"
+#include "features/swapper.h"
 
 // Modifier morph (GUI/Ctrl toggle)
-#include "mod_morph.h"
+#include "features/mod_morph.h"
 
 enum layers {
     BASE = 0,
