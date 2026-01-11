@@ -15,10 +15,6 @@
  *                     └─────┤ _37_├─────┐   ┌─────┤ _40_├─────┘
  *                           └─────┤ _38_│   │ _39_├─────┘
  *                                 └─────┘   └─────┘
- *
- * Home row mods (when XC_HRM is enabled):
- *   Left hand:  _14_=Alt  _15_=Ctrl  _16_=Shift  _28_=GUI
- *   Right hand: _19_=Shift  _20_=Ctrl  _21_=Alt  _31_=GUI
  */
 
 #include "keymap_eurkey.h"
@@ -43,7 +39,6 @@
 enum layers {
     BASE = 0,
     FAVS,
-    HRM,
     NAV,
     SYMBOLS
 };
@@ -113,9 +108,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   OS_SHFT, MO(SYMBOLS),            MO(NAV), OS_SHFT, KC_NO
     ),
-#ifdef XC_HRM_LAYER
-    #include "layer_hrm.h"
-#endif
      /*
       * Navigation Layer - Arrow keys and navigation
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐

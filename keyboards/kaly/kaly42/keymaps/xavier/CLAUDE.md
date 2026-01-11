@@ -15,11 +15,10 @@ The agent is triggered whenever a change to the keymap is required. The agent:
 - **Source file**: `keymap.c` in the same directory
 - **Configuration**: `rules.mk` (required), `config.h` (optional)
 - **Key information sources**:
-  - ASCII art layout illustrations in C comments (e.g., lines 71-84, 92-105, etc.)
+  - ASCII art layout illustrations in C comments
   - Layer definitions in `keymaps[][MATRIX_ROWS][MATRIX_COLS]` arrays
   - Combo definitions in `combo_t key_combos[]` array
   - Custom keycode definitions in `enum custom_keycodes`
-  - Home row mod (HRM) definitions in preprocessor macros (XC_S, XC_D, etc.)
 
 ## Output
 A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.streamlit.app/
@@ -28,10 +27,9 @@ A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.st
 
 ### MUST Read Before Generation:
 1. **`rules.mk`** - Check for:
-   - `XC_HRM = yes/no` - Determines if home row mods are enabled on Base layer (layer 0)
-   - `XC_HRM_LAYER = yes/no` - Determines if the dedicated HRM layer (layer 1) is included
+   - `XC_WEAK_CORNERS = yes/no` - Determines if weak corner keys are enabled
    - `COMBO_ENABLE = yes/no` - Determines if combos should be included
-   - Any other layer-specific flags
+   - `XC_LAYOUT` - Determines which layout is active (qwerty, gallium, focal, graphite)
 
 2. **`config.h`** (if exists) - Check for:
    - Tapping term settings
@@ -39,16 +37,13 @@ A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.st
    - Any layer-specific configurations
 
 ### Decision Logic:
-- **HRM on Base layer**: Use `XC_HRM` value from `rules.mk`
-  - `yes` → Show S/D/F/V/M/J/K/L as mod-tap keys on layer 0
-  - `no` → Show them as plain keys on layer 0
-- **HRM Layer**: Use `XC_HRM_LAYER` value from `rules.mk`
-  - `yes` → Include HMR layer (layer 1) in YAML with modifiers and layer switching
-  - `no` → **Omit HMR layer from YAML** (layer 1 is in separate file `layer_hrm.h` and not compiled)
 - **Combos**: Use `COMBO_ENABLE` value from `rules.mk`
   - `yes` → Include combos section in YAML
   - `no` → Omit combos section
-- **Layers**: Include layers based on configuration flags; HMR layer is conditional
+- **Weak Corners**: Use `XC_WEAK_CORNERS` value from `rules.mk`
+  - `yes` → Weak corner keys are replaced by combos
+  - `no` → Show actual keys in corner positions
+- **Layout**: Use `XC_LAYOUT` value from `rules.mk` to determine which layout file is active
 
 ## YAML Structure Requirements
 
@@ -63,14 +58,14 @@ layout:
 **Note**: Use the QMK keyboard identifier, not manual ortho_layout specification.
 
 ### 2. Layers
-For each layer (0-5), create entries with proper key mappings:
+For each layer (0-3), create entries with proper key mappings:
 ```yaml
 layers:
   Base:  # Layer 0
     - ["", "", W, E, R, T, Y, U, I, O, "", ""]
-    - [Tab, A, S, D, F, G, H, J, K, L, ";", "'"]
+    - [Tab, A, S, D, F, G, H, J, K, L, ";", Bsp]
     - ["", Z, X, C, V, LCtl, RCtl, M, ",", ".", "/", ""]
-    - [Esc, Sft, {h: NAV}, {t: Bsp, s: Del}, Spc, Ent]
+    - ["", Sft, {h: FAVS}, Bsp, Spc, ""]
 ```
 
 **Note**: Each row must have exactly 12 keys, thumb row has 6 keys (3 per side).
@@ -104,16 +99,6 @@ Handle these QMK constructs using **shorthand notation**:
   # NAV layer (same thumb position)
   - ["", "", { type: held }, "", "", ""]
   ```
-
-- **Home Row Mods** (when XC_HRM is enabled in `rules.mk`):
-  - `XC_S` (Alt/S) → `{t: S, h: Alt}`
-  - `XC_D` (Ctrl/D) → `{t: D, h: Ctrl}`
-  - `XC_F` (Shift/F) → `{t: F, h: Shift}`
-  - `XC_V` (GUI/V) → `{t: V, h: GUI}`
-  - `XC_M` (GUI/M) → `{t: M, h: GUI}`
-  - `XC_J` (Shift/J) → `{t: J, h: Shift}`
-  - `XC_K` (Ctrl/K) → `{t: K, h: Ctrl}`
-  - `XC_L` (Alt/L) → `{t: L, h: Alt}`
 
 - **Custom dual-function keys with shift** - Use `{t: normal, s: shifted}`:
   - `BSP_DEL` → `{t: Bsp, s: Del}`
@@ -181,11 +166,9 @@ Right hand:
 ## Layer Name Mapping
 ```
 0 → Base
-1 → HMR (Home Row Mods)
+1 → FAVS (Favorites/Modifiers)
 2 → NAV (Navigation)
-3 → NUM (Numpad)
-4 → SYM (Symbols)
-5 → ACC (Compose/Accents)
+3 → SYMBOLS (Symbols and Numbers)
 ```
 
 ## Processing Steps
@@ -197,10 +180,8 @@ Right hand:
    - Simple keys: `KC_A` → `A`
    - Transparent: `KC_TRNS` → `""`
    - No-op: `KC_NO` → `""`
-   - Custom keycodes: Look up in `enum custom_keycodes` comments
-   - Mod-tap: Parse `MT(mod, key)` format
-   - Layer keys: Parse `MO(n)`, `TG(n)`, `TO(n)`
-   - HRM keys: Check if `#ifdef XC_HRM` defines are used
+   - Custom keycodes: Look up in `enum custom_keycodes` comments (OS_SHFT, OS_CTRL, OS_ALT, OS_GUI, SW_WIN, MM_GUICTRL)
+   - Layer keys: Parse `MO(n)`, `TO(n)`, `QK_LAYER_LOCK`
 5. **Extract combos** - Parse `combo_t key_combos[]` array:
    - Parse each combo definition array (e.g., `const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};`)
    - Map keycodes to physical positions by finding them in the layout arrays
@@ -212,10 +193,10 @@ Right hand:
 
 ## Special Considerations
 
-- **XC_HRM flag**: When enabled, keys XC_S, XC_D, XC_F, XC_V, XC_M, XC_J, XC_K, XC_L become mod-tap keys. When disabled, they're plain keys.
-- **Custom keycodes**: Document dual-function behavior (e.g., BSP_DEL sends Bsp normally, Del when shifted)
+- **Custom keycodes**: Oneshot modifiers (OS_SHFT, OS_CTRL, OS_ALT, OS_GUI), window swapper (SW_WIN), and morphing modifier (MM_GUICTRL)
 - **Empty positions**: Use empty string `""` for KC_NO and KC_TRNS
 - **Combo positions**: Calculate from the visual layout (0-indexed, left-to-right, top-to-bottom)
+- **Weak corners**: When XC_WEAK_CORNERS is enabled, corner positions show placeholder keys with actual characters produced via combos
 
 ## Material Design Icons
 
@@ -334,18 +315,22 @@ layout:
 layers:
   Base:
     - ["", "", W, E, R, T, Y, U, I, O, "", ""]
-    - [Tab, A, {tap: S, hold: Alt}, {tap: D, hold: Ctrl}, {tap: F, hold: Shift}, G, H, {tap: J, hold: Shift}, {tap: K, hold: Ctrl}, {tap: L, hold: Alt}, ";", "'"]
-    - ["", Z, X, C, {tap: V, hold: GUI}, LCtl, RCtl, {tap: M, hold: GUI}, ",", ".", "/", ""]
-    - [{tap: Esc, hold: GUI}, {hold: Shift}, {hold: NAV}, {tap: Bsp, shifted: Del}, Spc, ""]
+    - [Tab, A, S, D, F, G, H, J, K, L, ";", Bsp]
+    - ["", Z, X, C, V, "", "", M, ",", ".", "/", ""]
+    - ["", Sft, {h: FAVS}, FAVS, Spc, ""]
 
-  HMR:
-    # ... continue for all layers
+  FAVS:
+    - ["", "", "", "", "", "", "", "", "", "", "", ""]
+    - [Esc, Alt, GUI, Ctrl, MM_GUICTRL, SW_WIN, Bsp, Del, Ent, "", "", ""]
+    - ["", "", "", "", "", "", "", "", "", "", "", ""]
+    - ["", OSf, {h: SYMBOLS}, {type: held}, OSf, ""]
+
+  # ... continue for NAV and SYMBOLS layers
 
 combos:
   - key_positions: [2, 3]
     key: Q
-  - key_positions: [21, 22]
-    key: B
+    layers: [Base]
   # ... continue for all combos
 
 draw_config:
@@ -359,26 +344,26 @@ draw_config:
 ### Mandatory Steps (in order):
 
 1. **Read configuration files FIRST**:
-   - Read `rules.mk` to get `XC_HRM` and `COMBO_ENABLE` values
+   - Read `rules.mk` to get `XC_WEAK_CORNERS`, `COMBO_ENABLE`, and `XC_LAYOUT` values
    - Read `config.h` if it exists (optional)
    - **DO NOT ask about these settings** - read them from files
 
 2. **Parse keymap.c**:
    - Read entire file
    - Parse ASCII art comments for visual reference
-   - Extract all 6 layer definitions from `keymaps[][MATRIX_ROWS][MATRIX_COLS]`
+   - Extract all 4 layer definitions from `keymaps[][MATRIX_ROWS][MATRIX_COLS]`
    - Extract combos from `combo_t key_combos[]`
    - Note custom keycodes from `enum custom_keycodes`
 
 3. **Map QMK to YAML**:
    - Use shorthand notation (`t:`, `h:`, `s:`)
-   - Handle HRM based on `XC_HRM` setting (yes = mod-tap, no = plain keys)
    - Include combos only if `COMBO_ENABLE = yes`
-   - Map all custom dual-function keys using `{t: X, s: Y}` format
+   - Map custom keycodes (oneshot modifiers, swapper, mod morph)
+   - Read the active layout from `layouts/` directory based on `XC_LAYOUT` setting
 
 4. **Generate YAML**:
    - Use proper indentation (2 spaces)
-   - Include all 6 layers: Base, HMR, NAV, NUM, SYM, ACC
+   - Include all 4 layers: Base, FAVS, NAV, SYMBOLS
    - Add combo alignment (`align: top/bottom`)
    - Include `draw_config` section with sensible defaults
 
@@ -394,22 +379,18 @@ draw_config:
 
 ## Notes
 - This keyboard uses a split ortholinear layout (Kaly42)
-- It has up to 6 layers with different purposes (HMR layer is optional)
-- Home row mods on Base layer are conditional (read `XC_HRM` flag from `rules.mk`)
-- HMR layer (layer 1) is conditional (read `XC_HRM_LAYER` flag from `rules.mk`)
-  - When disabled, layer 1 is not compiled (stored in `layer_hrm.h`)
-  - **Do not include HMR layer in YAML when `XC_HRM_LAYER = no`**
-- Many custom dual-function keys for symbols and modifiers
+- It has 4 layers with different purposes
+- Base layer keys are defined in `layouts/` directory (qwerty.h, focal.h, gallium.h, or graphite.h)
+- Active layout is determined by `XC_LAYOUT` setting in `rules.mk`
+- Features oneshot modifiers for Shift, Ctrl, Alt, and GUI
+- Window swapper (SW_WIN) for app switching
+- Morphing modifier (MM_GUICTRL) that toggles between GUI and Ctrl
 - Combos are conditional (read `COMBO_ENABLE` from `rules.mk`)
-- Combos are extracted by parsing the `combo_t key_combos[]` array in keymap.c
-- Some combos use custom keycodes (e.g., `SFT_LEAD`) - must find their physical positions in the layout
-- Multi-layer combos are defined with multiple arrays (e.g., `sft_d_combo_l0`, `sft_d_combo_l3`, `sft_d_combo_l4`)
+- Weak corners feature (read `XC_WEAK_CORNERS` from `rules.mk`) replaces corner keys with combos
 - Always use shorthand notation for cleaner output
 
 ## Layer Structure
-- **Layer 0**: Base (always included)
-- **Layer 1**: HMR - Home Row Mods (optional, controlled by `XC_HRM_LAYER`)
-- **Layer 2**: NAV - Navigation (always included)
-- **Layer 3**: NUM - Numpad (always included)
-- **Layer 4**: SYM - Symbols (always included)
-- **Layer 5**: ACC - Accents/Compose (always included)
+- **Layer 0**: Base - Main typing layer with letters and basic keys
+- **Layer 1**: FAVS - Favorites layer with oneshot modifiers and common shortcuts
+- **Layer 2**: NAV - Navigation with arrow keys and editing commands
+- **Layer 3**: SYMBOLS - Numbers and symbols
