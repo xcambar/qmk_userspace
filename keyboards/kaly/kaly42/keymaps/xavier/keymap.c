@@ -258,7 +258,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case 0:  // switch_os combo (R + V)
             if (pressed) {
                 toggle_os_platform();
-                toggle_mod_morph();
             }
             break;
         case 1:  // print_os combo (Shift + V + R)
