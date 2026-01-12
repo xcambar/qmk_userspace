@@ -36,6 +36,9 @@
 // Modifier morph (GUI/Ctrl toggle)
 #include "features/mod_morph.h"
 
+// OS control for platform-aware features
+#include "features/os_control.h"
+
 enum layers {
     BASE = 0,
     FAVS,
@@ -54,10 +57,12 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
-const uint16_t PROGMEM toggle_morph_combo[] = {_04_, _28_, COMBO_END};  // GUI + Ctrl oneshots to toggle mod morph
+const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
+const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // E + V + R to print OS name
 
 combo_t key_combos[] = {
-    COMBO_ACTION(toggle_morph_combo),  // Handled in process_combo_event
+    COMBO_ACTION(switch_os),  // Handled in process_combo_event
+    COMBO_ACTION(print_os),   // Handled in process_combo_event
     XC_WEAK_CORNERS_COMBOS
     COMBO(boot_combo, QK_BOOT),
 };
@@ -250,9 +255,15 @@ bool is_swapper_ignored_key(uint16_t keycode) {
 // Combo event handler
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-        case 0:
+        case 0:  // switch_os combo (R + V)
             if (pressed) {
+                toggle_os_platform();
                 toggle_mod_morph();
+            }
+            break;
+        case 1:  // print_os combo (Shift + V + R)
+            if (pressed) {
+                send_string(get_os_platform_name());
             }
             break;
     }
