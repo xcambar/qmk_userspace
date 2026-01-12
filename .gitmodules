@@ -1,6 +1,0 @@
-[submodule "modules/getreuer"]
-	path = modules/getreuer
-	url = https://github.com/getreuer/qmk-modules.git
-[submodule "modules/HandsDown"]
-	path = modules/HandsDown
-	url = git@github.com:moutis/HandsDown.git

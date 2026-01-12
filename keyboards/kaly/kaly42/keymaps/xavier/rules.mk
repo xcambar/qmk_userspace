@@ -15,6 +15,7 @@ SRC += features/os_control.c
 SRC += features/oneshot.c
 SRC += features/swapper.c
 SRC += features/mod_morph.c
+SRC += features/semantic_keys.c
 
 
 ###################
@@ -25,8 +26,6 @@ SRC += features/mod_morph.c
 XC_LAYOUT ?= qwerty
 
 XC_WEAK_CORNERS = yes
-
-
 
 ###################
 # This manipulates the options

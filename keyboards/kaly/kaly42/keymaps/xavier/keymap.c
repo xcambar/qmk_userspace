@@ -20,6 +20,7 @@
 #include "keymap_eurkey.h"
 #include QMK_KEYBOARD_H
 #include <stdbool.h>
+#include <stdint.h>
 
 // Base layer switch
 #include "feature_base_layer.h"
@@ -46,15 +47,11 @@ enum layers {
     SYMBOLS
 };
 
-enum custom_keycodes {
-    SFT_LEAD = SAFE_RANGE,  // Shift on hold, Leader on tap
-    OS_SHFT,                 // Oneshot shift
-    OS_CTRL,                 // Oneshot control
-    OS_ALT,                  // Oneshot alt
-    OS_GUI,                  // Oneshot GUI
-    SW_WIN,                  // Switch window (cmd-tab)
-    MM_GUICTRL              // Modifier swappable between GUI and Ctrl
-};
+// Custom keycodes - defined in custom_keycodes.h
+#include "custom_keycodes.h"
+
+// Include semantic keys header
+#include "features/semantic_keys.h"
 
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
@@ -172,6 +169,11 @@ oneshot_state os_gui_state = os_up_unqueued;
 static bool sw_win_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process semantic keys (platform-independent editing commands)
+    if (!process_semkey(keycode, record)) {
+        return false;  // Semantic key was handled
+    }
+
     // Update swapper
     update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
 
