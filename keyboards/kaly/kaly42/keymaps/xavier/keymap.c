@@ -131,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock, OSf=Oneshot Shift
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   C(KC_C), C(KC_V), KC_NO,                              KC_NO,   KC_HOME, KC_PGUP, KC_NO,   KC_NO,   KC_NO,
-        TO(BASE), KC_NO,   KC_NO,   C(KC_Z), C(KC_A), KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   SK_COPY, SK_PSTE, KC_NO,                              KC_NO,   KC_HOME, KC_PGUP, KC_NO,   KC_NO,   KC_NO,
+        TO(BASE), KC_NO,   KC_NO,   SK_UNDO, SK_SALL, KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_PGDN, KC_END,  KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   OS_SHFT, QK_LAYER_LOCK,          KC_NO, KC_LSFT, KC_NO
     ),
@@ -279,33 +279,30 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 }
 
-// Leader key sequences for dead keys
-// E = acute (é), A = grave (à), U = diaeresis (ü), O = circumflex (ô), N = tilde (ñ)
-// C = cedilla (ç), M = special handling
+// Leader key sequences for special characters and dead keys
+// W = Euro (€), C = Cedilla (ç), N = Ñ
+// E = acute (é), A = grave (à), U = diaeresis (ü), O = circumflex (ô)
 void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_E)) {
+    if (leader_sequence_one_key(KC_W)) {
+        // Euro: €
+        tap_semkey_code(SK_EURO);
+    } else if (leader_sequence_one_key(KC_C)) {
+        // Cedilla: ç
+        tap_semkey_code(SK_CEDIL);
+    } else if (leader_sequence_one_key(KC_M)) {
+        // N with tilde: ñ
+        tap_semkey_code(SK_NTILDE);
+    } else if (leader_sequence_one_key(KC_E)) {
         // Acute: é
-        tap_code16(get_dead_key_code(DK_ACUTE));
+        tap_deadkey_code(DK_ACUTE);
     } else if (leader_sequence_one_key(KC_A)) {
         // Grave: à
-        tap_code16(get_dead_key_code(DK_GRAVE));
+        tap_deadkey_code(DK_GRAVE);
     } else if (leader_sequence_one_key(KC_U)) {
         // Diaeresis: ü
-        tap_code16(get_dead_key_code(DK_DIAE));
+        tap_deadkey_code(DK_DIAE);
     } else if (leader_sequence_one_key(KC_O)) {
         // Circumflex: ô
-        tap_code16(get_dead_key_code(DK_CIRC));
-    } else if (leader_sequence_one_key(KC_N)) {
-        // Tilde: ñ
-        tap_code16(get_dead_key_code(DK_TILDE));
-    } else if (leader_sequence_one_key(KC_C)) {
-        // Cedilla: ç (special - sends compose sequence directly)
-        tap_code16(RALT(KC_COMMA));
-        tap_code(KC_C);
-    } else if (leader_sequence_one_key(KC_N)) {
-        // Special case: ñ via direct method
-        tap_code16(RALT(KC_TILD));
-        tap_code(KC_N);
+        tap_deadkey_code(DK_CIRC);
     }
 }
-

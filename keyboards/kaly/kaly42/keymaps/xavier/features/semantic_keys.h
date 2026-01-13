@@ -25,3 +25,6 @@
 // Process semantic keys - call from process_record_user()
 // Returns true to continue processing, false if handled
 bool process_semkey(uint16_t keycode, keyrecord_t *record);
+
+// Tap the platform-specific keycode sequence for a semantic key (for use in leader sequences, etc.)
+void tap_semkey_code(uint16_t sk);
