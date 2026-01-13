@@ -18,5 +18,13 @@ enum custom_keycodes {
     SK_COPY,                 // Copy
     SK_PSTE,                 // Paste
     SK_SALL,                 // Select All
-    _SK_END_                 // Marker: end of semantic keys (not a real key)
+    _SK_END_,                // Marker: end of semantic keys (not a real key)
+    // Dead keys (accent keys)
+    _DK_BEGIN_,              // Marker: start of dead keys (not a real key)
+    DK_ACUTE,                // Acute accent (´) - for á é í ó ú ý
+    DK_GRAVE,                // Grave accent (`) - for à è ì ò ù
+    DK_CIRC,                 // Circumflex (^) - for â ê î ô û
+    DK_DIAE,                 // Diaeresis/Umlaut (¨) - for ä ë ï ö ü ÿ
+    DK_TILDE,                // Tilde (~) - for ã ñ õ
+    _DK_END_                 // Marker: end of dead keys (not a real key)
 };
