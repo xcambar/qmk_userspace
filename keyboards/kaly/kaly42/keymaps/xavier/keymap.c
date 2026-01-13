@@ -53,6 +53,9 @@ enum layers {
 // Include semantic keys header
 #include "features/semantic_keys.h"
 
+// Include dead keys header
+#include "features/dead_keys.h"
+
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
 const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // E + V + R to print OS name
@@ -75,17 +78,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤RSf├───┐   ┌───┤SPC├───┘
-      *                   └───┤FAV│   │FAV├───┘       FAV=FAVS layer
+      *               └───┤S/L├───┐   ┌───┤SPC├───┘
+      *                   └───┤FAV│   │FAV├───┘       FAV=FAVS layer, S/L=Shift/Leader
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), Tab+Bsp→QK_BOOT
+      * S/L=SFT_LEAD: Hold for Shift, Tap for Leader
       */
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   KC_RSFT, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
      /*
       * FAVS Layer (Layer 1) - Favorite shortcuts and modifiers
@@ -169,6 +173,11 @@ oneshot_state os_gui_state = os_up_unqueued;
 static bool sw_win_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process dead keys FIRST (before semantic keys and oneshots)
+    if (!process_dead_key(keycode, record)) {
+        return false;  // Dead key was handled
+    }
+
     // Process semantic keys (platform-independent editing commands)
     if (!process_semkey(keycode, record)) {
         return false;  // Semantic key was handled
@@ -270,20 +279,31 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 }
 
-// Leader key sequences
+// Leader key sequences for dead keys
+// E = acute (é), A = grave (à), U = diaeresis (ü), O = circumflex (ô), N = tilde (ñ)
+// C = cedilla (ç), M = special handling
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_E)) {
-        tap_code16(RALT(KC_QUOT));
+        // Acute: é
+        tap_code16(get_dead_key_code(DK_ACUTE));
     } else if (leader_sequence_one_key(KC_A)) {
-        tap_code16(RALT(KC_GRV));
+        // Grave: à
+        tap_code16(get_dead_key_code(DK_GRAVE));
     } else if (leader_sequence_one_key(KC_U)) {
-        tap_code16(RALT(S(KC_QUOT)));
+        // Diaeresis: ü
+        tap_code16(get_dead_key_code(DK_DIAE));
     } else if (leader_sequence_one_key(KC_O)) {
-        tap_code16(RALT(S(KC_6)));
+        // Circumflex: ô
+        tap_code16(get_dead_key_code(DK_CIRC));
+    } else if (leader_sequence_one_key(KC_N)) {
+        // Tilde: ñ
+        tap_code16(get_dead_key_code(DK_TILDE));
     } else if (leader_sequence_one_key(KC_C)) {
+        // Cedilla: ç (special - sends compose sequence directly)
         tap_code16(RALT(KC_COMMA));
         tap_code(KC_C);
-    } else if (leader_sequence_one_key(KC_M)) {
+    } else if (leader_sequence_one_key(KC_N)) {
+        // Special case: ñ via direct method
         tap_code16(RALT(KC_TILD));
         tap_code(KC_N);
     }

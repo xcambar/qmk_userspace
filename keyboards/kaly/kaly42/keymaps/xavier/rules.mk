@@ -16,6 +16,7 @@ SRC += features/oneshot.c
 SRC += features/swapper.c
 SRC += features/mod_morph.c
 SRC += features/semantic_keys.c
+SRC += features/dead_keys.c
 
 
 ###################
