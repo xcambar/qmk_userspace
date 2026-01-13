@@ -7,7 +7,7 @@
 #include "os_control.h"
 
 // Current OS platform (defaults to macOS)
-static uint8_t current_os = OS_MacOS;
+static uint8_t current_os = OS_Linux;
 
 // OS platform names
 static const char* os_names[] = {
