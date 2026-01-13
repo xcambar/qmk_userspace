@@ -18,6 +18,9 @@ enum custom_keycodes {
     SK_COPY,                 // Copy
     SK_PSTE,                 // Paste
     SK_SALL,                 // Select All
+    SK_EURO,                 // Euro symbol (€)
+    SK_CEDIL,                // Cedilla (ç)
+    SK_NTILDE,               // N with tilde (ñ)
     _SK_END_,                // Marker: end of semantic keys (not a real key)
     // Dead keys (accent keys)
     _DK_BEGIN_,              // Marker: start of dead keys (not a real key)

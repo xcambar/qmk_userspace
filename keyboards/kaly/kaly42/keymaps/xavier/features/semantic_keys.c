@@ -8,12 +8,18 @@
  *
  * This implementation provides platform-independent editing commands
  * that automatically send the correct keystroke for Mac or Linux.
+ *
+ * Supports sequences of keycodes for complex inputs (e.g., dead keys + letter)
  */
 
-// Semantic key data structure: holds platform-specific keycodes
+// Maximum number of keycodes in a sequence
+#define MAX_SEMKEY_SEQUENCE 3
+
+// Semantic key data structure: holds platform-specific keycode sequences
+// Sequences are terminated by KC_NO
 typedef struct {
-    uint16_t mac_keycode;
-    uint16_t linux_keycode;
+    uint16_t mac_sequence[MAX_SEMKEY_SEQUENCE];
+    uint16_t linux_sequence[MAX_SEMKEY_SEQUENCE];
 } semkey_map_t;
 
 // Helper macros for semantic key management
@@ -26,17 +32,42 @@ typedef struct {
 
 // Lookup table for semantic keys by platform
 // Using designated initializers (C99) for clarity - order doesn't matter!
-// Format: [SK_ndx(keycode)] = {mac_key, linux_key}
+// Format: [SK_ndx(keycode)] = {{mac_seq}, {linux_seq}}
+// Sequences terminated by KC_NO
 static const semkey_map_t semkey_table[SK_count] = {
-    [SK_ndx(SK_UNDO)] = {G(KC_Z), C(KC_Z)},      // Undo
-    [SK_ndx(SK_CUT)]  = {G(KC_X), C(KC_X)},      // Cut
-    [SK_ndx(SK_COPY)] = {G(KC_C), C(KC_C)},      // Copy
-    [SK_ndx(SK_PSTE)] = {G(KC_V), C(KC_V)},      // Paste
-    [SK_ndx(SK_SALL)] = {G(KC_A), C(KC_A)},      // Select All
+    [SK_ndx(SK_UNDO)]   = {{G(KC_Z), KC_NO},              {C(KC_Z), KC_NO}},                    // Undo
+    [SK_ndx(SK_CUT)]    = {{G(KC_X), KC_NO},              {C(KC_X), KC_NO}},                    // Cut
+    [SK_ndx(SK_COPY)]   = {{G(KC_C), KC_NO},              {C(KC_C), KC_NO}},                    // Copy
+    [SK_ndx(SK_PSTE)]   = {{G(KC_V), KC_NO},              {C(KC_V), KC_NO}},                    // Paste
+    [SK_ndx(SK_SALL)]   = {{G(KC_A), KC_NO},              {C(KC_A), KC_NO}},                    // Select All
+    [SK_ndx(SK_EURO)]   = {{LALT(S(KC_2)), KC_NO},        {RALT(KC_EQL), KC_E, KC_NO}},         // Euro (€): Mac: Opt+Shift+2 | Linux: AltGr+=, E
+    [SK_ndx(SK_CEDIL)]  = {{LALT(KC_C), KC_NO},           {RALT(KC_COMMA), KC_C, KC_NO}},       // Cedilla (ç): Mac: Opt+C | Linux: AltGr+,, C
+    [SK_ndx(SK_NTILDE)] = {{LALT(KC_N), KC_N, KC_NO},     {RALT(LSFT(KC_GRV)), KC_N, KC_NO}},           // Ñ: Mac: Opt+N, N | Linux: AltGr+N, N
 };
 
-// Get the platform-specific keycode for a semantic key
-static uint16_t get_SemKeyCode(uint16_t sk) {
+// Tap a sequence of keycodes for a semantic key (public function)
+void tap_semkey_code(uint16_t sk) {
+    if (!is_SemKey(sk)) {
+        return;
+    }
+
+    uint16_t idx = SK_ndx(sk);
+    if (idx >= SK_count) {
+        return;
+    }
+
+    const semkey_map_t *entry = &semkey_table[idx];
+    const uint16_t *sequence = (get_os_platform() == OS_MacOS) ? entry->mac_sequence : entry->linux_sequence;
+
+    // Tap each keycode in the sequence until we hit KC_NO
+    for (int i = 0; i < MAX_SEMKEY_SEQUENCE && sequence[i] != KC_NO; i++) {
+        tap_code16(sequence[i]);
+    }
+}
+
+// Get the first platform-specific keycode for a semantic key (for backwards compatibility)
+// Returns KC_NO for multi-keycode sequences
+uint16_t get_semkey_code(uint16_t sk) {
     if (!is_SemKey(sk)) {
         return KC_NO;
     }
@@ -47,12 +78,14 @@ static uint16_t get_SemKeyCode(uint16_t sk) {
     }
 
     const semkey_map_t *entry = &semkey_table[idx];
+    const uint16_t *sequence = (get_os_platform() == OS_MacOS) ? entry->mac_sequence : entry->linux_sequence;
 
-    if (get_os_platform() == OS_MacOS) {
-        return entry->mac_keycode;
-    } else {
-        return entry->linux_keycode;
+    // Return first keycode if it's the only one, otherwise KC_NO (use tap_semkey_code instead)
+    if (sequence[0] != KC_NO && sequence[1] == KC_NO) {
+        return sequence[0];
     }
+
+    return KC_NO;  // Multi-keycode sequence, can't return a single code
 }
 
 // Track the registered semantic key for proper release
@@ -85,15 +118,16 @@ bool process_semkey(uint16_t keycode, keyrecord_t *record) {
         }
 
         // Get the platform-specific keycode
-        uint16_t platform_keycode = get_SemKeyCode(actual_keycode);
+        uint16_t platform_keycode = get_semkey_code(actual_keycode);
 
-        if (platform_keycode == KC_NO) {
-            return false; // Invalid semantic key, consume it
+        // If it's a single keycode, use register/unregister for proper hold behavior
+        if (platform_keycode != KC_NO) {
+            register_code16(platform_keycode);
+            registered_semkey_code = platform_keycode;
+        } else {
+            // Multi-keycode sequence - just tap it
+            tap_semkey_code(actual_keycode);
         }
-
-        // Send the platform-specific keycode
-        register_code16(platform_keycode);
-        registered_semkey_code = platform_keycode;
     } else {
         // Key release: unregister whatever we sent on keydown
         if (registered_semkey_code != KC_NO) {

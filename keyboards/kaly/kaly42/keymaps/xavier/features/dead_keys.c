@@ -39,8 +39,8 @@ static const deadkey_map_t deadkey_table[DK_count] = {
     [DK_ndx(DK_TILDE)] = {LALT(KC_N),          RALT(KC_N)},           // Mac: Opt+N  | Linux: AltGr+N
 };
 
-// Get the platform-specific keycode for a dead key (public function)
-uint16_t get_dead_key_code(uint16_t dk) {
+// Get the platform-specific keycode for a dead key (internal helper)
+static uint16_t get_dead_key_code(uint16_t dk) {
     if (!is_DeadKey(dk)) {
         return KC_NO;
     }
@@ -59,6 +59,18 @@ uint16_t get_dead_key_code(uint16_t dk) {
     }
 }
 
+// Tap the platform-specific dead key for a dead key (public function)
+void tap_deadkey_code(uint16_t dk) {
+    if (!is_DeadKey(dk)) {
+        return;
+    }
+
+    uint16_t platform_keycode = get_dead_key_code(dk);
+    if (platform_keycode != KC_NO) {
+        tap_code16(platform_keycode);
+    }
+}
+
 // Process dead keys - call from process_record_user() BEFORE process_semkey()
 bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
     // Not a dead key? Continue normal processing
@@ -67,15 +79,7 @@ bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (record->event.pressed) {
-        // Get the platform-specific keycode
-        uint16_t platform_keycode = get_dead_key_code(keycode);
-
-        if (platform_keycode == KC_NO) {
-            return false; // Invalid or unimplemented dead key, consume it
-        }
-
-        // Send the platform-specific dead key sequence
-        tap_code16(platform_keycode);
+        tap_deadkey_code(keycode);
     }
 
     // Don't process this key further
