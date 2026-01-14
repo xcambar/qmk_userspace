@@ -7,14 +7,14 @@
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
  * │     │  B  │  L  │  D  │  W  │  Z  │       │  '  │  F  │  O  │  U  │  J  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Esc │  N  │  R  │  T  │  S  │  G  │       │  Y  │  H  │  A  │  E  │  I  │  ;  │
+ * │     │  N  │  R  │  T  │  S  │  G  │       │  Y  │  H  │  A  │  E  │  I  │  ;  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │  Q  │  X  │  M  │  C  │  V  │       │  K  │  P  │  ,  │  .  │  -  │     │
  * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
  *                     ┌─────┐                           ┌─────┐
- *                     │ Gui ├─────┐               ┌─────┤ Alt │
- *                     └─────┤ Bsp ├─────┐   ┌─────┤ Ent ├─────┘
- *                           └─────┤ Spc │   │ Spc ├─────┘
+ *                     │     ├─────┐               ┌─────┤     │
+ *                     └─────┤     ├─────┐   ┌─────┤     ├─────┘
+ *                           └─────┤     │   │     ├─────┘
  *                                 └─────┘   └─────┘
  */
 
@@ -30,10 +30,10 @@
 #define _08_ KC_O
 #define _09_ KC_U
 #define _10_ KC_J
-#define _11_ KC_BSPC
+#define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
-#define _12_ KC_ESC
+#define _12_ KC_NO
 #define _13_ KC_N
 #define _14_ KC_R
 #define _15_ KC_T
@@ -61,9 +61,9 @@
 #define _35_ KC_NO
 
 // Thumb cluster (keys 36-41)
-#define _36_ KC_LGUI
-#define _37_ KC_BSPC
-#define _38_ KC_SPC
-#define _39_ KC_SPC
-#define _40_ KC_ENT
-#define _41_ KC_RALT
+#define _36_ KC_NO
+#define _37_ KC_NO
+#define _38_ KC_NO
+#define _39_ KC_NO
+#define _40_ KC_NO
+#define _41_ KC_NO
