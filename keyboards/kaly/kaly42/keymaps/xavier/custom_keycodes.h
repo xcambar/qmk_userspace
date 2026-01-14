@@ -21,6 +21,12 @@ enum custom_keycodes {
     SK_EURO,                 // Euro symbol (€)
     SK_CEDIL,                // Cedilla (ç)
     SK_NTILDE,               // N with tilde (ñ)
+    SK_WORDPRV,              // Word left
+    SK_WORDNXT,              // Word right
+    SK_DOCBEG,               // Document begin
+    SK_DOCEND,               // Document end
+    SK_LINEBEG,              // Line begin
+    SK_LINEEND,              // Line end
     _SK_END_,                // Marker: end of semantic keys (not a real key)
     // Dead keys (accent keys)
     _DK_BEGIN_,              // Marker: start of dead keys (not a real key)
