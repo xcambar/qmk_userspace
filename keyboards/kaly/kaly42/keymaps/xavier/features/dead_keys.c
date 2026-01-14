@@ -8,7 +8,7 @@
  *
  * This implementation sends the OS-specific dead key sequences.
  * On Linux: Uses AltGr (Right Alt) + key to trigger OS dead keys
- * On macOS: Placeholder (KC_NO for now)
+ * On macOS: Uses Option (Left Alt) + key to trigger OS dead keys
  *
  * This is simpler and more reliable than Unicode input.
  */

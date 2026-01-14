@@ -20,7 +20,6 @@
  * 2. Include this header in keymap.c
  * 3. Add dead_keys.c to SRC in rules.mk
  * 4. Call process_dead_key() in process_record_user() BEFORE process_semkey()
- * 5. Enable Unicode in config.h and rules.mk
  */
 
 // Process dead keys - call from process_record_user() BEFORE process_semkey()
