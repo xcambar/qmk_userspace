@@ -44,6 +44,8 @@ enum layers {
     BASE = 0,
     FAVS,
     NAV,
+    NAV_FASTER,
+    NAV_FASTEST,
     SYMBOLS
 };
 
@@ -117,24 +119,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * Navigation Layer - Arrow keys and navigation
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │Cpy│Pst│   │       │   │Hom│PgU│   │   │   │
+      * │   │   │Udo│Cpy│Pst│C-A│       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │#BS│   │   │Udo│C-A│   │       │ ← │ ↓ │ ↑ │ → │   │   │
+      * │#BS│   │   │NFa│NF+│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │   │   │   │   │       │   │PgD│End│   │   │   │
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤OSf├───┐   ┌───┤Sft├───┘
       *                   └───┤Lck│   │   ├───┘
       *                       └───┘   └───┘
-      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Ctrl+A, Lck=Layer Lock, OSf=Oneshot Shift
+      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Select All, NF+=NAV_FASTER, NFa=NAV_FASTEST, Lck=Layer Lock, OSf=Oneshot Shift
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   SK_COPY, SK_PSTE, KC_NO,                              KC_NO,   KC_HOME, KC_PGUP, KC_NO,   KC_NO,   KC_NO,
-        TO(BASE), KC_NO,   KC_NO,   SK_UNDO, SK_SALL, KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_PGDN, KC_END,  KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   SK_UNDO, SK_COPY, SK_PSTE, SK_SALL,                            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        TO(BASE), KC_NO,   KC_NO,   MO(NAV_FASTEST), MO(NAV_FASTER), KC_NO,              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   OS_SHFT, QK_LAYER_LOCK,          KC_NO, KC_LSFT, KC_NO
+    ),
+     /*
+      * Navigation Faster Layer - Word and page navigation
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │   │       │W← │PgD│PgU│W→ │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤Sft├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
+      *                       └───┘   └───┘
+      * W←=Word Left, W→=Word Right
+      */
+    [NAV_FASTER] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              SK_WORDPRV, KC_PGDN, KC_PGUP, SK_WORDNXT, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                            KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
+    ),
+     /*
+      * Navigation Fastest Layer - Document and line navigation
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │   │       │L← │D↓ │D↑ │L→ │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤Sft├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
+      *                       └───┘   └───┘
+      * L←=Line Begin, L→=Line End, D↑=Doc Begin, D↓=Doc End
+      */
+    [NAV_FASTEST] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              SK_LINEBEG, SK_DOCEND, SK_DOCBEG, SK_LINEEND, KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                            KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
     ),
      /*
       * Layer 3 - Easy Symbols and Numbers
@@ -241,6 +287,8 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case KC_LGUI:
         case KC_RGUI:
         case MO(NAV):
+        case MO(NAV_FASTER):
+        case MO(NAV_FASTEST):
         case MO(FAVS):
         case MO(SYMBOLS):
         case QK_LAYER_LOCK:
