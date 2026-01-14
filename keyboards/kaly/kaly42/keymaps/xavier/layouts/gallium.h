@@ -5,21 +5,21 @@
 /*
  * Gallium Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │ Tab │  B  │  L  │  D  │  C  │  V  │       │  J  │  Y  │  O  │  U  │  ,  │ Bsp │
+ * │     │  B  │  L  │  D  │  C  │  V  │       │  J  │  Y  │  O  │  U  │  ,  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Ctl │  N  │  R  │  T  │  S  │  G  │       │  P  │  H  │  A  │  E  │  I  │  '  │
+ * │     │  N  │  R  │  T  │  S  │  G  │       │  P  │  H  │  A  │  E  │  I  │  '  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Sft │  X  │  Q  │  M  │  W  │  Z  │       │  K  │  F  │  ;  │  .  │  /  │ Sft │
+ * │     │  X  │  Q  │  M  │  W  │  Z  │       │  K  │  F  │  ;  │  .  │  /  │     │
  * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
  *                     ┌─────┐                           ┌─────┐
- *                     │ Gui ├─────┐               ┌─────┤ Alt │
- *                     └─────┤ Bsp ├─────┐   ┌─────┤ Ent ├─────┘
- *                           └─────┤ Spc │   │ Spc ├─────┘
+ *                     │     ├─────┐               ┌─────┤     │
+ *                     └─────┤     ├─────┐   ┌─────┤     ├─────┘
+ *                           └─────┤     │   │     ├─────┘
  *                                 └─────┘   └─────┘
  */
 
 // Row 0 (top row, columns 0-11)
-#define _00_ KC_TAB
+#define _00_ KC_NO
 #define _01_ KC_B
 #define _02_ KC_L
 #define _03_ KC_D
@@ -30,10 +30,10 @@
 #define _08_ KC_O
 #define _09_ KC_U
 #define _10_ KC_COMM
-#define _11_ KC_BSPC
+#define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
-#define _12_ KC_LCTL
+#define _12_ KC_NO
 #define _13_ KC_N
 #define _14_ KC_R
 #define _15_ KC_T
@@ -47,7 +47,7 @@
 #define _23_ KC_QUOT
 
 // Row 2 (bottom row, columns 24-35)
-#define _24_ KC_LSFT
+#define _24_ KC_NO
 #define _25_ KC_X
 #define _26_ KC_Q
 #define _27_ KC_M
@@ -58,12 +58,12 @@
 #define _32_ KC_SCLN
 #define _33_ KC_DOT
 #define _34_ KC_SLSH
-#define _35_ KC_RSFT
+#define _35_ KC_NO
 
 // Thumb cluster (keys 36-41)
-#define _36_ KC_LGUI
-#define _37_ KC_BSPC
-#define _38_ KC_SPC
-#define _39_ KC_SPC
-#define _40_ KC_ENT
-#define _41_ KC_RALT
+#define _36_ KC_NO
+#define _37_ KC_NO
+#define _38_ KC_NO
+#define _39_ KC_NO
+#define _40_ KC_NO
+#define _41_ KC_NO
