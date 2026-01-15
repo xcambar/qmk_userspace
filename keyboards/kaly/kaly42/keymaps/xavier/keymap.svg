@@ -753,8 +753,10 @@ path.combo {
 <g transform="translate(150, 98)" class="key keypos-14">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(210, 90)" class="key keypos-15">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(210, 90)" class="key layer keypos-15">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:layers-triple" xlink:href="#mdi:layers-triple" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-triple"/>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">NAV_FASTES…</tspan></text>
 </g>
 <g transform="translate(270, 98)" class="key keypos-16">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
