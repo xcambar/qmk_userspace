@@ -141,7 +141,7 @@ layers:
               "",
               "",
               "",
-              "",
+              { t: $$mdi:layers-triple$$, h: "NAV_FASTEST (MO)", type: layer },
               "",
               "",
               { t: "Word←", h: "Word Left", type: nav },
