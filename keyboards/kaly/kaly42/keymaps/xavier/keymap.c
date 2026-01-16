@@ -58,6 +58,9 @@ enum layers {
 // Include dead keys header
 #include "features/dead_keys.h"
 
+// Include alternative symbols header
+#include "features/alt_symbols.h"
+
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
 const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // E + V + R to print OS name
@@ -70,96 +73,11 @@ combo_t key_combos[] = {
 };
 
 // Key Overrides for alternative base symbols (custom keycodes)
-// Each custom keycode has TWO overrides: unshifted and shifted behavior
+// Generated from table in features/alt_symbols.c
 #ifdef XC_ALT_BASE_SYMBOLS
-// AS_QUOT: ' (unshifted) → " (shifted)
-const key_override_t as_quot_unshifted = ko_make_with_layers_and_negmods(
-    0,                    // no trigger mod (unshifted)
-    AS_QUOT,              // trigger key
-    KC_QUOT,              // replacement: single quote
-    ~0,                   // all layers
-    MOD_MASK_SHIFT        // negating mods: don't fire if shift held
-);
-const key_override_t as_quot_shifted = ko_make_with_layers(
-    MOD_MASK_SHIFT,       // trigger with shift
-    AS_QUOT,              // trigger key
-    KC_DQUO,              // replacement: double quote
-    ~0                    // all layers
-);
-
-// AS_COMM: , (unshifted) → . (shifted)
-const key_override_t as_comm_unshifted = ko_make_with_layers_and_negmods(
-    0,                    // no trigger mod (unshifted)
-    AS_COMM,              // trigger key
-    KC_COMM,              // replacement: comma
-    ~0,                   // all layers
-    MOD_MASK_SHIFT        // negating mods: don't fire if shift held
-);
-const key_override_t as_comm_shifted = ko_make_with_layers(
-    MOD_MASK_SHIFT,       // trigger with shift
-    AS_COMM,              // trigger key
-    KC_DOT,               // replacement: dot
-    ~0                    // all layers
-);
-
-// AS_QUES: ? (unshifted) → ! (shifted)
-const key_override_t as_ques_unshifted = ko_make_with_layers_and_negmods(
-    0,
-    AS_QUES,
-    KC_QUES,              // question mark
-    ~0,
-    MOD_MASK_SHIFT
-);
-const key_override_t as_ques_shifted = ko_make_with_layers(
-    MOD_MASK_SHIFT,
-    AS_QUES,
-    KC_EXLM,              // exclamation
-    ~0
-);
-
-// AS_MINS: - (unshifted) → / (shifted)
-const key_override_t as_mins_unshifted = ko_make_with_layers_and_negmods(
-    0,
-    AS_MINS,
-    KC_MINS,              // minus
-    ~0,
-    MOD_MASK_SHIFT
-);
-const key_override_t as_mins_shifted = ko_make_with_layers(
-    MOD_MASK_SHIFT,
-    AS_MINS,
-    KC_SLSH,              // slash
-    ~0
-);
-
-// AS_UNDS: _ (unshifted) → | (shifted)
-const key_override_t as_unds_unshifted = ko_make_with_layers_and_negmods(
-    0,
-    AS_UNDS,
-    KC_UNDS,              // underscore
-    ~0,
-    MOD_MASK_SHIFT
-);
-const key_override_t as_unds_shifted = ko_make_with_layers(
-    MOD_MASK_SHIFT,
-    AS_UNDS,
-    KC_PIPE,              // pipe
-    ~0
-);
-
-const key_override_t *key_overrides[] = {
-    &as_quot_unshifted,
-    &as_quot_shifted,
-    &as_comm_unshifted,
-    &as_comm_shifted,
-    &as_ques_unshifted,
-    &as_ques_shifted,
-    &as_mins_unshifted,
-    &as_mins_shifted,
-    &as_unds_unshifted,
-    &as_unds_shifted,
-    NULL
-};
+// We need space for AS_count * 2 overrides + NULL terminator
+// AS_count is 5, so 5 * 2 + 1 = 11
+const key_override_t *key_overrides[11];
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -446,4 +364,16 @@ void leader_end_user(void) {
         // Circumflex: ô
         tap_deadkey_code(DK_CIRC);
     }
+}
+
+// Initialize alternative symbols key overrides
+void keyboard_post_init_user(void) {
+#ifdef XC_ALT_BASE_SYMBOLS
+    alt_symbols_init();
+    // Copy the override pointers from alt_symbols to the key_overrides array
+    const key_override_t **overrides = get_alt_symbol_overrides();
+    for (uint8_t i = 0; i < 11; i++) {
+        key_overrides[i] = overrides[i];
+    }
+#endif
 }

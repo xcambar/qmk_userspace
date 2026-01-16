@@ -40,7 +40,7 @@ enum custom_keycodes {
     _AS_BEGIN_,              // Marker: start of alt symbols (not a real key)
     AS_QUOT,                 // Alternative quote: ' → " (on shift)
     AS_COMM,                 // Alternative comma: , → . (on shift)
-    AS_QUES,                 // Alternative question: ? → ! (on shift)
+    AS_DOT,                 // Alternative question: ? → ! (on shift)
     AS_MINS,                 // Alternative minus: - → / (on shift)
     AS_UNDS,                 // Alternative underscore: _ → | (on shift)
     _AS_END_                 // Marker: end of alt symbols (not a real key)
