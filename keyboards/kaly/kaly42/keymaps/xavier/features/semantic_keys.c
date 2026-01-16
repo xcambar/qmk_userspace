@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "../custom_keycodes.h"  // Custom keycode definitions
-#include "semantic_keys.h"
+#include "../custom_keycodes.h"  // Must be included before semantic_keys.h
+#include "semantic_keys.h"       // Defines SK_* keycodes using SEMANTIC_KEYS_START
 #include "os_control.h"
 
 /*
@@ -23,9 +23,9 @@ typedef struct {
 } semkey_map_t;
 
 // Helper macros for semantic key management
-// Using _SK_BEGIN_ and _SK_END_ markers from custom_keycodes.h
-#define SK_beg (_SK_BEGIN_ + 1)  // First semantic key after the begin marker
-#define SK_end (_SK_END_)         // Last semantic key (the end marker itself)
+// Using _SK_BEGIN_ and _SK_END_ mark   ers from custom_keycodes.h
+#define SK_beg LIST_START_MARKER(SEMANTIC_KEYS)  // First semantic key after the begin marker
+#define SK_end LIST_LENGTH(SEMANTIC_KEYS)         // Last semantic key (the end marker itself)
 #define SK_count (SK_end - SK_beg)
 #define SK_ndx(sk) ((sk) - SK_beg)
 #define is_SemKey(sk) (((sk) >= (uint16_t)(SK_beg)) && ((sk) < (uint16_t)(SK_end)))

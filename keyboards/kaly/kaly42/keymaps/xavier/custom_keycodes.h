@@ -2,6 +2,24 @@
 
 #include "quantum.h"
 
+// Token concatenation helper macros for custom keycodes
+#define __CONCAT_IMPL(a, b) a ## b
+#define __CONCAT(a, b) __CONCAT_IMPL(a, b)
+
+#define LIST_START_MARKER(PREFIX) __CONCAT(__CONCAT(_, PREFIX), _START)
+#define LIST_LENGTH(PREFIX) __CONCAT(__CONCAT(_, PREFIX), _COUNT)
+
+#define CUSTOM_KEYCODES(PREFIX, ...) \
+    __FIRST(__VA_ARGS__) = LIST_START_MARKER(PREFIX), \
+    __REST(__VA_ARGS__), \
+    LIST_LENGTH(PREFIX)
+
+// Helper macros to extract first and rest of arguments
+#define __FIRST(first, ...) first
+#define __REST(first, ...) __VA_ARGS__
+
+#include "features/semantic_keys.h"
+
 // Custom keycodes for the xavier keymap
 enum custom_keycodes {
     SFT_LEAD = SAFE_RANGE,  // Shift on hold, Leader on tap
@@ -11,25 +29,12 @@ enum custom_keycodes {
     OS_GUI,                  // Oneshot GUI
     SW_WIN,                  // Switch window (cmd-tab)
     MM_GUICTRL,              // Modifier swappable between GUI and Ctrl
-    // Semantic keys (platform-independent editing commands)
-    _SK_BEGIN_,              // Marker: start of semantic keys (not a real key)
-    SK_UNDO,                 // Undo
-    SK_CUT,                  // Cut
-    SK_COPY,                 // Copy
-    SK_PSTE,                 // Paste
-    SK_SALL,                 // Select All
-    SK_EURO,                 // Euro symbol (€)
-    SK_CEDIL,                // Cedilla (ç)
-    SK_NTILDE,               // N with tilde (ñ)
-    SK_WORDPRV,              // Word left
-    SK_WORDNXT,              // Word right
-    SK_DOCBEG,               // Document begin
-    SK_DOCEND,               // Document end
-    SK_LINEBEG,              // Line begin
-    SK_LINEEND,              // Line end
-    _SK_END_,                // Marker: end of semantic keys (not a real key)
+
+    // Semantic keys (expanded from SEMANTIC_KEYS_LIST macro)
+    _SEMANTIC_KEYS_START,
+    SEMANTIC_KEYS_LIST,
     // Dead keys (accent keys)
-    _DK_BEGIN_,              // Marker: start of dead keys (not a real key)
+    _DK_BEGIN_ = _SEMANTIC_KEYS_COUNT,              // Marker: start of dead keys (not a real key)
     DK_ACUTE,                // Acute accent (´) - for á é í ó ú ý
     DK_GRAVE,                // Grave accent (`) - for à è ì ò ù
     DK_CIRC,                 // Circumflex (^) - for â ê î ô û
