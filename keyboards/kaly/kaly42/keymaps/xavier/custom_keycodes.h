@@ -3,20 +3,21 @@
 #include "quantum.h"
 
 // Token concatenation helper macros for custom keycodes
-#define __CONCAT_IMPL(a, b) a ## b
-#define __CONCAT(a, b) __CONCAT_IMPL(a, b)
+#define X_CONCAT_IMPL(a, b) a ## b
+#define X_CONCAT(a, b) X_CONCAT_IMPL(a, b)
 
-#define LIST_START_MARKER(PREFIX) __CONCAT(__CONCAT(_, PREFIX), _START)
-#define LIST_LENGTH(PREFIX) __CONCAT(__CONCAT(_, PREFIX), _COUNT)
+#define LIST_START_MARKER(PREFIX) X_CONCAT(X_CONCAT(_, PREFIX), _START)
+#define LIST_LENGTH(PREFIX) X_CONCAT(X_CONCAT(_, PREFIX), _COUNT)
 
 #define CUSTOM_KEYCODES(PREFIX, ...) \
-    __FIRST(__VA_ARGS__) = LIST_START_MARKER(PREFIX), \
-    __REST(__VA_ARGS__), \
+    LIST_START_MARKER(PREFIX), \
+    X_FIRST(__VA_ARGS__), \
+    X_REST(__VA_ARGS__), \
     LIST_LENGTH(PREFIX)
 
 // Helper macros to extract first and rest of arguments
-#define __FIRST(first, ...) first
-#define __REST(first, ...) __VA_ARGS__
+#define X_FIRST(first, ...) first
+#define X_REST(first, ...) __VA_ARGS__
 
 #include "features/semantic_keys.h"
 
@@ -31,7 +32,6 @@ enum custom_keycodes {
     MM_GUICTRL,              // Modifier swappable between GUI and Ctrl
 
     // Semantic keys (expanded from SEMANTIC_KEYS_LIST macro)
-    _SEMANTIC_KEYS_START,
     SEMANTIC_KEYS_LIST,
     // Dead keys (accent keys)
     _DK_BEGIN_ = _SEMANTIC_KEYS_COUNT,              // Marker: start of dead keys (not a real key)
