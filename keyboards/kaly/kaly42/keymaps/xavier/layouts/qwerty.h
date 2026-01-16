@@ -2,6 +2,21 @@
 // This file maps abstract key positions (_XX_) to actual QWERTY keycodes
 // This is the STANDARD QWERTY layout for a 42-key split keyboard
 
+// QWERTY places alternative symbols at positions 22, 23, 32, 33, 34
+#ifdef XC_ALT_BASE_SYMBOLS
+    #define _22_ ALT_SYM1            // ' / "
+    #define _23_ ALT_SYM5            // _ / |
+    #define _32_ ALT_SYM2            // , / .
+    #define _33_ ALT_SYM3            // ? / !
+    #define _34_ ALT_SYM4            // - / /
+#else
+    #define _22_ KC_SCLN             // ; / :
+    #define _23_ KC_QUOT             // ' / "
+    #define _32_ KC_COMM             // , / <
+    #define _33_ KC_DOT              // . / >
+    #define _34_ KC_SLSH             // / / ?
+#endif
+
 /*
  * QWERTY Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -33,6 +48,7 @@
 #define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
+// Positions 22, 23 are defined at top of file (alt symbols feature)
 #define _12_ KC_NO
 #define _13_ KC_A
 #define _14_ KC_S
@@ -43,10 +59,11 @@
 #define _19_ KC_J
 #define _20_ KC_K
 #define _21_ KC_L
-#define _22_ KC_SCLN
-#define _23_ KC_QUOT
+// _22_ defined above
+// _23_ defined above
 
 // Row 2 (bottom row, columns 24-35)
+// Positions 32, 33, 34 are defined at top of file (alt symbols feature)
 #define _24_ KC_NO
 #define _25_ KC_Z
 #define _26_ KC_X
@@ -55,9 +72,9 @@
 #define _29_ KC_B
 #define _30_ KC_N
 #define _31_ KC_M
-#define _32_ KC_COMM
-#define _33_ KC_DOT
-#define _34_ KC_SLSH
+// _32_ defined above
+// _33_ defined above
+// _34_ defined above
 #define _35_ KC_NO
 
 // Thumb cluster (keys 36-41)
