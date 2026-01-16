@@ -2,9 +2,6 @@
 // XC_LAYOUT is passed from rules.mk (e.g., -DXC_LAYOUT=QWERTY)
 // Default value is set in rules.mk as "qwerty" and converted to uppercase
 
-// Include alternative base symbols feature
-#include "feature_alt_base_symbols.h"
-
 // Define layout constants for comparison
 #define LAYOUT_QWERTY 1
 #define LAYOUT_GALLIUM 2

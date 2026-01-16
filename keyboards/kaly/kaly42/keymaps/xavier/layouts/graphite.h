@@ -4,11 +4,11 @@
 
 // GRAPHITE places alternative symbols at positions 6, 23, 32, 33, 34
 #ifdef XC_ALT_BASE_SYMBOLS
-    #define _06_ ALT_SYM5            // _ / |
-    #define _23_ ALT_SYM1            // ' / "
-    #define _32_ ALT_SYM2            // , / .
-    #define _33_ ALT_SYM3            // ? / !
-    #define _34_ ALT_SYM4            // - / /
+    #define _06_ AS_UNDS             // _ → |
+    #define _23_ AS_QUOT             // ' → "
+    #define _32_ AS_COMM             // , → ?
+    #define _33_ AS_DOT              // . → !
+    #define _34_ AS_MINS             // - → /
 #else
     #define _06_ KC_QUOT             // ' (default)
     #define _23_ KC_COMM             // , (default)
