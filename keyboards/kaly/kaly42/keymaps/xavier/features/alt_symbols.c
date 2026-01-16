@@ -7,8 +7,8 @@
 #ifdef XC_ALT_BASE_SYMBOLS
 
 // Helper macros for alt symbol management
-#define AS_beg (_AS_BEGIN_ + 1)  // First alt symbol after the begin marker
-#define AS_end (_AS_END_)         // Last alt symbol (the end marker itself)
+#define AS_beg (LIST_START_MARKER(ALT_SYMBOLS))
+#define AS_end (LIST_LENGTH(ALT_SYMBOLS))
 #define AS_count (AS_end - AS_beg)
 #define AS_ndx(as) ((as) - AS_beg)
 

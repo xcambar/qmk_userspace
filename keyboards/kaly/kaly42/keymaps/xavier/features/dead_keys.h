@@ -16,11 +16,20 @@
  * - Compatible with oneshot modifiers and semantic keys
  *
  * Usage in keymap.c:
- * 1. Define dead keys in custom_keycodes enum: DK_ACUTE, DK_GRAVE, DK_CIRC, DK_DIAE, DK_TILDE
- * 2. Include this header in keymap.c
- * 3. Add dead_keys.c to SRC in rules.mk
- * 4. Call process_dead_key() in process_record_user() BEFORE process_semkey()
+ * 1. Include this header after custom_keycodes.h
+ * 2. Add dead_keys.c to SRC in rules.mk
+ * 3. Call process_dead_key() in process_record_user() BEFORE process_semkey()
  */
+
+// Dead keys list using CUSTOM_KEYCODES macro from custom_keycodes.h
+// Expands to: _DEAD_KEYS_START, DK_ACUTE, ..., _DEAD_KEYS_COUNT
+#define DEAD_KEYS_LIST CUSTOM_KEYCODES(DEAD_KEYS, \
+        DK_ACUTE, \
+        DK_GRAVE, \
+        DK_CIRC, \
+        DK_DIAE, \
+        DK_TILDE \
+    )
 
 // Process dead keys - call from process_record_user() BEFORE process_semkey()
 // Returns true to continue processing, false if handled

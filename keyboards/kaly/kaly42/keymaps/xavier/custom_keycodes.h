@@ -20,6 +20,8 @@
 #define X_REST(first, ...) __VA_ARGS__
 
 #include "features/semantic_keys.h"
+#include "features/dead_keys.h"
+#include "features/alt_symbols.h"
 
 // Custom keycodes for the xavier keymap
 enum custom_keycodes {
@@ -33,20 +35,12 @@ enum custom_keycodes {
 
     // Semantic keys (expanded from SEMANTIC_KEYS_LIST macro)
     SEMANTIC_KEYS_LIST,
-    // Dead keys (accent keys)
-    _DK_BEGIN_ = _SEMANTIC_KEYS_COUNT,              // Marker: start of dead keys (not a real key)
-    DK_ACUTE,                // Acute accent (´) - for á é í ó ú ý
-    DK_GRAVE,                // Grave accent (`) - for à è ì ò ù
-    DK_CIRC,                 // Circumflex (^) - for â ê î ô û
-    DK_DIAE,                 // Diaeresis/Umlaut (¨) - for ä ë ï ö ü ÿ
-    DK_TILDE,                // Tilde (~) - for ã ñ õ
-    _DK_END_,                // Marker: end of dead keys (not a real key)
-    // Alternative symbols (custom shift morphing)
-    _AS_BEGIN_,              // Marker: start of alt symbols (not a real key)
-    AS_QUOT,                 // Alternative quote: ' → " (on shift)
-    AS_COMM,                 // Alternative comma: , → . (on shift)
-    AS_DOT,                 // Alternative question: ? → ! (on shift)
-    AS_MINS,                 // Alternative minus: - → / (on shift)
-    AS_UNDS,                 // Alternative underscore: _ → | (on shift)
-    _AS_END_                 // Marker: end of alt symbols (not a real key)
+
+    // Dead keys (expanded from DEAD_KEYS_LIST macro)
+    DEAD_KEYS_LIST,
+
+#ifdef XC_ALT_BASE_SYMBOLS
+    // Alternative symbols (expanded from ALT_SYMBOLS_LIST macro)
+    ALT_SYMBOLS_LIST,
+#endif
 };
