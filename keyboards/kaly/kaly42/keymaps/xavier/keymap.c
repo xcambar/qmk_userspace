@@ -69,6 +69,22 @@ combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
 };
 
+// Key Overrides for alternative base symbols
+#ifdef XC_ALT_BASE_SYMBOLS
+const key_override_t comma_dot_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_DOT);
+const key_override_t question_exclaim_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUES, KC_EXLM);
+const key_override_t minus_slash_override = ko_make_basic(MOD_MASK_SHIFT, KC_MINS, KC_SLSH);
+const key_override_t underscore_pipe_override = ko_make_basic(MOD_MASK_SHIFT, KC_UNDS, KC_PIPE);
+
+const key_override_t *key_overrides[] = {
+    &comma_dot_override,
+    &question_exclaim_override,
+    &minus_slash_override,
+    &underscore_pipe_override,
+    NULL
+};
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐

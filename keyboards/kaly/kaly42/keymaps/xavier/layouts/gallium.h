@@ -2,6 +2,21 @@
 // This file maps abstract key positions (_XX_) to actual Gallium keycodes
 // Gallium is an optimized layout designed for English typing efficiency
 
+// GALLIUM places alternative symbols at positions 10, 23, 32, 33, 34
+#ifdef XC_ALT_BASE_SYMBOLS
+    #define _10_ ALT_SYM5            // _ / |
+    #define _23_ ALT_SYM1            // ' / "
+    #define _32_ ALT_SYM2            // , / .
+    #define _33_ ALT_SYM3            // ? / !
+    #define _34_ ALT_SYM4            // - / /
+#else
+    #define _10_ KC_COMM             // , (default)
+    #define _23_ KC_QUOT             // ' (default)
+    #define _32_ KC_SCLN             // ; / :
+    #define _33_ KC_DOT              // . / >
+    #define _34_ KC_SLSH             // / / ?
+#endif
+
 /*
  * Gallium Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -19,6 +34,7 @@
  */
 
 // Row 0 (top row, columns 0-11)
+// Position 10 is defined at top of file (alt symbols feature)
 #define _00_ KC_NO
 #define _01_ KC_B
 #define _02_ KC_L
@@ -29,10 +45,11 @@
 #define _07_ KC_Y
 #define _08_ KC_O
 #define _09_ KC_U
-#define _10_ KC_COMM
+// _10_ defined above
 #define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
+// Position 23 is defined at top of file (alt symbols feature)
 #define _12_ KC_NO
 #define _13_ KC_N
 #define _14_ KC_R
@@ -44,9 +61,10 @@
 #define _20_ KC_A
 #define _21_ KC_E
 #define _22_ KC_I
-#define _23_ KC_QUOT
+// _23_ defined above
 
 // Row 2 (bottom row, columns 24-35)
+// Positions 32, 33, 34 are defined at top of file (alt symbols feature)
 #define _24_ KC_NO
 #define _25_ KC_X
 #define _26_ KC_Q
@@ -55,9 +73,9 @@
 #define _29_ KC_Z
 #define _30_ KC_K
 #define _31_ KC_F
-#define _32_ KC_SCLN
-#define _33_ KC_DOT
-#define _34_ KC_SLSH
+// _32_ defined above
+// _33_ defined above
+// _34_ defined above
 #define _35_ KC_NO
 
 // Thumb cluster (keys 36-41)
