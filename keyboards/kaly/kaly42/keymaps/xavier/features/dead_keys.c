@@ -20,8 +20,8 @@ typedef struct {
 } deadkey_map_t;
 
 // Helper macros for dead key management
-#define DK_beg (_DK_BEGIN_ + 1)
-#define DK_end (_DK_END_)
+#define DK_beg (LIST_START_MARKER(DEAD_KEYS))
+#define DK_end (LIST_LENGTH(DEAD_KEYS))
 #define DK_count (DK_end - DK_beg)
 #define DK_ndx(dk) ((dk) - DK_beg)
 #define is_DeadKey(dk) (((dk) >= (uint16_t)(DK_beg)) && ((dk) < (uint16_t)(DK_end)))
