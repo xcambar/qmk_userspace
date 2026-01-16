@@ -22,6 +22,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+// Custom keycodes (must be included before feature_base_layer.h)
+#include "custom_keycodes.h"
+
 // Base layer switch
 #include "feature_base_layer.h"
 
@@ -49,9 +52,6 @@ enum layers {
     SYMBOLS
 };
 
-// Custom keycodes - defined in custom_keycodes.h
-#include "custom_keycodes.h"
-
 // Include semantic keys header
 #include "features/semantic_keys.h"
 
@@ -69,18 +69,95 @@ combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
 };
 
-// Key Overrides for alternative base symbols
+// Key Overrides for alternative base symbols (custom keycodes)
+// Each custom keycode has TWO overrides: unshifted and shifted behavior
 #ifdef XC_ALT_BASE_SYMBOLS
-const key_override_t comma_dot_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_DOT);
-const key_override_t question_exclaim_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUES, KC_EXLM);
-const key_override_t minus_slash_override = ko_make_basic(MOD_MASK_SHIFT, KC_MINS, KC_SLSH);
-const key_override_t underscore_pipe_override = ko_make_basic(MOD_MASK_SHIFT, KC_UNDS, KC_PIPE);
+// AS_QUOT: ' (unshifted) → " (shifted)
+const key_override_t as_quot_unshifted = ko_make_with_layers_and_negmods(
+    0,                    // no trigger mod (unshifted)
+    AS_QUOT,              // trigger key
+    KC_QUOT,              // replacement: single quote
+    ~0,                   // all layers
+    MOD_MASK_SHIFT        // negating mods: don't fire if shift held
+);
+const key_override_t as_quot_shifted = ko_make_with_layers(
+    MOD_MASK_SHIFT,       // trigger with shift
+    AS_QUOT,              // trigger key
+    KC_DQUO,              // replacement: double quote
+    ~0                    // all layers
+);
+
+// AS_COMM: , (unshifted) → . (shifted)
+const key_override_t as_comm_unshifted = ko_make_with_layers_and_negmods(
+    0,                    // no trigger mod (unshifted)
+    AS_COMM,              // trigger key
+    KC_COMM,              // replacement: comma
+    ~0,                   // all layers
+    MOD_MASK_SHIFT        // negating mods: don't fire if shift held
+);
+const key_override_t as_comm_shifted = ko_make_with_layers(
+    MOD_MASK_SHIFT,       // trigger with shift
+    AS_COMM,              // trigger key
+    KC_DOT,               // replacement: dot
+    ~0                    // all layers
+);
+
+// AS_QUES: ? (unshifted) → ! (shifted)
+const key_override_t as_ques_unshifted = ko_make_with_layers_and_negmods(
+    0,
+    AS_QUES,
+    KC_QUES,              // question mark
+    ~0,
+    MOD_MASK_SHIFT
+);
+const key_override_t as_ques_shifted = ko_make_with_layers(
+    MOD_MASK_SHIFT,
+    AS_QUES,
+    KC_EXLM,              // exclamation
+    ~0
+);
+
+// AS_MINS: - (unshifted) → / (shifted)
+const key_override_t as_mins_unshifted = ko_make_with_layers_and_negmods(
+    0,
+    AS_MINS,
+    KC_MINS,              // minus
+    ~0,
+    MOD_MASK_SHIFT
+);
+const key_override_t as_mins_shifted = ko_make_with_layers(
+    MOD_MASK_SHIFT,
+    AS_MINS,
+    KC_SLSH,              // slash
+    ~0
+);
+
+// AS_UNDS: _ (unshifted) → | (shifted)
+const key_override_t as_unds_unshifted = ko_make_with_layers_and_negmods(
+    0,
+    AS_UNDS,
+    KC_UNDS,              // underscore
+    ~0,
+    MOD_MASK_SHIFT
+);
+const key_override_t as_unds_shifted = ko_make_with_layers(
+    MOD_MASK_SHIFT,
+    AS_UNDS,
+    KC_PIPE,              // pipe
+    ~0
+);
 
 const key_override_t *key_overrides[] = {
-    &comma_dot_override,
-    &question_exclaim_override,
-    &minus_slash_override,
-    &underscore_pipe_override,
+    &as_quot_unshifted,
+    &as_quot_shifted,
+    &as_comm_unshifted,
+    &as_comm_shifted,
+    &as_ques_unshifted,
+    &as_ques_shifted,
+    &as_mins_unshifted,
+    &as_mins_shifted,
+    &as_unds_unshifted,
+    &as_unds_shifted,
     NULL
 };
 #endif
