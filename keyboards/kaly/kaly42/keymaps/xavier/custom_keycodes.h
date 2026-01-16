@@ -35,5 +35,13 @@ enum custom_keycodes {
     DK_CIRC,                 // Circumflex (^) - for â ê î ô û
     DK_DIAE,                 // Diaeresis/Umlaut (¨) - for ä ë ï ö ü ÿ
     DK_TILDE,                // Tilde (~) - for ã ñ õ
-    _DK_END_                 // Marker: end of dead keys (not a real key)
+    _DK_END_,                // Marker: end of dead keys (not a real key)
+    // Alternative symbols (custom shift morphing)
+    _AS_BEGIN_,              // Marker: start of alt symbols (not a real key)
+    AS_QUOT,                 // Alternative quote: ' → " (on shift)
+    AS_COMM,                 // Alternative comma: , → . (on shift)
+    AS_QUES,                 // Alternative question: ? → ! (on shift)
+    AS_MINS,                 // Alternative minus: - → / (on shift)
+    AS_UNDS,                 // Alternative underscore: _ → | (on shift)
+    _AS_END_                 // Marker: end of alt symbols (not a real key)
 };
