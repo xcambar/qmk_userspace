@@ -19,6 +19,7 @@ SRC += features/mod_morph.c
 SRC += features/semantic_keys.c
 SRC += features/dead_keys.c
 SRC += features/alt_symbols.c
+SRC += features/alt_symbols_layer.c
 
 
 ###################
@@ -30,6 +31,11 @@ XC_LAYOUT ?= qwerty
 
 XC_WEAK_CORNERS = yes
 
+# Alternative symbols layer layout (set to yes for new layout)
+XC_ALT_SYMBOLS_LAYER ?= no
+
+# Alternative symbols for the base layer
+XC_ALT_BASE_SYMBOLS ?= no
 ###################
 # This manipulates the options
 #
@@ -39,4 +45,12 @@ OPT_DEFS += -DXC_LAYOUT=$(shell echo $(XC_LAYOUT) | tr '[:lower:]' '[:upper:]')
 
 ifeq ($(strip $(XC_WEAK_CORNERS)), yes)
     OPT_DEFS += -DXC_WEAK_CORNERS
+endif
+
+ifeq ($(strip $(XC_ALT_BASE_SYMBOLS)), yes)
+    OPT_DEFS += -DXC_ALT_BASE_SYMBOLS
+endif
+
+ifeq ($(strip $(XC_ALT_SYMBOLS_LAYER)), yes)
+    OPT_DEFS += -DXC_ALT_SYMBOLS_LAYER
 endif
