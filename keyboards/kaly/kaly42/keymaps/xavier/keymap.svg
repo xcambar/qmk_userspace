@@ -300,7 +300,8 @@ path.combo {
 </g>
 <g transform="translate(750, 105)" class="key symbol keypos-22">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
-<text x="0" y="0" class="key symbol tap">;</text>
+<text x="0" y="0" class="key symbol tap">&#x27;</text>
+<text x="0" y="-26" class="key symbol shifted">&quot;</text>
 </g>
 <g transform="translate(810, 105)" class="key editing keypos-23">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
@@ -338,14 +339,17 @@ path.combo {
 <g transform="translate(630, 150)" class="key symbol keypos-32">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
 <text x="0" y="0" class="key symbol tap">,</text>
+<text x="0" y="-26" class="key symbol shifted">?</text>
 </g>
 <g transform="translate(690, 158)" class="key symbol keypos-33">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
 <text x="0" y="0" class="key symbol tap">.</text>
+<text x="0" y="-26" class="key symbol shifted">!</text>
 </g>
 <g transform="translate(750, 165)" class="key symbol keypos-34">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key symbol"/>
-<text x="0" y="0" class="key symbol tap">/</text>
+<text x="0" y="0" class="key symbol tap">-</text>
+<text x="0" y="-26" class="key symbol shifted">/</text>
 </g>
 <g transform="translate(810, 165)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>

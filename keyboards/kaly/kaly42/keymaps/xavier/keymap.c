@@ -73,12 +73,16 @@ combo_t key_combos[] = {
 };
 
 // Key Overrides for alternative base symbols (custom keycodes)
-// Generated from table in features/alt_symbols.c
+
+const key_override_t* key_overrides[] = {
 #ifdef XC_ALT_BASE_SYMBOLS
-// We need space for AS_count * 2 overrides + NULL terminator
-// AS_count is 5, so 5 * 2 + 1 = 11
-const key_override_t *key_overrides[11];
+    ALT_SYMBOL_OVERRIDE(AS_QUOT, KC_QUOT, KC_DQUO), // ' → "
+    ALT_SYMBOL_OVERRIDE(AS_COMM, KC_COMM, KC_QUES), // , → ?
+    ALT_SYMBOL_OVERRIDE(AS_DOT,  KC_DOT,  KC_EXLM), // . → !
+    ALT_SYMBOL_OVERRIDE(AS_MINS, KC_MINS, KC_SLSH), // - → /
+    ALT_SYMBOL_OVERRIDE(AS_UNDS, KC_UNDS, KC_PIPE)  // _ → |
 #endif
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -364,16 +368,4 @@ void leader_end_user(void) {
         // Circumflex: ô
         tap_deadkey_code(DK_CIRC);
     }
-}
-
-// Initialize alternative symbols key overrides
-void keyboard_post_init_user(void) {
-#ifdef XC_ALT_BASE_SYMBOLS
-    alt_symbols_init();
-    // Copy the override pointers from alt_symbols to the key_overrides array
-    const key_override_t **overrides = get_alt_symbol_overrides();
-    for (uint8_t i = 0; i < 11; i++) {
-        key_overrides[i] = overrides[i];
-    }
-#endif
 }

@@ -19,7 +19,7 @@ layers:
               J,
               K,
               L,
-              { t: ";", type: symbol },
+              { t: "'", s: '"', type: symbol },
               { t: $$mdi:backspace-outline$$, type: editing },
           ]
         - [
@@ -31,9 +31,9 @@ layers:
               "",
               "",
               M,
-              { t: ",", type: symbol },
-              { t: ".", type: symbol },
-              { t: /, type: symbol },
+              { t: ",", s: "?", type: symbol },
+              { t: ".", s: "!", type: symbol },
+              { t: "-", s: "/", type: symbol },
               "",
           ]
         - [
