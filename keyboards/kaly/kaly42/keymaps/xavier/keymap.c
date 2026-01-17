@@ -60,6 +60,7 @@ enum layers {
 
 // Include alternative symbols header
 #include "features/alt_symbols.h"
+#include "features/alt_symbols_layer.h"
 
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
@@ -80,8 +81,27 @@ const key_override_t* key_overrides[] = {
     ALT_SYMBOL_OVERRIDE(AS_COMM, KC_COMM, KC_QUES), // , → ?
     ALT_SYMBOL_OVERRIDE(AS_DOT,  KC_DOT,  KC_EXLM), // . → !
     ALT_SYMBOL_OVERRIDE(AS_MINS, KC_MINS, KC_SLSH), // - → /
-    ALT_SYMBOL_OVERRIDE(AS_UNDS, KC_UNDS, KC_PIPE)  // _ → |
+    ALT_SYMBOL_OVERRIDE(AS_UNDS, KC_UNDS, KC_PIPE), // _ → |
 #endif
+#ifdef XC_ALT_SYMBOLS_LAYER
+    SL_OVERRIDE(SL_1,    KC_1,    KC_AT),   // 1 → @
+    SL_OVERRIDE(SL_2,    KC_2,    KC_DLR),  // 2 → $
+    SL_OVERRIDE(SL_3,    KC_3,    KC_PERC), // 3 → %
+    SL_OVERRIDE(SL_4,    KC_4,    KC_HASH), // 4 → #
+    SL_OVERRIDE(SL_5,    KC_5,    KC_AMPR), // 5 → &
+    SL_OVERRIDE(SL_6,    KC_6,    KC_PLUS), // 6 → +
+    SL_OVERRIDE(SL_7,    KC_7,    KC_EQL),  // 7 → =
+    SL_OVERRIDE(SL_9,    KC_9,    KC_UNDS), // 9 → _
+    SL_OVERRIDE(SL_0,    KC_0,    KC_GRV),  // 0 → `
+    SL_OVERRIDE(SL_BSLS, KC_BSLS, KC_CIRC), // \ → ^
+    SL_OVERRIDE(SL_LPRN, KC_LPRN, KC_LT),   // ( → <
+    SL_OVERRIDE(SL_RPRN, KC_RPRN, KC_GT),   // ) → >
+    SL_OVERRIDE(SL_LBRC, KC_LCBR, KC_LBRC), // { → [ (inverted)
+    SL_OVERRIDE(SL_RBRC, KC_RCBR, KC_RBRC), // } → ] (inverted)
+    SL_OVERRIDE(SL_SCLN, KC_COLN, KC_SCLN), // : → ; (inverted)
+    SL_OVERRIDE(SL_TILD, KC_PIPE, KC_TILD), // | → ~ (inverted)
+#endif
+    NULL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -197,8 +217,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
     ),
+#ifdef XC_ALT_SYMBOLS_LAYER
      /*
-      * Layer 3 - Easy Symbols and Numbers
+      * Layer 3 - Symbols (Alternative Layout)
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │L#0│ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │Bsp│
+      * │   │ @ │ $ │ % │ # │ & │       │ + │ = │ * │ _ │ ` │   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │ \ │ ( │ { │   │       │   │ } │ ) │ : │ | │   │
+      * │   │   │ ^ │ < │ [ │   │       │   │ ] │ > │ ; │ ~ │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤   │   │Lck├───┘    L#0=To Base, Lck=Layer Lock
+      *                       └───┘   └───┘
+      * Note: {/[, }/], :/;, |/~ are inverted (shifted symbol is default)
+      */
+    [SYMBOLS] = LAYOUT_split_3x6_3(
+        KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_8,     KC_NO,    KC_NO,    KC_NO,
+        TO(BASE),  SL_1,     SL_2,     SL_3,     SL_4,    SL_5,                               SL_6,    SL_7,    KC_ASTR,  SL_9,     SL_0,     KC_BSPC,
+        KC_NO,     KC_NO,    SL_BSLS,  SL_LPRN,  SL_LBRC, KC_NO,                              KC_NO,   SL_RBRC, SL_RPRN,  SL_SCLN,  SL_TILD,  KC_NO,
+                                                  KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
+    )
+#else
+     /*
+      * Layer 3 - Easy Symbols and Numbers (Default)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -218,6 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_SCLN, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_MINS, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
                                             KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
     )
+#endif
 };
 
 // Variables for SFT_LEAD tap-hold behavior

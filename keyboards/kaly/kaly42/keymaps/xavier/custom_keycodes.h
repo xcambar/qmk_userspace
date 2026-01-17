@@ -22,6 +22,7 @@
 #include "features/semantic_keys.h"
 #include "features/dead_keys.h"
 #include "features/alt_symbols.h"
+#include "features/alt_symbols_layer.h"
 
 // Custom keycodes for the xavier keymap
 enum custom_keycodes {
@@ -42,5 +43,10 @@ enum custom_keycodes {
 #ifdef XC_ALT_BASE_SYMBOLS
     // Alternative symbols (expanded from ALT_SYMBOLS_LIST macro)
     ALT_SYMBOLS_LIST,
+#endif
+
+#ifdef XC_ALT_SYMBOLS_LAYER
+    // Alternative symbols layer (expanded from ALT_SYMBOLS_LAYER_LIST macro)
+    ALT_SYMBOLS_LAYER_LIST,
 #endif
 };
