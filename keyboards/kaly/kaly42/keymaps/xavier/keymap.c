@@ -237,8 +237,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * Note: {/[, }/], :/;, |/~ are inverted (shifted symbol is default)
       */
     [SYMBOLS] = LAYOUT_split_3x6_3(
-        KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_8,     KC_NO,    KC_NO,    KC_NO,
-        TO(BASE),  SL_1,     SL_2,     SL_3,     SL_4,    SL_5,                               SL_6,    SL_7,    KC_ASTR,  SL_9,     SL_0,     KC_BSPC,
+        KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,     KC_NO,    KC_NO,    KC_NO,
+        TO(BASE),  SL_1,     SL_2,     SL_3,     SL_4,    SL_5,                               SL_6,    SL_7,    KC_8,  SL_9,     SL_0,     KC_BSPC,
         KC_NO,     KC_NO,    SL_BSLS,  SL_LPRN,  SL_LBRC, KC_NO,                              KC_NO,   SL_RBRC, SL_RPRN,  SL_SCLN,  SL_TILD,  KC_NO,
                                                   KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
     )

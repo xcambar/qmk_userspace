@@ -226,6 +226,58 @@ layers:
               "",
           ]
 
+    ACCENTS:
+        - [
+              "",
+              "",
+              { t: "€", h: "Euro", type: accent },
+              { t: "´", h: "Acute dead key", type: accent },
+              "",
+              "",
+              "",
+              { t: "¨", h: "Diaeresis dead key", type: accent },
+              "",
+              { t: "^", h: "Circumflex dead key", type: accent },
+              "",
+              "",
+          ]
+        - [
+              "",
+              { t: "`", h: "Grave dead key", type: accent },
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+          ]
+        - [
+              "",
+              "",
+              "",
+              { t: "ç", h: "Cedilla", type: accent },
+              "",
+              "",
+              "",
+              { t: "ñ", h: "N with tilde", type: accent },
+              "",
+              "",
+              "",
+              "",
+          ]
+        - [
+              "",
+              { t: "Leader", h: "Tap Shift to activate", type: modifier },
+              "",
+              "",
+              "",
+              "",
+          ]
+
 combos:
     # Weak corner combos (only active when XC_WEAK_CORNERS=yes)
     - key_positions: [2, 3]

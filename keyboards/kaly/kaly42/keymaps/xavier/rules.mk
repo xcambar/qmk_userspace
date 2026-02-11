@@ -32,10 +32,10 @@ XC_LAYOUT ?= qwerty
 XC_WEAK_CORNERS = yes
 
 # Alternative symbols layer layout (set to yes for new layout)
-XC_ALT_SYMBOLS_LAYER ?= no
+XC_ALT_SYMBOLS_LAYER ?= yes
 
 # Alternative symbols for the base layer
-XC_ALT_BASE_SYMBOLS ?= no
+XC_ALT_BASE_SYMBOLS ?= yes
 ###################
 # This manipulates the options
 #
