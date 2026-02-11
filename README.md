@@ -2,7 +2,7 @@
 
 A split keyboard layout emphasizing **minimal finger travel**, **platform independence**, and **semantics**. As a user who regularly switches from MacOS to Linux, I needed a keyboard that provides a consistent experience across devices.
 
-![Keymap Layout](./keyboards/kaly/kaly42/keymaps/xavier/keymap.svg)
+![Keymap Layout](./keyboards/kaly/kaly42/keymaps/xavier/keymap.png)
 
 ## Philosophy
 
