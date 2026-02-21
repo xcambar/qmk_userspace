@@ -23,6 +23,21 @@ The agent is triggered whenever a change to the keymap is required. The agent:
 ## Output
 A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.streamlit.app/
 
+## Generating Visualizations
+
+After updating `keymap.yaml`, generate the visual outputs using `keymap-drawer`:
+
+**Using uvx (recommended)**:
+```bash
+# Generate SVG
+~/.local/bin/uvx --from keymap-drawer keymap draw keymap.yaml > keymap.svg
+
+# Generate PNG
+~/.local/bin/uvx --from keymap-drawer keymap draw keymap.yaml -o keymap.png
+```
+
+**Note**: The executable is `keymap`, not `keymap-drawer`, when using uvx.
+
 ## Configuration Reading Rules
 
 ### MUST Read Before Generation:
@@ -30,6 +45,7 @@ A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.st
    - `XC_WEAK_CORNERS = yes/no` - Determines if weak corner keys are enabled
    - `COMBO_ENABLE = yes/no` - Determines if combos should be included
    - `XC_LAYOUT` - Determines which layout is active (qwerty, gallium, focal, graphite)
+   - `XC_ALT_SYMBOLS_LAYER = yes/no` - Determines if alternative symbols layer is enabled
 
 2. **`config.h`** (if exists) - Check for:
    - Tapping term settings
@@ -44,6 +60,9 @@ A YAML file named `keymap.yaml` that can be uploaded to https://keymap-drawer.st
   - `yes` → Weak corner keys are replaced by combos
   - `no` → Show actual keys in corner positions
 - **Layout**: Use `XC_LAYOUT` value from `rules.mk` to determine which layout file is active
+- **Alternative Symbols Layer**: Use `XC_ALT_SYMBOLS_LAYER` value from `rules.mk`
+  - `yes` → Use alternative symbols layout with shifted symbols (e.g., 1→@, 2→$, {→[, }→], :→;, |→~)
+  - `no` → Use default symbols layout with standard number row
 
 ## YAML Structure Requirements
 
@@ -371,6 +390,11 @@ draw_config:
    - Write to `keymap.yaml` in same directory
    - Ensure valid YAML syntax
 
+6. **Generate visualizations**:
+   - After saving `keymap.yaml`, generate SVG and PNG outputs using uvx
+   - Run: `~/.local/bin/uvx --from keymap-drawer keymap draw keymap.yaml > keymap.svg`
+   - Run: `~/.local/bin/uvx --from keymap-drawer keymap draw keymap.yaml -o keymap.png`
+
 ### Error Handling:
 - If `rules.mk` is missing → Fail with error message
 - If `keymap.c` is missing → Fail with error message
@@ -393,4 +417,20 @@ draw_config:
 - **Layer 0**: Base - Main typing layer with letters and basic keys
 - **Layer 1**: FAVS - Favorites layer with oneshot modifiers and common shortcuts
 - **Layer 2**: NAV - Navigation with arrow keys and editing commands
-- **Layer 3**: SYMBOLS - Numbers and symbols
+- **Layer 3**: SYMBOLS - Numbers and symbols (layout varies based on XC_ALT_SYMBOLS_LAYER setting)
+
+## Symbol Layer Variants
+
+The SYMBOLS layer has two possible configurations based on the `XC_ALT_SYMBOLS_LAYER` setting in `rules.mk`:
+
+### Default Layout (XC_ALT_SYMBOLS_LAYER = no)
+Standard number row with symbols accessed via shift:
+- Numbers: 1 2 3 4 5 6 7 8 9 0
+- Shifted: ! @ # $ % ^ & * ( )
+- Bottom row: ; = \ ' [ ] - , . /
+
+### Alternative Layout (XC_ALT_SYMBOLS_LAYER = yes)
+Alternative symbols as shifted values with inverted pairs:
+- Numbers with alt symbols: 1→@ 2→$ 3→% 4→# 5→& 6→+ 7→= 8→* 9→_ 0→`
+- Inverted symbols: {→[ }→] :→; |→~
+- Other symbols: \→^ (→< )→>
