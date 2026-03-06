@@ -7,12 +7,14 @@
 #define LAYOUT_GALLIUM 2
 #define LAYOUT_FOCAL 3
 #define LAYOUT_GRAPHITE 4
+#define LAYOUT_RADIAL 5
 
 // Convert XC_LAYOUT token to a numeric constant
 #define QWERTY LAYOUT_QWERTY
 #define GALLIUM LAYOUT_GALLIUM
 #define FOCAL LAYOUT_FOCAL
 #define GRAPHITE LAYOUT_GRAPHITE
+#define RADIAL LAYOUT_RADIAL
 
 #if XC_LAYOUT == LAYOUT_QWERTY
     #include "layouts/qwerty.h"
@@ -22,6 +24,8 @@
     #include "layouts/focal.h"
 #elif XC_LAYOUT == LAYOUT_GRAPHITE
     #include "layouts/graphite.h"
+#elif XC_LAYOUT == LAYOUT_RADIAL
+    #include "layouts/radial.h"
 #else
     #error "Unknown layout specified"
 #endif

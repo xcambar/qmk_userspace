@@ -45,6 +45,7 @@
 
 enum layers {
     BASE = 0,
+    BASE_ALT,
     FAVS,
     NAV,
     NAV_FASTER,
@@ -63,12 +64,16 @@ enum layers {
 #include "features/alt_symbols_layer.h"
 
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
-const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // R + V to toggle OS and mod morph
-const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // E + V + R to print OS name
+const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // Left hand: toggle OS and mod morph
+const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // Left hand: print OS name
+const uint16_t PROGMEM switch_layout[] = {_07_, _31_, COMBO_END};  // Right hand mirror: toggle default layout
+const uint16_t PROGMEM print_layout[] = {_08_, _31_, _07_, COMBO_END};  // Right hand mirror: print layout name
 
 combo_t key_combos[] = {
-    COMBO_ACTION(switch_os),  // Handled in process_combo_event
-    COMBO_ACTION(print_os),   // Handled in process_combo_event
+    COMBO_ACTION(switch_os),     // Handled in process_combo_event
+    COMBO_ACTION(print_os),      // Handled in process_combo_event
+    COMBO_ACTION(switch_layout), // Handled in process_combo_event
+    COMBO_ACTION(print_layout),  // Handled in process_combo_event
     XC_WEAK_CORNERS_COMBOS
     COMBO(boot_combo, QK_BOOT),
 };
@@ -129,7 +134,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
      /*
-      * FAVS Layer (Layer 1) - Favorite shortcuts and modifiers
+      * BASE_ALT Layer (Layer 1) - RADIAL Layout
+      * x w h m q   k p o u y
+      * c r n s v   g t e a i
+      * z b f l j   ; d , . '
+      */
+    [BASE_ALT] = LAYOUT_split_3x6_3(
+        KC_NO,    KC_X,    KC_W,    KC_H,    KC_M,    KC_Q,                               KC_K,    KC_P,    KC_O,    KC_U,    KC_Y,    KC_NO,
+        KC_TAB,  KC_C,    KC_R,    KC_N,    KC_S,    KC_V,                               KC_G,    KC_T,    KC_E,    KC_A,    KC_I,    KC_BSPC,
+#ifdef XC_ALT_BASE_SYMBOLS
+        KC_NO,   KC_Z,    KC_B,    KC_F,    KC_L,    KC_J,                               AS_MINS, KC_D,    AS_COMM, AS_DOT,  AS_QUOT, KC_NO,
+#else
+        KC_NO,   KC_Z,    KC_B,    KC_F,    KC_L,    KC_J,                               KC_SCLN, KC_D,    KC_COMM, KC_DOT,  KC_QUOT, KC_NO,
+#endif
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
+    ),
+     /*
+      * FAVS Layer (Layer 2) - Favorite shortcuts and modifiers
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -384,6 +405,25 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case 1:  // print_os combo (Shift + V + R)
             if (pressed) {
                 send_string(get_os_platform_name());
+            }
+            break;
+        case 2:  // switch_layout combo (P + D on right hand)
+            if (pressed) {
+                // Toggle between BASE and BASE_ALT
+                if (get_highest_layer(default_layer_state) == BASE) {
+                    default_layer_set(1UL << BASE_ALT);
+                } else {
+                    default_layer_set(1UL << BASE);
+                }
+            }
+            break;
+        case 3:  // print_layout combo (O + D + P on right hand)
+            if (pressed) {
+                if (get_highest_layer(default_layer_state) == BASE) {
+                    send_string("Primary");
+                } else {
+                    send_string("Radial");
+                }
             }
             break;
     }
