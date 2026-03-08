@@ -163,12 +163,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * q x m c v   k p ; . /
       */
     [BASE_ALT] = LAYOUT_split_3x6_3(
-        KC_NO,    KC_B,    KC_L,    KC_D,    KC_W,    KC_Z,                               KC_QUOT, KC_F,    KC_O,    KC_U,    KC_J,    KC_NO,
+        KC_NO,   WC_CORNER(KC_B), KC_L,    KC_D,    KC_W,    KC_Z,                       KC_QUOT, KC_F,    KC_O,    KC_U,    WC_CORNER(KC_J), KC_NO,
         KC_TAB,  KC_N,    KC_R,    KC_T,    KC_S,    KC_G,                               KC_Y,    KC_H,    KC_A,    KC_E,    KC_I,    KC_BSPC,
 #ifdef XC_ALT_BASE_SYMBOLS
-        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    KC_V,                               KC_K,    KC_P,    AS_COMM, AS_DOT,  AS_MINS, KC_NO,
+        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    WC_CORNER(KC_V),                    WC_CORNER(KC_K), KC_P,    AS_COMM, AS_DOT,  AS_MINS, KC_NO,
 #else
-        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    KC_V,                               KC_K,    KC_P,    KC_SCLN, KC_DOT,  KC_SLSH, KC_NO,
+        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    WC_CORNER(KC_V),                    WC_CORNER(KC_K), KC_P,    KC_SCLN, KC_DOT,  KC_SLSH, KC_NO,
 #endif
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
