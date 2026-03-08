@@ -43,9 +43,9 @@ XC_ALT_BASE_SYMBOLS ?= yes
 # This manipulates the options
 #
 
-# Pass layout names to the preprocessor (uppercase for macro matching)
-OPT_DEFS += -DXC_LAYOUT=$(shell echo $(XC_LAYOUT) | tr '[:lower:]' '[:upper:]')
-OPT_DEFS += -DXC_SECONDARY_LAYOUT=$(shell echo $(XC_SECONDARY_LAYOUT) | tr '[:lower:]' '[:upper:]')
+# Pass layout names to the preprocessor as lowercase tokens
+OPT_DEFS += -DXC_LAYOUT=$(XC_LAYOUT)
+OPT_DEFS += -DXC_SECONDARY_LAYOUT=$(XC_SECONDARY_LAYOUT)
 
 ifeq ($(strip $(XC_WEAK_CORNERS)), yes)
     OPT_DEFS += -DXC_WEAK_CORNERS
