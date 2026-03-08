@@ -17,6 +17,13 @@
     #define _34_ KC_SLSH             // / / ?
 #endif
 
+#ifdef XC_WEAK_CORNERS
+    #define WC_OUT_01 KC_Q
+    #define WC_OUT_10 KC_P
+    #define WC_OUT_29 KC_B
+    #define WC_OUT_30 KC_N
+#endif
+
 /*
  * QWERTY Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -35,7 +42,7 @@
 
 // Row 0 (top row, columns 0-11)
 #define _00_ KC_NO
-#define _01_ KC_Q
+#define _01_ WC_CORNER(KC_Q)
 #define _02_ KC_W
 #define _03_ KC_E
 #define _04_ KC_R
@@ -44,7 +51,7 @@
 #define _07_ KC_U
 #define _08_ KC_I
 #define _09_ KC_O
-#define _10_ KC_P
+#define _10_ WC_CORNER(KC_P)
 #define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
@@ -69,8 +76,8 @@
 #define _26_ KC_X
 #define _27_ KC_C
 #define _28_ KC_V
-#define _29_ KC_B
-#define _30_ KC_N
+#define _29_ WC_CORNER(KC_B)
+#define _30_ WC_CORNER(KC_N)
 #define _31_ KC_M
 // _32_ defined above
 // _33_ defined above

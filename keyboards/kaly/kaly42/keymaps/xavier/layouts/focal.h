@@ -6,16 +6,23 @@
 // FOCAL places alternative symbols at positions 23, 30, 32, 33, 34
 #ifdef XC_ALT_BASE_SYMBOLS
     #define _23_ AS_UNDS             // _ → |
-    #define _30_ AS_QUOT             // ' → "
+    #define _30_ WC_CORNER(AS_QUOT)  // ' → "
     #define _32_ AS_COMM             // , → ?
     #define _33_ AS_DOT              // . → !
     #define _34_ AS_MINS             // - → /
 #else
     #define _23_ KC_SLSH             // / / ? (default)
-    #define _30_ KC_QUOT             // ' / " (default)
+    #define _30_ WC_CORNER(KC_QUOT)  // ' / " (default)
     #define _32_ KC_DOT              // . / >
     #define _33_ KC_SCLN             // ; / :
     #define _34_ KC_COMM             // , / <
+#endif
+
+#ifdef XC_WEAK_CORNERS
+    #define WC_OUT_01 KC_B
+    #define WC_OUT_10 KC_J
+    #define WC_OUT_29 KC_V
+    #define WC_OUT_30 KC_K
 #endif
 
 /*
@@ -36,7 +43,7 @@
 
 // Row 0 (top row, columns 0-11)
 #define _00_ KC_NO
-#define _01_ KC_V
+#define _01_ WC_CORNER(KC_V)
 #define _02_ KC_L
 #define _03_ KC_H
 #define _04_ KC_G
@@ -45,7 +52,7 @@
 #define _07_ KC_F
 #define _08_ KC_O
 #define _09_ KC_U
-#define _10_ KC_J
+#define _10_ WC_CORNER(KC_J)
 #define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
@@ -70,7 +77,7 @@
 #define _26_ KC_X
 #define _27_ KC_M
 #define _28_ KC_D
-#define _29_ KC_P
+#define _29_ WC_CORNER(KC_P)
 // _30_ defined above
 #define _31_ KC_W
 // _32_ defined above

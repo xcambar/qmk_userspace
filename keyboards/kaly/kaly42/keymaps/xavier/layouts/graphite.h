@@ -17,6 +17,13 @@
     #define _34_ KC_SLSH             // / / ?
 #endif
 
+#ifdef XC_WEAK_CORNERS
+    #define WC_OUT_01 KC_B
+    #define WC_OUT_10 KC_J
+    #define WC_OUT_29 KC_V
+    #define WC_OUT_30 KC_K
+#endif
+
 /*
  * Graphite Layout - Actual Keycodes
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -36,7 +43,7 @@
 // Row 0 (top row, columns 0-11)
 // Position 6 is defined at top of file (alt symbols feature)
 #define _00_ KC_NO
-#define _01_ KC_B
+#define _01_ WC_CORNER(KC_B)
 #define _02_ KC_L
 #define _03_ KC_D
 #define _04_ KC_W
@@ -45,7 +52,7 @@
 #define _07_ KC_F
 #define _08_ KC_O
 #define _09_ KC_U
-#define _10_ KC_J
+#define _10_ WC_CORNER(KC_J)
 #define _11_ KC_NO
 
 // Row 1 (home row, columns 12-23)
@@ -70,8 +77,8 @@
 #define _26_ KC_X
 #define _27_ KC_M
 #define _28_ KC_C
-#define _29_ KC_V
-#define _30_ KC_K
+#define _29_ WC_CORNER(KC_V)
+#define _30_ WC_CORNER(KC_K)
 #define _31_ KC_P
 // _32_ defined above
 // _33_ defined above

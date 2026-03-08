@@ -4,17 +4,24 @@
 
 // GALLIUM places alternative symbols at positions 10, 23, 32, 33, 34
 #ifdef XC_ALT_BASE_SYMBOLS
-    #define _10_ AS_UNDS             // _ → |
+    #define _10_ WC_CORNER(AS_UNDS)  // _ → |
     #define _23_ AS_QUOT             // ' → "
     #define _32_ AS_COMM             // , → ?
     #define _33_ AS_DOT              // . → !
     #define _34_ AS_MINS             // - → /
 #else
-    #define _10_ KC_COMM             // , (default)
+    #define _10_ WC_CORNER(KC_COMM)  // , (default)
     #define _23_ KC_QUOT             // ' (default)
     #define _32_ KC_SCLN             // ; / :
     #define _33_ KC_DOT              // . / >
     #define _34_ KC_SLSH             // / / ?
+#endif
+
+#ifdef XC_WEAK_CORNERS
+    #define WC_OUT_01 KC_B
+    #define WC_OUT_10 KC_COMM
+    #define WC_OUT_29 KC_Z
+    #define WC_OUT_30 KC_K
 #endif
 
 /*
@@ -36,7 +43,7 @@
 // Row 0 (top row, columns 0-11)
 // Position 10 is defined at top of file (alt symbols feature)
 #define _00_ KC_NO
-#define _01_ KC_B
+#define _01_ WC_CORNER(KC_B)
 #define _02_ KC_L
 #define _03_ KC_D
 #define _04_ KC_C
@@ -70,8 +77,8 @@
 #define _26_ KC_Q
 #define _27_ KC_M
 #define _28_ KC_W
-#define _29_ KC_Z
-#define _30_ KC_K
+#define _29_ WC_CORNER(KC_Z)
+#define _30_ WC_CORNER(KC_K)
 #define _31_ KC_F
 // _32_ defined above
 // _33_ defined above
