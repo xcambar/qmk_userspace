@@ -2,7 +2,7 @@
 // Re-include this file to switch the active _XX_ macro set.
 //
 // Usage:
-//   #define XC_LAYOUT_SWITCH_TARGET LAYOUT_GRAPHITE   // or XC_LAYOUT / XC_SECONDARY_LAYOUT
+//   #define XC_LAYOUT_SWITCH_TARGET graphite   // or XC_LAYOUT / XC_SECONDARY_LAYOUT
 //   #include "feature_layout_switch.h"
 // After: _XX_ (and WC_OUT_* when XC_WEAK_CORNERS) reflect the target layout.
 
@@ -57,16 +57,9 @@
 #undef WC_OUT_30
 
 // Step 3: Include the target layout (re-defines _XX_ and WC_OUT_*)
-#if XC_LAYOUT_SWITCH_TARGET == LAYOUT_QWERTY
-#   include "layouts/qwerty.h"
-#elif XC_LAYOUT_SWITCH_TARGET == LAYOUT_GALLIUM
-#   include "layouts/gallium.h"
-#elif XC_LAYOUT_SWITCH_TARGET == LAYOUT_FOCAL
-#   include "layouts/focal.h"
-#elif XC_LAYOUT_SWITCH_TARGET == LAYOUT_GRAPHITE
-#   include "layouts/graphite.h"
-#elif XC_LAYOUT_SWITCH_TARGET == LAYOUT_RADIAL
-#   include "layouts/radial.h"
-#endif
+// LAYOUT_FILE is defined in feature_base_layer.h; identical redefinition is safe
+#define _LAYOUT_FILE_x(n) _LAYOUT_FILE_##n
+#define LAYOUT_FILE(n)    _LAYOUT_FILE_x(n)
+#include LAYOUT_FILE(XC_LAYOUT_SWITCH_TARGET)
 
 #undef XC_LAYOUT_SWITCH_TARGET
