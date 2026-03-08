@@ -94,11 +94,15 @@ combo_t key_combos[] = {
 
 #ifdef XC_WEAK_CORNERS
 // Runtime lookup: [layer][corner] — TL=0, TR=1, BL=2, BR=3
-// Add a row here for each new alt base layer
 static const uint16_t wc_keycodes[][4] = {
     [BASE]     = { WC_OUT_01, WC_OUT_10, WC_OUT_29, WC_OUT_30 },
-    [BASE_ALT] = { KC_B,      KC_J,      KC_V,      KC_K      },  // Graphite
+#   define XC_LAYOUT_SWITCH_TARGET XC_SECONDARY_LAYOUT
+#   include "feature_layout_switch.h"
+    [BASE_ALT] = { WC_OUT_01, WC_OUT_10, WC_OUT_29, WC_OUT_30 },
 };
+// Restore primary _XX_ macros for keymaps[BASE] below
+#   define XC_LAYOUT_SWITCH_TARGET XC_LAYOUT
+#   include "feature_layout_switch.h"
 #endif
 
 // Key Overrides for alternative base symbols (custom keycodes)
@@ -157,19 +161,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
      /*
-      * BASE_ALT Layer (Layer 1) - GRAPHITE Layout
-      * b l d w z   ' f o u j
-      * n r t s g   y h a e i
-      * q x m c v   k p ; . /
+      * BASE_ALT Layer (Layer 1) - Secondary layout (XC_SECONDARY_LAYOUT)
+      * Same abstract structure as BASE; _XX_ macros expand to secondary layout keycodes.
       */
+#   define XC_LAYOUT_SWITCH_TARGET XC_SECONDARY_LAYOUT
+#   include "feature_layout_switch.h"
     [BASE_ALT] = LAYOUT_split_3x6_3(
-        KC_NO,   WC_CORNER(KC_B), KC_L,    KC_D,    KC_W,    KC_Z,                       KC_QUOT, KC_F,    KC_O,    KC_U,    WC_CORNER(KC_J), KC_NO,
-        KC_TAB,  KC_N,    KC_R,    KC_T,    KC_S,    KC_G,                               KC_Y,    KC_H,    KC_A,    KC_E,    KC_I,    KC_BSPC,
-#ifdef XC_ALT_BASE_SYMBOLS
-        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    WC_CORNER(KC_V),                    WC_CORNER(KC_K), KC_P,    AS_COMM, AS_DOT,  AS_MINS, KC_NO,
-#else
-        KC_NO,   KC_Q,    KC_X,    KC_M,    KC_C,    WC_CORNER(KC_V),                    WC_CORNER(KC_K), KC_P,    KC_SCLN, KC_DOT,  KC_SLSH, KC_NO,
-#endif
+        KC_NO,   _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
+        KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
+        KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
     ),
      /*
@@ -442,9 +442,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case COMBO_PRINT_LAYOUT:
             if (pressed) {
                 if (get_highest_layer(default_layer_state) == BASE) {
-                    send_string("Primary");
+                    send_string(XC_LAYOUT_NAME);
                 } else {
-                    send_string("Graphite");
+                    send_string(XC_SECONDARY_LAYOUT_NAME);
                 }
             }
             break;

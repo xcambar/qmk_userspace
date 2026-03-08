@@ -26,8 +26,11 @@ SRC += features/alt_symbols_layer.c
 # Custom options
 #
 
-# Layout selection: qwerty, gallium, focal, or graphite
+# Layout selection: qwerty, gallium, focal, graphite, or radial
 XC_LAYOUT ?= qwerty
+
+# Secondary (alternate base) layout: qwerty, gallium, focal, graphite, or radial
+XC_SECONDARY_LAYOUT ?= graphite
 
 XC_WEAK_CORNERS = yes
 
@@ -40,8 +43,9 @@ XC_ALT_BASE_SYMBOLS ?= yes
 # This manipulates the options
 #
 
-# Pass the layout name to the preprocessor (uppercase for macro matching)
+# Pass layout names to the preprocessor (uppercase for macro matching)
 OPT_DEFS += -DXC_LAYOUT=$(shell echo $(XC_LAYOUT) | tr '[:lower:]' '[:upper:]')
+OPT_DEFS += -DXC_SECONDARY_LAYOUT=$(shell echo $(XC_SECONDARY_LAYOUT) | tr '[:lower:]' '[:upper:]')
 
 ifeq ($(strip $(XC_WEAK_CORNERS)), yes)
     OPT_DEFS += -DXC_WEAK_CORNERS
