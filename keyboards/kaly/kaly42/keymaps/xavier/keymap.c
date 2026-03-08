@@ -63,6 +63,20 @@ enum layers {
 #include "features/alt_symbols.h"
 #include "features/alt_symbols_layer.h"
 
+// Combo indices — must match key_combos[] order exactly
+enum combo_events {
+    COMBO_SWITCH_OS,
+    COMBO_PRINT_OS,
+    COMBO_SWITCH_LAYOUT,
+    COMBO_PRINT_LAYOUT,
+#ifdef XC_WEAK_CORNERS
+    COMBO_WC_TL,
+    COMBO_WC_TR,
+    COMBO_WC_BL,
+    COMBO_WC_BR,
+#endif
+};
+
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // Left hand: toggle OS and mod morph
 const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // Left hand: print OS name
@@ -70,13 +84,22 @@ const uint16_t PROGMEM switch_layout[] = {_07_, _31_, COMBO_END};  // Right hand
 const uint16_t PROGMEM print_layout[] = {_08_, _31_, _07_, COMBO_END};  // Right hand mirror: print layout name
 
 combo_t key_combos[] = {
-    COMBO_ACTION(switch_os),     // Handled in process_combo_event
-    COMBO_ACTION(print_os),      // Handled in process_combo_event
-    COMBO_ACTION(switch_layout), // Handled in process_combo_event
-    COMBO_ACTION(print_layout),  // Handled in process_combo_event
-    XC_WEAK_CORNERS_COMBOS
+    COMBO_ACTION(switch_os),     // COMBO_SWITCH_OS
+    COMBO_ACTION(print_os),      // COMBO_PRINT_OS
+    COMBO_ACTION(switch_layout), // COMBO_SWITCH_LAYOUT
+    COMBO_ACTION(print_layout),  // COMBO_PRINT_LAYOUT
+    XC_WEAK_CORNERS_COMBOS       // COMBO_WC_TL/TR/BL/BR (when XC_WEAK_CORNERS)
     COMBO(boot_combo, QK_BOOT),
 };
+
+#ifdef XC_WEAK_CORNERS
+// Runtime lookup: [layer][corner] — TL=0, TR=1, BL=2, BR=3
+// Add a row here for each new alt base layer
+static const uint16_t wc_keycodes[][4] = {
+    [BASE]     = { WC_OUT_01, WC_OUT_10, WC_OUT_29, WC_OUT_30 },
+    [BASE_ALT] = { KC_B,      KC_J,      KC_V,      KC_K      },  // Graphite
+};
+#endif
 
 // Key Overrides for alternative base symbols (custom keycodes)
 
@@ -397,19 +420,18 @@ bool is_swapper_ignored_key(uint16_t keycode) {
 // Combo event handler
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-        case 0:  // switch_os combo (R + V)
+        case COMBO_SWITCH_OS:
             if (pressed) {
                 toggle_os_platform();
             }
             break;
-        case 1:  // print_os combo (Shift + V + R)
+        case COMBO_PRINT_OS:
             if (pressed) {
                 send_string(get_os_platform_name());
             }
             break;
-        case 2:  // switch_layout combo (P + D on right hand)
+        case COMBO_SWITCH_LAYOUT:
             if (pressed) {
-                // Toggle between BASE and BASE_ALT
                 if (get_highest_layer(default_layer_state) == BASE) {
                     default_layer_set(1UL << BASE_ALT);
                 } else {
@@ -417,7 +439,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
             }
             break;
-        case 3:  // print_layout combo (O + D + P on right hand)
+        case COMBO_PRINT_LAYOUT:
             if (pressed) {
                 if (get_highest_layer(default_layer_state) == BASE) {
                     send_string("Primary");
@@ -426,6 +448,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
             }
             break;
+#ifdef XC_WEAK_CORNERS
+        case COMBO_WC_TL: case COMBO_WC_TR:
+        case COMBO_WC_BL: case COMBO_WC_BR:
+            if (pressed) {
+                uint8_t layer = get_highest_layer(default_layer_state);
+                uint8_t corner = combo_index - COMBO_WC_TL;
+                if (layer >= ARRAY_SIZE(wc_keycodes)) layer = BASE;
+                tap_code(wc_keycodes[layer][corner]);
+            }
+            break;
+#endif
     }
 }
 

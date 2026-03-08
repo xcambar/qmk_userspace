@@ -16,8 +16,8 @@
 #pragma once
 
 #ifdef XC_WEAK_CORNERS
-    // Define weak corner output keys based on layout
-    // These must be compile-time constants since they're used in static array initializers
+    // Compile-time output keycodes for the primary layout (BASE layer)
+    // Used as the first row in the runtime lookup table in keymap.c
     #if XC_LAYOUT == LAYOUT_QWERTY
         #define WC_OUT_01 KC_Q
         #define WC_OUT_10 KC_P
@@ -40,16 +40,17 @@
         #define WC_OUT_30 KC_K
     #endif
 
-    const uint16_t PROGMEM weak_corner_l_tl_combo[] = {_02_, _03_, COMBO_END};  // W+E → Q/B
-    const uint16_t PROGMEM weak_corner_r_tr_combo[] = {_08_, _09_, COMBO_END};  // I+O → P/,
-    const uint16_t PROGMEM weak_corner_l_br_combo[] = {_27_, _28_, COMBO_END};  // C+V → B/Z
-    const uint16_t PROGMEM weak_corner_r_bl_combo[] = {_31_, _32_, COMBO_END};  // M+, → N/K
+    const uint16_t PROGMEM weak_corner_l_tl_combo[] = {_02_, _03_, COMBO_END};  // → TL corner
+    const uint16_t PROGMEM weak_corner_r_tr_combo[] = {_08_, _09_, COMBO_END};  // → TR corner
+    const uint16_t PROGMEM weak_corner_l_br_combo[] = {_27_, _28_, COMBO_END};  // → BL corner
+    const uint16_t PROGMEM weak_corner_r_bl_combo[] = {_31_, _32_, COMBO_END};  // → BR corner
 
+    // COMBO_ACTION: output resolved at runtime via wc_keycodes table in keymap.c
     #define XC_WEAK_CORNERS_COMBOS \
-        COMBO(weak_corner_l_tl_combo, WC_OUT_01), \
-        COMBO(weak_corner_r_tr_combo, WC_OUT_10), \
-        COMBO(weak_corner_l_br_combo, WC_OUT_29), \
-        COMBO(weak_corner_r_bl_combo, WC_OUT_30),
+        COMBO_ACTION(weak_corner_l_tl_combo), \
+        COMBO_ACTION(weak_corner_r_tr_combo), \
+        COMBO_ACTION(weak_corner_l_br_combo), \
+        COMBO_ACTION(weak_corner_r_bl_combo),
 
     #undef _01_
     #undef _10_
