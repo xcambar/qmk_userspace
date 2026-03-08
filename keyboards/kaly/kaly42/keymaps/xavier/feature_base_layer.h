@@ -16,6 +16,41 @@
 #define GRAPHITE LAYOUT_GRAPHITE
 #define RADIAL LAYOUT_RADIAL
 
+// Human-readable name for the primary layout
+#if XC_LAYOUT == LAYOUT_QWERTY
+    #define XC_LAYOUT_NAME "Qwerty"
+#elif XC_LAYOUT == LAYOUT_GALLIUM
+    #define XC_LAYOUT_NAME "Gallium"
+#elif XC_LAYOUT == LAYOUT_FOCAL
+    #define XC_LAYOUT_NAME "Focal"
+#elif XC_LAYOUT == LAYOUT_GRAPHITE
+    #define XC_LAYOUT_NAME "Graphite"
+#elif XC_LAYOUT == LAYOUT_RADIAL
+    #define XC_LAYOUT_NAME "Radial"
+#else
+    #define XC_LAYOUT_NAME "Unknown"
+#endif
+
+// Secondary (alternate base) layout — override in rules.mk with -DXC_SECONDARY_LAYOUT=RADIAL
+#ifndef XC_SECONDARY_LAYOUT
+    #define XC_SECONDARY_LAYOUT LAYOUT_GRAPHITE
+#endif
+
+// Human-readable name for the secondary layout (used in COMBO_PRINT_LAYOUT)
+#if XC_SECONDARY_LAYOUT == LAYOUT_QWERTY
+    #define XC_SECONDARY_LAYOUT_NAME "Qwerty"
+#elif XC_SECONDARY_LAYOUT == LAYOUT_GALLIUM
+    #define XC_SECONDARY_LAYOUT_NAME "Gallium"
+#elif XC_SECONDARY_LAYOUT == LAYOUT_FOCAL
+    #define XC_SECONDARY_LAYOUT_NAME "Focal"
+#elif XC_SECONDARY_LAYOUT == LAYOUT_GRAPHITE
+    #define XC_SECONDARY_LAYOUT_NAME "Graphite"
+#elif XC_SECONDARY_LAYOUT == LAYOUT_RADIAL
+    #define XC_SECONDARY_LAYOUT_NAME "Radial"
+#else
+    #define XC_SECONDARY_LAYOUT_NAME "Unknown"
+#endif
+
 #if XC_LAYOUT == LAYOUT_QWERTY
     #include "layouts/qwerty.h"
 #elif XC_LAYOUT == LAYOUT_GALLIUM
