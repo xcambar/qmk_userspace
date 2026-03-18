@@ -115,7 +115,7 @@ const key_override_t* key_overrides[] = {
     ALT_SYMBOL_OVERRIDE(AS_MINS, KC_MINS, KC_SLSH), // - → /
     ALT_SYMBOL_OVERRIDE(AS_UNDS, KC_UNDS, KC_PIPE), // _ → |
 #endif
-#ifdef XC_ALT_SYMBOLS_LAYER
+    // This overrides shifted keys on the symbol layers
     SL_OVERRIDE(SL_1,    KC_1,    KC_AT),   // 1 → @
     SL_OVERRIDE(SL_2,    KC_2,    KC_DLR),  // 2 → $
     SL_OVERRIDE(SL_3,    KC_3,    KC_PERC), // 3 → %
@@ -132,7 +132,6 @@ const key_override_t* key_overrides[] = {
     SL_OVERRIDE(SL_RBRC, KC_RCBR, KC_RBRC), // } → ] (inverted)
     SL_OVERRIDE(SL_SCLN, KC_COLN, KC_SCLN), // : → ; (inverted)
     SL_OVERRIDE(SL_TILD, KC_PIPE, KC_TILD), // | → ~ (inverted)
-#endif
     NULL
 };
 
@@ -261,9 +260,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
     ),
-#ifdef XC_ALT_SYMBOLS_LAYER
      /*
-      * Layer 3 - Symbols (Alternative Layout)
+      * Layer 3 - Symbols
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -286,29 +284,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,     KC_NO,    SL_BSLS,  SL_LPRN,  SL_LBRC, KC_NO,                              KC_NO,   SL_RBRC, SL_RPRN,  SL_SCLN,  SL_TILD,  KC_NO,
                                                   KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
     )
-#else
-     /*
-      * Layer 3 - Easy Symbols and Numbers (Default)
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │L#0│ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │ ` │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ ; │ = │ \ │ ' │ [ │       │ ] │ - │ , │ . │ / │   │
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
-      *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤Sft├───┘
-      *                   └───┤   │   │Lck├───┘    L#0=To Base, Lck=Layer Lock
-      *                       └───┘   └───┘
-      */
-    [SYMBOLS] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        TO(BASE),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-        KC_NO,   KC_SCLN, KC_EQL,  KC_BSLS, KC_QUOT, KC_LBRC,                            KC_RBRC, KC_MINS, KC_COMM, KC_DOT,  KC_SLSH, KC_NO,
-                                            KC_NO,   KC_LSFT, KC_NO,                  QK_LAYER_LOCK,   KC_LSFT, KC_NO
-    )
-#endif
 };
 
 // Variables for SFT_LEAD tap-hold behavior

@@ -34,9 +34,6 @@ XC_SECONDARY_LAYOUT ?= graphite
 
 XC_WEAK_CORNERS = yes
 
-# Alternative symbols layer layout (set to yes for new layout)
-XC_ALT_SYMBOLS_LAYER ?= yes
-
 # Alternative symbols for the base layer
 XC_ALT_BASE_SYMBOLS ?= yes
 ###################
@@ -55,6 +52,3 @@ ifeq ($(strip $(XC_ALT_BASE_SYMBOLS)), yes)
     OPT_DEFS += -DXC_ALT_BASE_SYMBOLS
 endif
 
-ifeq ($(strip $(XC_ALT_SYMBOLS_LAYER)), yes)
-    OPT_DEFS += -DXC_ALT_SYMBOLS_LAYER
-endif

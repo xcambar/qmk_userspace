@@ -10,8 +10,6 @@
 #include <stdint.h>
 #include "quantum.h"
 
-#ifdef XC_ALT_SYMBOLS_LAYER
-
 // Alternative symbols layer keycodes using CUSTOM_KEYCODES macro
 #define ALT_SYMBOLS_LAYER_LIST CUSTOM_KEYCODES(ALT_SYMBOLS_LAYER, \
         SL_1, \
@@ -43,4 +41,3 @@
         MOD_MASK_SHIFT, trigger, shifted, 1 << SYMBOLS \
     )
 
-#endif // XC_ALT_SYMBOLS_LAYER
