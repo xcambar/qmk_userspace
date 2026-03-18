@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘
-      *                   └───┤FAV│   │FAV├───┘       FAV=FAVS layer, S/L=Shift/Leader
+      *                   └───┤FAV│   │SYM├───┘       FAV=FAVS layer, SYM=SYMBOLS layer, S/L=Shift/Leader
       *                       └───┘   └───┘
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), Tab+Bsp→QK_BOOT
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
     ),
      /*
       * BASE_ALT Layer (Layer 1) - Secondary layout (XC_SECONDARY_LAYOUT)
@@ -170,35 +170,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
-                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(FAVS), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
     ),
      /*
       * FAVS Layer (Layer 2) - Favorite shortcuts and modifiers
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Esc│Alt│Gui│Ctl│G/C│SWn│       │Bsp│Del│Ent│   │   │   │
+      * │Esc│Alt│Gui│Ctl│G/C│SWn│       │   │   │Ent│   │   │Del│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │   │   │   │   │       │   │   │   │   │   │   │
+      * │   │Udo│Cut│Cpy│Pst│   │       │   │   │   │   │   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤OSf├───┐   ┌───┤OSf├───┘
-      *                   └───┤SYM│   │NAV├───┘
+      *                   └───┤   │   │NAV├───┘
       *                       └───┘   └───┘
-      * G/C=MM_GUICTRL (morphing GUI/Ctrl), SWn=Switch Window, OSf=Oneshot Shift
+      * G/C=MM_GUICTRL (morphing GUI/Ctrl), SWn=Switch Window, OSf=Oneshot Shift, NAV=TG(NAV)
       * Alt/Gui/Ctl are oneshot modifiers
       */
     [FAVS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_ESC,  OS_ALT,  OS_GUI,  OS_CTRL, MM_GUICTRL, SW_WIN,                          KC_BSPC, KC_DEL,  KC_ENT,  KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                            KC_NO,   OS_SHFT, MO(SYMBOLS),            MO(NAV), OS_SHFT, KC_NO
+        KC_ESC,  OS_ALT,  OS_GUI,  OS_CTRL, MM_GUICTRL, SW_WIN,                          KC_NO,   KC_NO,   KC_ENT,  KC_NO,   KC_NO,   KC_DEL,
+        KC_NO,   SK_UNDO, SK_CUT,  SK_COPY, SK_PSTE, KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                            KC_NO,   OS_SHFT, KC_NO,                  TG(NAV), OS_SHFT, KC_NO
     ),
      /*
       * Navigation Layer - Arrow keys and navigation
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │   │Udo│Cpy│Pst│C-A│       │   │   │   │   │   │   │
+      * │   │   │   │   │   │C-A│       │   │   │   │   │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │#BS│   │   │NFa│NF+│   │       │ ← │ ↓ │ ↑ │ → │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -209,10 +209,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               └───┤OSf├───┐   ┌───┤Sft├───┘
       *                   └───┤Lck│   │   ├───┘
       *                       └───┘   └───┘
-      * #BS=To Base, Udo=Undo, Cpy=Copy, Pst=Paste, C-A=Select All, NF+=NAV_FASTER, NFa=NAV_FASTEST, Lck=Layer Lock, OSf=Oneshot Shift
+      * #BS=To Base, C-A=Select All, NF+=NAV_FASTER, NFa=NAV_FASTEST, Lck=Layer Lock, OSf=Oneshot Shift
       */
     [NAV] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_NO,   SK_UNDO, SK_COPY, SK_PSTE, SK_SALL,                            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   SK_SALL,                            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         TO(BASE), KC_NO,   KC_NO,   MO(NAV_FASTEST), MO(NAV_FASTER), KC_NO,              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                             KC_NO,   OS_SHFT, QK_LAYER_LOCK,          KC_NO, KC_LSFT, KC_NO
