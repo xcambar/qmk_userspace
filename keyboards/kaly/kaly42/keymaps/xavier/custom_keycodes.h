@@ -45,8 +45,6 @@ enum custom_keycodes {
     ALT_SYMBOLS_LIST,
 #endif
 
-#ifdef XC_ALT_SYMBOLS_LAYER
     // Alternative symbols layer (expanded from ALT_SYMBOLS_LAYER_LIST macro)
     ALT_SYMBOLS_LAYER_LIST,
-#endif
 };
