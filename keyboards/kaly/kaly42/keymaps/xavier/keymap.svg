@@ -127,25 +127,25 @@ text.footer {
 }
 
 /* styling for combo tap, and key non-tap label text */
-text.combo, text.hold, text.shifted, text.left, text.right {
+text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
     font-size: 11px;
 }
 
-text.hold {
+text.hold, text.bl, text.br {
     text-anchor: middle;
     dominant-baseline: auto;
 }
 
-text.shifted {
+text.shifted, text.tl, text.tr {
     text-anchor: middle;
     dominant-baseline: hanging;
 }
 
-text.left {
+text.left, text.tl, text.bl {
     text-anchor: start;
 }
 
-text.right {
+text.right, text.tr, text.br {
     text-anchor: end;
 }
 
@@ -369,7 +369,7 @@ path.combo {
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<text x="0" y="26" class="key layer hold"><tspan style="font-size: 78%">FAVS (MO)</tspan></text>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">SYMBOLS (M…</tspan></text>
 </g>
 <g transform="translate(540, 240)" class="key editing keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
@@ -467,13 +467,11 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
 <use href="#mdi:swap-horizontal" xlink:href="#mdi:swap-horizontal" x="-7" y="-7" height="14" width="14.0" class="key system tap glyph mdi:swap-horizontal"/>
 </g>
-<g transform="translate(510, 105)" class="key editing keypos-18">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
+<g transform="translate(510, 105)" class="key keypos-18">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(570, 98)" class="key editing keypos-19">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<text x="0" y="0" class="key editing tap">Del</text>
+<g transform="translate(570, 98)" class="key keypos-19">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 <g transform="translate(630, 90)" class="key editing keypos-20">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
@@ -485,23 +483,28 @@ path.combo {
 <g transform="translate(750, 105)" class="key keypos-22">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(810, 105)" class="key keypos-23">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(810, 105)" class="key editing keypos-23">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
+<text x="0" y="0" class="key editing tap">Del</text>
 </g>
 <g transform="translate(30, 165)" class="key keypos-24">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(90, 165)" class="key keypos-25">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(90, 165)" class="key system keypos-25">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">Undo</text>
 </g>
-<g transform="translate(150, 158)" class="key keypos-26">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(150, 158)" class="key system keypos-26">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">Cut</text>
 </g>
-<g transform="translate(210, 150)" class="key keypos-27">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(210, 150)" class="key system keypos-27">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">Copy</text>
 </g>
-<g transform="translate(270, 158)" class="key keypos-28">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(270, 158)" class="key system keypos-28">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">Paste</text>
 </g>
 <g transform="translate(330, 165)" class="key keypos-29">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -532,15 +535,13 @@ path.combo {
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
 <text x="0" y="26" class="key modifier hold"><tspan style="font-size: 64%">Oneshot Sh…</tspan></text>
 </g>
-<g transform="translate(360, 255)" class="key layer keypos-38">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
-<use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">SYMBOLS (M…</tspan></text>
+<g transform="translate(360, 255)" class="key keypos-38">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 <g transform="translate(480, 255)" class="key layer keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
-<text x="0" y="26" class="key layer hold"><tspan style="font-size: 88%">NAV (MO)</tspan></text>
+<text x="0" y="26" class="key layer hold"><tspan style="font-size: 88%">NAV (TG)</tspan></text>
 </g>
 <g transform="translate(540, 240)" class="key modifier keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
@@ -561,26 +562,19 @@ path.combo {
 <g transform="translate(90, 45)" class="key keypos-1">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(150, 38)" class="key system keypos-2">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
-<text x="0" y="0" class="key system tap">Undo</text>
-<text x="0" y="26" class="key system hold">C-Z</text>
+<g transform="translate(150, 38)" class="key keypos-2">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(210, 30)" class="key system keypos-3">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
-<text x="0" y="0" class="key system tap">Copy</text>
-<text x="0" y="26" class="key system hold">C-C</text>
-<text x="0" y="-26" class="key system shifted"><tspan style="font-size: 78%">Cut (C-X)</tspan></text>
+<g transform="translate(210, 30)" class="key keypos-3">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(270, 38)" class="key system keypos-4">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
-<text x="0" y="0" class="key system tap">Paste</text>
-<text x="0" y="26" class="key system hold">C-V</text>
+<g transform="translate(270, 38)" class="key keypos-4">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
 <g transform="translate(330, 45)" class="key system keypos-5">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
 <text x="0" y="0" class="key system tap">
-<tspan x="0" dy="-1.2em">Select</tspan><tspan x="0" dy="1.2em">All</tspan>
+<tspan x="0" dy="-0.9em">Select</tspan><tspan x="0" dy="1.2em">All</tspan>
 </text>
 <text x="0" y="26" class="key system hold">C-A</text>
 </g>

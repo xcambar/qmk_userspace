@@ -40,7 +40,7 @@ layers:
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
-              { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
+              { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
               "",
           ]
@@ -54,14 +54,27 @@ layers:
               { t: $$mdi:apple-keyboard-control$$, type: modifier },
               { t: $$mdi:star-four-points-box$$, type: modifier },
               { t: $$mdi:swap-horizontal$$, type: system },
-              { t: $$mdi:backspace-outline$$, type: editing },
-              { t: Del, type: editing },
+              "",
+              "",
               { t: $$mdi:keyboard-return$$, type: editing },
+              "",
+              "",
+              { t: Del, type: editing },
+          ]
+        - [
+              "",
+              { t: Undo, type: system },
+              { t: Cut, type: system },
+              { t: Copy, type: system },
+              { t: Paste, type: system },
+              "",
+              "",
+              "",
+              "",
               "",
               "",
               "",
           ]
-        - ["", "", "", "", "", "", "", "", "", "", "", ""]
         - [
               "",
               {
@@ -69,8 +82,8 @@ layers:
                   h: "Oneshot Shift",
                   type: modifier,
               },
-              { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
-              { t: $$mdi:layers-outline$$, h: NAV (MO), type: layer },
+              "",
+              { t: $$mdi:layers-outline$$, h: NAV (TG), type: layer },
               {
                   t: $$mdi:apple-keyboard-shift$$,
                   h: "Oneshot Shift",
@@ -83,9 +96,9 @@ layers:
         - [
               "",
               "",
-              { t: Undo, h: C-Z, type: system },
-              { t: Copy, h: C-C, s: Cut (C-X), type: system },
-              { t: Paste, h: C-V, type: system },
+              "",
+              "",
+              "",
               { t: "Select All", h: C-A, type: system },
               "",
               "",
@@ -108,20 +121,7 @@ layers:
               "",
               "",
           ]
-        - [
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-              "",
-          ]
+        - ["", "", "", "", "", "", "", "", "", "", "", ""]
         - [
               "",
               {
