@@ -26,13 +26,16 @@
 #endif
 
 /*
- * Gallium v2 Layout - Actual Keycodes
+ * Gallium v2 EAST - Actual Keycodes
+ * https://www.reddit.com/r/KeyboardLayouts/comments/1rym73o/introducing_galliumeast/
+ * https://cyanophage.github.io/playground.html?layout=blcdvjfou%2C-nrstgyheai%2Fqxwmzkp%27%3B.%5C%5E&mode=ergo&lan=english&thumb=l
+ *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │     │  B  │  L  │  D  │  C  │  V  │       │  J  │  F  │  O  │  U  │  ,  │     │
+ * │     │  B  │  L  │  C  │  D  │  V  │       │  J  │  F  │  O  │  U  │  ,  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │     │  N  │  R  │  T  │  S  │  G  │       │  Y  │  H  │  A  │  E  │  I  │  '  │
+ * │     │  N  │  R  │  S  │  T  │  G  │       │  Y  │  H  │  E  │  A  │  I  │  '  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │     │  X  │  Q  │  M  │  W  │  Z  │       │  K  │  P  │  ;  │  .  │  /  │     │
+ * │     │  X  │  Q  │  W  │  M  │  Z  │       │  K  │  P  │  ;  │  .  │  /  │     │
  * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
  *                     ┌─────┐                           ┌─────┐
  *                     │     ├─────┐               ┌─────┤     │
@@ -46,8 +49,8 @@
 #define _00_ KC_NO
 #define _01_ WC_CORNER(KC_B)
 #define _02_ KC_L
-#define _03_ KC_D
-#define _04_ KC_C
+#define _03_ KC_C
+#define _04_ KC_D
 #define _05_ KC_V
 #define _06_ KC_J
 #define _07_ KC_F
@@ -61,13 +64,13 @@
 #define _12_ KC_NO
 #define _13_ KC_N
 #define _14_ KC_R
-#define _15_ KC_T
-#define _16_ KC_S
+#define _15_ KC_S
+#define _16_ KC_T
 #define _17_ KC_G
 #define _18_ KC_Y
 #define _19_ KC_H
-#define _20_ KC_A
-#define _21_ KC_E
+#define _20_ KC_E
+#define _21_ KC_A
 #define _22_ KC_I
 // _23_ defined above
 
@@ -76,8 +79,8 @@
 #define _24_ KC_NO
 #define _25_ KC_X
 #define _26_ KC_Q
-#define _27_ KC_M
-#define _28_ KC_W
+#define _27_ KC_W
+#define _28_ KC_M
 #define _29_ WC_CORNER(KC_Z)
 #define _30_ WC_CORNER(KC_K)
 #define _31_ KC_P
