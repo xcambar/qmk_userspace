@@ -684,15 +684,16 @@ path.combo {
 <g transform="translate(300, 240)" class="key modifier keypos-37">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
-<text x="0" y="26" class="key modifier hold"><tspan style="font-size: 64%">Oneshot Sh…</tspan></text>
 </g>
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
-<use href="#mdi:lock" xlink:href="#mdi:lock" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:lock"/>
-<text x="0" y="26" class="key layer hold"><tspan style="font-size: 70%">Layer Lock</tspan></text>
+<use href="#mdi:layers" xlink:href="#mdi:layers" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers"/>
+<text x="0" y="26" class="key layer hold">To Base</text>
 </g>
-<g transform="translate(480, 255)" class="key keypos-39">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(480, 255)" class="key layer keypos-39">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:layers" xlink:href="#mdi:layers" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers"/>
+<text x="0" y="26" class="key layer hold">To Base</text>
 </g>
 <g transform="translate(540, 240)" class="key modifier keypos-40">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
