@@ -227,16 +227,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │   ├───┘
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤#BS│   │#BS├───┘
       *                       └───┘   └───┘
-      * W←=Word Left, W→=Word Right
+      * W←=Word Left, W→=Word Right, #BS=To Base
       */
     [NAV_FASTER] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   MO(NAV_FASTEST),   KC_NO,   KC_NO,                    SK_WORDPRV, KC_PGDN, KC_PGUP, SK_WORDNXT, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                            KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
+                                            KC_NO,   KC_LSFT, TO(BASE),          TO(BASE), KC_LSFT, KC_NO
     ),
      /*
       * Navigation Fastest Layer - Document and line navigation
@@ -249,16 +249,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Sft├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │   ├───┘
+      *               └───┤Sft├───┐   ┌───┤Sft├───┘
+      *                   └───┤#BS│   │#BS├───┘
       *                       └───┘   └───┘
-      * L←=Line Begin, L→=Line End, D↑=Doc Begin, D↓=Doc End
+      * L←=Line Begin, L→=Line End, D↑=Doc Begin, D↓=Doc End, #BS=To Base
       */
     [NAV_FASTEST] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              SK_LINEBEG, SK_DOCEND, SK_DOCBEG, SK_LINEEND, KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                            KC_NO,   KC_LSFT, KC_NO,                  KC_NO, KC_NO,   KC_NO
+                                            KC_NO,   KC_LSFT, TO(BASE),          TO(BASE), KC_LSFT, KC_NO
     ),
      /*
       * Layer 3 - Symbols

@@ -151,9 +151,9 @@ layers:
         - [
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-              "",
-              "",
-              "",
+              { t: $$mdi:layers$$, h: "To Base", type: layer },
+              { t: $$mdi:layers$$, h: "To Base", type: layer },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
           ]
 
@@ -177,9 +177,9 @@ layers:
         - [
               "",
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
-              "",
-              "",
-              "",
+              { t: $$mdi:layers$$, h: "To Base", type: layer },
+              { t: $$mdi:layers$$, h: "To Base", type: layer },
+              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
               "",
           ]
 
