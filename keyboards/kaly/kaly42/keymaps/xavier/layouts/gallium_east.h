@@ -5,8 +5,8 @@
 
 // GALLIUM places alternative symbols at positions 10, 23, 32, 33, 34
 #ifdef XC_ALT_BASE_SYMBOLS
-    #define _10_ WC_CORNER(AS_UNDS)  // _ → |
-    #define _23_ AS_QUOT             // ' → "
+    #define _23_ AS_UNDS  // _ → |
+    #define _10_ WC_CORNER(AS_QUOT)  // ' → "
     #define _32_ AS_COMM             // , → ?
     #define _33_ AS_DOT              // . → !
     #define _34_ AS_MINS             // - → /

@@ -5,7 +5,7 @@
 #define _LAYOUT_NAME_gallium  "Gallium"
 #define _LAYOUT_NAME_focal    "Focal"
 #define _LAYOUT_NAME_graphite "Graphite"
-#define _LAYOUT_NAME_radial   "Radial"
+#define _LAYOUT_NAME_gallium_east "Gallium East"
 #define _LAYOUT_NAME_x(n)    _LAYOUT_NAME_##n
 #define LAYOUT_NAME(n)        _LAYOUT_NAME_x(n)
 
@@ -14,13 +14,13 @@
 #define _LAYOUT_FILE_gallium  "layouts/gallium.h"
 #define _LAYOUT_FILE_focal    "layouts/focal.h"
 #define _LAYOUT_FILE_graphite "layouts/graphite.h"
-#define _LAYOUT_FILE_radial   "layouts/radial.h"
+#define _LAYOUT_FILE_gallium_east "layouts/gallium_east.h"
 #define _LAYOUT_FILE_x(n)    _LAYOUT_FILE_##n
 #define LAYOUT_FILE(n)        _LAYOUT_FILE_x(n)
 
-// Secondary layout default — override in rules.mk with XC_SECONDARY_LAYOUT=radial
+// Secondary layout default — override in rules.mk with XC_SECONDARY_LAYOUT=gallium_east
 #ifndef XC_SECONDARY_LAYOUT
-    #define XC_SECONDARY_LAYOUT graphite
+    #define XC_SECONDARY_LAYOUT gallium_east
 #endif
 
 #define XC_LAYOUT_NAME           LAYOUT_NAME(XC_LAYOUT)
