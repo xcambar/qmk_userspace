@@ -1,7 +1,9 @@
 {
     "userspace_version": "1.1",
     "build_targets": [
-        ["kaly/kaly42", "xavier"],
-        ["42keebs/cantor_pro/v3/left", "xavier"]
+        ["kaly/kaly42", "crafted"],
+        ["kaly/kaly42", "zen"],
+        ["42keebs/cantor_pro/v3/left", "crafted"],
+        ["42keebs/cantor_pro/v3/left", "zen"]
     ]
 }
