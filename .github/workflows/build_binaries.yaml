@@ -18,6 +18,7 @@ jobs:
           rm "$link"
           cp -r "$target" "$link"
         done
+        cp -r keyboards/42keebs qmk_firmware/keyboards/
 
   publish:
     name: 'QMK Userspace Publish'

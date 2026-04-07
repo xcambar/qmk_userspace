@@ -1,0 +1,23 @@
+{
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP13"
+        },
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["GP0", "GP1", "GP2", "GP29", "GP3", "GP28"],
+                    ["GP22", "GP6", "GP26", "GP5", "GP27", "GP4"],
+                    ["GP7", "GP20", "GP8", "GP23", "GP12", "GP9"],
+                    ["GP21", "GP15", "GP14", null, null, null]
+                ]
+            }
+        }
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP16"
+    }
+}

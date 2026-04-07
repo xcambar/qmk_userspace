@@ -1,0 +1,44 @@
+{
+    "keyboard_name": "Cantor Pro",
+    "usb": {
+        "device_version": "3.1.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP28", "GP3", "GP29", "GP2", "GP1", "GP0"],
+            ["GP4", "GP27", "GP5", "GP26", "GP6", "GP22"],
+            ["GP9", "GP21", "GP23", "GP8", "GP20", "GP7"],
+            [null, null, null, "GP15", "GP14", "GP12"]
+        ]
+    },
+    "rgblight": {
+        "led_count": 12,
+        "split_count": [6, 6],
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        },
+        "default": {
+            "val": 120,
+            "animation": "rainbow_swirl"
+        }
+    }
+}
