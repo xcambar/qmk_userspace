@@ -12,6 +12,12 @@ jobs:
     with:
       qmk_repo: qmk/qmk_firmware
       qmk_ref: master
+      preparation_command: |
+        find . -type l | while read link; do
+          target=$(readlink -f "$link")
+          rm "$link"
+          cp -r "$target" "$link"
+        done
 
   publish:
     name: 'QMK Userspace Publish'
