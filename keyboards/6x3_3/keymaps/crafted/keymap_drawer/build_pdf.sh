@@ -1,5 +1,5 @@
 #!/bin/bash
-# Builds a landscape PDF from all individual layer YAML files.
+# Builds SVGs, PNGs (for README), and a landscape A4 PDF from all layer YAML files.
 # Requires: keymap-drawer (via uvx), ImageMagick (convert), ghostscript (gs)
 
 set -euo pipefail
@@ -11,17 +11,14 @@ KEYMAP_NAME="$(basename "$(dirname "$(dirname "$(realpath "$0")")")")"
 OUTDIR="$(mktemp -d)"
 trap 'rm -rf "$OUTDIR"' EXIT
 
-echo "Generating SVGs..."
+echo "Generating SVGs and PNGs..."
 for yml in [0-9]*.yml; do
     name="${yml%.yml}"
-    uvx --from keymap-drawer keymap draw "$yml" > "$OUTDIR/$name.svg"
-    echo "  $yml -> $name.svg"
-done
-
-echo "Converting SVGs to PNGs..."
-for svg in "$OUTDIR"/*.svg; do
-    png="${svg%.svg}.png"
-    convert -density 150 "$svg" "$png"
+    uvx --from keymap-drawer keymap draw "$yml" > "$name.svg"
+    cp "$name.svg" "$OUTDIR/$name.svg"
+    convert -density 150 "$name.svg" "$name.png"
+    cp "$name.png" "$OUTDIR/$name.png"
+    echo "  $yml -> $name.svg -> $name.png"
 done
 
 echo "Composing landscape A4 pages..."

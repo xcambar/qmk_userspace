@@ -1,6 +1,6 @@
 ---
 name: build-keymap-pdf
-description: "Build keymap PDF from YAML layer files, or sync YAMLs from keymap.c first"
+description: "Build keymap SVGs, PNGs, and PDF from YAML layer files, or sync YAMLs from keymap.c first"
 argument-hint: "[sync] [keymap-name]"
 allowed-tools:
   - Read
@@ -33,7 +33,7 @@ Parse `$ARGUMENTS` as follows:
 When `sync` is NOT specified:
 
 1. Run `./build_pdf.sh` in the `keymap_drawer/` directory
-2. Report the output PDF path
+2. Report the output paths (SVGs, PNGs for README, and PDF)
 
 ## Mode 2: Sync + Build
 
