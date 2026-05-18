@@ -75,10 +75,10 @@ enum combo_events {
 };
 
 const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
-const uint16_t PROGMEM switch_os[] = {_04_, _28_, COMBO_END};  // Left hand: toggle OS and mod morph
-const uint16_t PROGMEM print_os[] = {_03_, _28_, _04_, COMBO_END};  // Left hand: print OS name
-const uint16_t PROGMEM switch_layout[] = {_07_, _31_, COMBO_END};  // Right hand mirror: toggle default layout
-const uint16_t PROGMEM print_layout[] = {_08_, _31_, _07_, COMBO_END};  // Right hand mirror: print layout name
+const uint16_t PROGMEM switch_os[] = {_04_, LCTL_T(_28_), COMBO_END};  // Left hand: toggle OS and mod morph
+const uint16_t PROGMEM print_os[] = {_03_, LCTL_T(_28_), _04_, COMBO_END};  // Left hand: print OS name
+const uint16_t PROGMEM switch_layout[] = {_07_, RCTL_T(_31_), COMBO_END};  // Right hand mirror: toggle default layout
+const uint16_t PROGMEM print_layout[] = {_08_, RCTL_T(_31_), _07_, COMBO_END};  // Right hand mirror: print layout name
 
 combo_t key_combos[] = {
     COMBO_ACTION(switch_os),     // COMBO_SWITCH_OS
@@ -107,8 +107,7 @@ static const uint16_t wc_keycodes[][4] = {
 const key_override_t* key_overrides[] = {
 #ifdef XC_ALT_BASE_SYMBOLS
     ALT_SYMBOL_OVERRIDE(AS_QUOT, KC_QUOT, KC_DQUO), // ' → "
-    ALT_SYMBOL_OVERRIDE(AS_COMM, KC_COMM, KC_QUES), // , → ?
-    ALT_SYMBOL_OVERRIDE(AS_DOT,  KC_DOT,  KC_EXLM), // . → !
+    // AS_COMM (,→?) and AS_DOT (.→!) handled in process_record_user for mod-tap keys
     ALT_SYMBOL_OVERRIDE(AS_MINS, KC_MINS, KC_SLSH), // - → /
     ALT_SYMBOL_OVERRIDE(AS_UNDS, KC_UNDS, KC_PIPE), // _ → |
 #endif
@@ -132,6 +131,15 @@ const key_override_t* key_overrides[] = {
     NULL
 };
 
+// Chordal Hold handedness: 'L'=left, 'R'=right, '*'=exempt (thumbs)
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT_split_3x6_3(
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+                       '*', '*', '*',  '*', '*', '*'
+    );
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -139,13 +147,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │Tab│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │Bsp│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ Z │ X │ C[B]V │[B]│       │[N]│ M[N], │ . │ / │   │
+      * │   │ Z │X/A│C/G│V/C│[B]│       │[N]│M/C│,/G│./A│ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤S/L├───┐   ┌───┤SPC├───┘
       *                   └───┤FAV│   │SYM├───┘       FAV=FAVS layer, SYM=SYMBOLS layer, S/L=Shift/Leader
       *                       └───┘   └───┘
+      * Bottom-row mod-taps: X/A=Alt, C/G=GUI, V/C=Ctrl | M/C=Ctrl, ,/G=GUI, ./A=Alt
+      * Chordal Hold: opposite-hands rule prevents same-hand roll misfires
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), Tab+Bsp→QK_BOOT
       * S/L=SFT_LEAD: Hold for Shift, Tap for Leader
@@ -153,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
-        KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
+        KC_NO,   _25_,    LALT_T(_26_), LGUI_T(_27_), LCTL_T(_28_), _29_,               _30_,    RCTL_T(_31_), RGUI_T(_32_KC), RALT_T(_33_KC), _34_, KC_NO,
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
     ),
      /*
@@ -165,15 +175,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_ALT] = LAYOUT_split_3x6_3(
         KC_NO,   _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
         KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
-        KC_NO,   _25_,    _26_,    _27_,    _28_,    _29_,                               _30_,    _31_,    _32_,    _33_,    _34_,    KC_NO,
+        KC_NO,   _25_,    LALT_T(_26_), LGUI_T(_27_), LCTL_T(_28_), _29_,               _30_,    RCTL_T(_31_), RGUI_T(_32_KC), RALT_T(_33_KC), _34_, KC_NO,
                                             KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
     ),
      /*
-      * FAVS Layer (Layer 2) - Favorite shortcuts, modifiers and navigation
+      * FAVS Layer (Layer 2) - Favorite shortcuts and navigation
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │L← │D↓ │D↑ │L→ │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Esc│Alt│Gui│Ctl│G/C│SWn│       │ ← │ ↓ │ ↑ │ → │Ent│Del│
+      * │Esc│ ▽ │ ▽ │ ▽ │G/C│SWn│       │ ← │ ↓ │ ↑ │ → │Ent│Del│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │Udo│Cut│Cpy│Pst│   │       │W← │PgD│PgU│W→ │   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -182,14 +192,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               └───┤OSf├───┐   ┌───┤Sft├───┘
       *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
+      * ▽=transparent (BASE layer keys pass through)
       * G/C=MM_GUICTRL (morphing GUI/Ctrl), SWn=Switch Window, OSf=Oneshot Shift
       * L←=Line Begin, L→=Line End, D↑=Doc Begin, D↓=Doc End
       * W←=Word Left, W→=Word Right
-      * Alt/Gui/Ctl are oneshot modifiers
       */
     [FAVS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              SK_LINEBEG, SK_DOCEND, SK_DOCBEG, SK_LINEEND, KC_NO,   KC_NO,
-        KC_ESC,  OS_ALT,  OS_GUI,  OS_CTRL, MM_GUICTRL, SW_WIN,                          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,  KC_DEL,
+        KC_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, MM_GUICTRL, SW_WIN,                          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,  KC_DEL,
         KC_NO,   SK_UNDO, SK_CUT,  SK_COPY, SK_PSTE, KC_NO,                              SK_WORDPRV, KC_PGDN, KC_PGUP, SK_WORDNXT, KC_NO,   KC_NO,
                                             KC_NO,   OS_SHFT, KC_NO,                  KC_NO,   KC_LSFT, KC_NO
     ),
@@ -223,17 +233,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static bool sft_lead_held = false;
 static uint16_t sft_lead_timer = 0;
 
-// Oneshot modifier states
+// Oneshot modifier states (only shift remains; Alt/Ctrl/GUI now on bottom-row mod-taps)
 oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_gui_state = os_up_unqueued;
 
 // Oneshot modifier timers (for auto-cancel after timeout)
 static uint16_t os_shft_timer = 0;
-static uint16_t os_ctrl_timer = 0;
-static uint16_t os_alt_timer  = 0;
-static uint16_t os_gui_timer  = 0;
 
 // Swapper state
 static bool sw_win_active = false;
@@ -252,11 +256,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Update swapper
     update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
 
-    // Update oneshot modifiers
+    // Update oneshot shift (Alt/Ctrl/GUI now on bottom-row mod-taps with Chordal Hold)
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record, &os_shft_timer);
-    update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record, &os_ctrl_timer);
-    update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record, &os_alt_timer);
-    update_oneshot(&os_gui_state, KC_LGUI, OS_GUI, keycode, record, &os_gui_timer);
 
     // Update oneshot morphing modifier
     update_mod_morph_oneshot(MM_GUICTRL, keycode, record);
@@ -276,6 +277,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 sft_lead_held = false;
             }
             return false;
+
+#ifdef XC_ALT_BASE_SYMBOLS
+        // Alt-symbol shifted behavior for mod-tap keys (positions 32-33)
+        // Mod-tap uses basic keycodes; custom shift handled here instead of key overrides
+        case RGUI_T(KC_COMM):  // , → ? when shifted
+        case RALT_T(KC_DOT):   // . → ! when shifted
+            if (record->tap.count && record->event.pressed) {
+                uint8_t mods = get_mods() | get_oneshot_mods();
+                if (mods & MOD_MASK_SHIFT) {
+                    unregister_mods(MOD_MASK_SHIFT);
+                    tap_code16(keycode == RGUI_T(KC_COMM) ? KC_QUES : KC_EXLM);
+                    register_mods(mods & MOD_MASK_SHIFT);
+                    return false;
+                }
+            }
+            break;
+#endif
     }
     return true;
 }
@@ -294,9 +312,6 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case OS_SHFT:
-        case OS_CTRL:
-        case OS_ALT:
-        case OS_GUI:
         case MM_GUICTRL:
         case KC_LSFT:
         case KC_RSFT:
@@ -376,9 +391,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #if ONESHOT_MOD_TIMEOUT > 0
 void matrix_scan_user(void) {
     check_oneshot_timeout(&os_shft_state, KC_LSFT, &os_shft_timer);
-    check_oneshot_timeout(&os_ctrl_state, KC_LCTL, &os_ctrl_timer);
-    check_oneshot_timeout(&os_alt_state, KC_LALT, &os_alt_timer);
-    check_oneshot_timeout(&os_gui_state, KC_LGUI, &os_gui_timer);
     check_mod_morph_timeout();
 }
 #endif

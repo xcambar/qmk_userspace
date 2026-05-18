@@ -23,8 +23,8 @@
 
     const uint16_t PROGMEM weak_corner_l_tl_combo[] = {_02_, _03_, COMBO_END};  // → TL corner
     const uint16_t PROGMEM weak_corner_r_tr_combo[] = {_08_, _09_, COMBO_END};  // → TR corner
-    const uint16_t PROGMEM weak_corner_l_br_combo[] = {_27_, _28_, COMBO_END};  // → BL corner
-    const uint16_t PROGMEM weak_corner_r_bl_combo[] = {_31_, _32_, COMBO_END};  // → BR corner
+    const uint16_t PROGMEM weak_corner_l_br_combo[] = {LGUI_T(_27_), LCTL_T(_28_), COMBO_END};  // → BL corner
+    const uint16_t PROGMEM weak_corner_r_bl_combo[] = {RCTL_T(_31_), RGUI_T(_32_KC), COMBO_END};  // → BR corner
 
     // COMBO_ACTION: output resolved at runtime via wc_keycodes table in keymap.c
     #define XC_WEAK_CORNERS_COMBOS \

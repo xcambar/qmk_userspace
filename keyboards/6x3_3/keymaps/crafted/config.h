@@ -3,15 +3,16 @@
 
 #pragma once
 
-// Callum style mods - faster, more responsive home row mods
+// Tap-hold tuning for bottom-row mod-taps + Chordal Hold
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 240
 
-// Callum style: IGNORE_MOD_TAP_INTERRUPT is now default behavior in QMK
-// No PERMISSIVE_HOLD - this is the key difference from aggressive settings
+// Chordal Hold: opposite-hands rule for mod-tap keys (QMK Feb 2025)
+#define CHORDAL_HOLD
+#define PERMISSIVE_HOLD
 
-// Per-key hold on other key press for layers only (not for home row mods)
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+// Flow Tap: disable hold during fast typing bursts (QMK May 2025)
+#define FLOW_TAP_TERM 150
 
 // Callum-style oneshot mod timeout (ms) - auto-cancel queued mods after delay
 #define ONESHOT_MOD_TIMEOUT 2000

@@ -20,9 +20,9 @@ layers:
           ]
         - [
               { t: $$mdi:keyboard-esc$$, type: editing },
-              { t: LAlt, type: modifier },
-              { t: $$mdi:apple-keyboard-command$$, type: modifier },
-              { t: $$mdi:apple-keyboard-control$$, type: modifier },
+              "",
+              "",
+              "",
               { t: $$mdi:star-four-points-box$$, type: modifier },
               { t: $$mdi:swap-horizontal$$, type: system },
               { t: $$mdi:arrow-left$$, type: nav },

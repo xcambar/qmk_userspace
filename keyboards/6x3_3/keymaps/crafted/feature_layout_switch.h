@@ -50,6 +50,10 @@
 #undef _40_
 #undef _41_
 
+// Step 1b: Clear mod-tap base keycode macros
+#undef _32_KC
+#undef _33_KC
+
 // Step 2: Clear WC_OUT_* (layout files define these when XC_WEAK_CORNERS is set)
 #undef WC_OUT_01
 #undef WC_OUT_10

@@ -16,6 +16,15 @@
     #define _34_ KC_QUOT             // ' / "
 #endif
 
+// Base keycodes for mod-tap positions (bypass custom alt-symbol keycodes)
+#ifdef XC_ALT_BASE_SYMBOLS
+    #define _32_KC KC_COMM
+    #define _33_KC KC_DOT
+#else
+    #define _32_KC _32_
+    #define _33_KC _33_
+#endif
+
 #ifdef XC_WEAK_CORNERS
     #define WC_OUT_01 KC_X
     #define WC_OUT_10 KC_Y
