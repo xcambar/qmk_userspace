@@ -6,9 +6,6 @@
 <svg id="mdi:backspace-outline">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-backspace-outline" viewBox="0 0 24 24"><path d="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z" /></svg>
 </svg>
-<svg id="mdi:keyboard-space">
-<svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-space" viewBox="0 0 24 24"><path d="M3 15H5V19H19V15H21V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V15Z" /></svg>
-</svg>
 <svg id="mdi:keyboard-tab">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-tab" viewBox="0 0 24 24"><path d="M20,18H22V6H20M11.59,7.41L15.17,11H1V13H15.17L11.59,16.58L13,18L19,12L13,6L11.59,7.41Z" /></svg>
 </svg>
@@ -219,9 +216,10 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 <text x="0" y="0" class="key tap">S</text>
 </g>
-<g transform="translate(270, 98)" class="key keypos-16">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
-<text x="0" y="0" class="key tap">T</text>
+<g transform="translate(270, 98)" class="key modifier keypos-16">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<text x="0" y="0" class="key modifier tap">T</text>
+<text x="0" y="26" class="key modifier hold">⌘/Ctrl</text>
 </g>
 <g transform="translate(330, 105)" class="key keypos-17">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -231,9 +229,10 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 <text x="0" y="0" class="key tap">Y</text>
 </g>
-<g transform="translate(570, 98)" class="key keypos-19">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
-<text x="0" y="0" class="key tap">H</text>
+<g transform="translate(570, 98)" class="key modifier keypos-19">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<text x="0" y="0" class="key modifier tap">H</text>
+<text x="0" y="26" class="key modifier hold">⌘/Ctrl</text>
 </g>
 <g transform="translate(630, 90)" class="key keypos-20">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -308,6 +307,7 @@ path.combo {
 <g transform="translate(300, 240)" class="key modifier keypos-37">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+<text x="0" y="26" class="key modifier hold">Leader</text>
 </g>
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
@@ -319,9 +319,10 @@ path.combo {
 <use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
 <text x="0" y="26" class="key layer hold"><tspan style="font-size: 64%">SYMBOLS (M…</tspan></text>
 </g>
-<g transform="translate(540, 240)" class="key editing keypos-40">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
+<g transform="translate(540, 240)" class="key modifier keypos-40">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+<text x="0" y="26" class="key modifier hold">Space</text>
 </g>
 <g transform="translate(600, 225)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>

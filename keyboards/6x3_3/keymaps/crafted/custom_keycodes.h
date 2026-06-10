@@ -27,6 +27,7 @@
 // Custom keycodes for the xavier keymap
 enum custom_keycodes {
     SFT_LEAD = SAFE_RANGE,  // Shift on hold, Leader on tap
+    SFT_SPC,                 // Shift on hold, Space on tap
     OS_SHFT,                 // Oneshot shift
     OS_CTRL,                 // Oneshot control
     OS_ALT,                  // Oneshot alt

@@ -140,31 +140,37 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                        '*', '*', '*',  '*', '*', '*'
     );
 
+// Snapshot primary layout morph keycodes (preprocessor expands _16_/_19_ NOW, before layout switch)
+static const uint16_t gui_morph_l_pri = LGUI_T(_16_);
+static const uint16_t gui_morph_r_pri = RGUI_T(_19_);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │[Q]│ W[Q]E │ R │ T │       │ Y │ U | I[P]O │[P]│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Tab│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │Bsp│
+      * │Tab│ A │ S │ D │F/⌘│ G │       │ H │J/⌘│ K │ L │ ; │Bsp│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │ Z │X/A│C/G│V/C│[B]│       │[N]│M/C│,/G│./A│ / │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤S/L├───┐   ┌───┤SPC├───┘
-      *                   └───┤FAV│   │SYM├───┘       FAV=FAVS layer, SYM=SYMBOLS layer, S/L=Shift/Leader
+      *               └───┤S/L├───┐   ┌───┤S/␣├───┘
+      *                   └───┤FAV│   │SYM├───┘       FAV=FAVS layer, SYM=SYMBOLS layer
       *                       └───┘   └───┘
+      * Home-row mod-taps: F/⌘=GUI (Ctrl on Linux), J/⌘=GUI (Ctrl on Linux)
       * Bottom-row mod-taps: X/A=Alt, C/G=GUI, V/C=Ctrl | M/C=Ctrl, ,/G=GUI, ./A=Alt
+      * S/L=SFT_LEAD: Hold for Shift, Tap for Leader
+      * S/␣=SFT_SPC: Hold for Shift, Tap for Space (if no other key pressed)
       * Chordal Hold: opposite-hands rule prevents same-hand roll misfires
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
       * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), Tab+Bsp→QK_BOOT
-      * S/L=SFT_LEAD: Hold for Shift, Tap for Leader
       */
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
-        KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
+        KC_TAB,  _13_,    _14_,    _15_,    LGUI_T(_16_), _17_,                           _18_,    RGUI_T(_19_), _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    LALT_T(_26_), LGUI_T(_27_), LCTL_T(_28_), _29_,               _30_,    RCTL_T(_31_), RGUI_T(_32_KC), RALT_T(_33_KC), _34_, KC_NO,
-                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), SFT_SPC,  KC_NO
     ),
      /*
       * BASE_ALT Layer (Layer 1) - Secondary layout (XC_SECONDARY_LAYOUT)
@@ -174,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #   include "feature_layout_switch.h"
     [BASE_ALT] = LAYOUT_split_3x6_3(
         KC_NO,   _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
-        KC_TAB,  _13_,    _14_,    _15_,    _16_,    _17_,                               _18_,    _19_,    _20_,    _21_,    _22_,    KC_BSPC,
+        KC_TAB,  _13_,    _14_,    _15_,    LGUI_T(_16_), _17_,                           _18_,    RGUI_T(_19_), _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    LALT_T(_26_), LGUI_T(_27_), LCTL_T(_28_), _29_,               _30_,    RCTL_T(_31_), RGUI_T(_32_KC), RALT_T(_33_KC), _34_, KC_NO,
-                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), KC_SPC,  KC_NO
+                                            KC_NO,   SFT_LEAD, MO(FAVS),               MO(SYMBOLS), SFT_SPC,  KC_NO
     ),
      /*
       * FAVS Layer (Layer 2) - Favorite shortcuts and navigation
@@ -229,9 +235,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// Variables for SFT_LEAD tap-hold behavior
+// Snapshot secondary layout morph keycodes (_16_/_19_ are now secondary after layout switch)
+static const uint16_t gui_morph_l_sec = LGUI_T(_16_);
+static const uint16_t gui_morph_r_sec = RGUI_T(_19_);
+
+// Variables for SFT_LEAD tap-hold behavior (hold=Shift, tap=Leader)
 static bool sft_lead_held = false;
 static uint16_t sft_lead_timer = 0;
+
+// Variables for SFT_SPC tap-hold behavior (hold=Shift, tap=Space, double-tap=repeat Space)
+static bool sft_spc_held = false;
+static bool sft_spc_used = false;
+static bool sft_spc_repeating = false;
+static uint16_t sft_spc_timer = 0;
+static uint16_t sft_spc_last_tap = 0;
 
 // Oneshot modifier states (only shift remains; Alt/Ctrl/GUI now on bottom-row mod-taps)
 oneshot_state os_shft_state = os_up_unqueued;
@@ -262,6 +279,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Update oneshot morphing modifier
     update_mod_morph_oneshot(MM_GUICTRL, keycode, record);
 
+    // Track if another key was pressed while SFT_SPC is held
+    if (sft_spc_held && record->event.pressed && keycode != SFT_SPC) {
+        sft_spc_used = true;
+    }
+
+    // OS morph: home-row index mod-taps (positions 16/19) use GUI on macOS, Ctrl on Linux
+    // On macOS, LGUI_T/RGUI_T hold behavior is correct as-is; on Linux, swap to Ctrl
+    if (get_os_platform() != OS_MacOS && !record->tap.count) {
+        if (keycode == gui_morph_l_pri || keycode == gui_morph_l_sec) {
+            if (record->event.pressed) register_code(KC_LCTL); else unregister_code(KC_LCTL);
+            return false;
+        }
+        if (keycode == gui_morph_r_pri || keycode == gui_morph_r_sec) {
+            if (record->event.pressed) register_code(KC_RCTL); else unregister_code(KC_RCTL);
+            return false;
+        }
+    }
+
     switch (keycode) {
         case SFT_LEAD:
             if (record->event.pressed) {
@@ -271,10 +306,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 unregister_code(KC_LSFT);
                 if (sft_lead_held && timer_elapsed(sft_lead_timer) < TAPPING_TERM) {
-                    // Tap detected - trigger Leader
                     leader_start();
                 }
                 sft_lead_held = false;
+            }
+            return false;
+
+        case SFT_SPC:
+            if (record->event.pressed) {
+                if (timer_elapsed(sft_spc_last_tap) < TAPPING_TERM) {
+                    // Double-tap: hold Space (auto-repeats)
+                    sft_spc_repeating = true;
+                    register_code(KC_SPC);
+                } else {
+                    // First press: Shift
+                    sft_spc_timer = timer_read();
+                    sft_spc_held = true;
+                    sft_spc_used = false;
+                    sft_spc_repeating = false;
+                    register_code(KC_RSFT);
+                }
+            } else {
+                if (sft_spc_repeating) {
+                    unregister_code(KC_SPC);
+                    sft_spc_last_tap = timer_read();  // allow triple-tap
+                    sft_spc_repeating = false;
+                } else {
+                    unregister_code(KC_RSFT);
+                    if (sft_spc_held && !sft_spc_used && timer_elapsed(sft_spc_timer) < TAPPING_TERM) {
+                        tap_code(KC_SPC);
+                        sft_spc_last_tap = timer_read();
+                    }
+                    sft_spc_held = false;
+                }
             }
             return false;
 

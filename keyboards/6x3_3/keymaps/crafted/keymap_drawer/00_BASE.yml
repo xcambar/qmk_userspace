@@ -10,10 +10,10 @@ layers:
               N,
               R,
               S,
-              T,
+              { t: T, h: "⌘/Ctrl", type: modifier },
               G,
               Y,
-              H,
+              { t: H, h: "⌘/Ctrl", type: modifier },
               E,
               A,
               I,
@@ -35,10 +35,10 @@ layers:
           ]
         - [
               "",
-              { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { t: $$mdi:apple-keyboard-shift$$, h: "Leader", type: modifier },
               { t: $$mdi:layers-outline$$, h: FAVS (MO), type: layer },
               { t: $$mdi:layers-outline$$, h: SYMBOLS (MO), type: layer },
-              { t: $$mdi:keyboard-space$$, type: editing },
+              { t: $$mdi:apple-keyboard-shift$$, h: "Space", type: modifier },
               "",
           ]
 
