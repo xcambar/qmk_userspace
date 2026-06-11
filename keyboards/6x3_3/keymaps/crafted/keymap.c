@@ -73,10 +73,6 @@ enum layers {
 
 // Combo indices — must match key_combos[] order exactly
 enum combo_events {
-    COMBO_SWITCH_OS,
-    COMBO_PRINT_OS,
-    COMBO_SWITCH_LAYOUT,
-    COMBO_PRINT_LAYOUT,
     COMBO_COMPOSE,
 #ifdef XC_WEAK_CORNERS
     COMBO_WC_TL,
@@ -86,17 +82,9 @@ enum combo_events {
 #endif
 };
 
-const uint16_t PROGMEM switch_os[] = {_04_, LCTL_T(_28_), COMBO_END};  // Left hand: toggle OS and mod morph
-const uint16_t PROGMEM print_os[] = {_03_, LCTL_T(_28_), _04_, COMBO_END};  // Left hand: print OS name
-const uint16_t PROGMEM switch_layout[] = {_07_, RCTL_T(_31_), COMBO_END};  // Right hand mirror: toggle default layout
-const uint16_t PROGMEM print_layout[] = {_08_, RCTL_T(_31_), _07_, COMBO_END};  // Right hand mirror: print layout name
 const uint16_t PROGMEM compose_combo[] = {KC_LSFT, KC_SPC, COMBO_END};  // Both inner thumbs tapped together: arm Compose
 
 combo_t key_combos[] = {
-    COMBO_ACTION(switch_os),     // COMBO_SWITCH_OS
-    COMBO_ACTION(print_os),      // COMBO_PRINT_OS
-    COMBO_ACTION(switch_layout), // COMBO_SWITCH_LAYOUT
-    COMBO_ACTION(print_layout),  // COMBO_PRINT_LAYOUT
     COMBO_ACTION(compose_combo), // COMBO_COMPOSE
     XC_WEAK_CORNERS_COMBOS       // COMBO_WC_TL/TR/BL/BR (when XC_WEAK_CORNERS)
 };
@@ -285,19 +273,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │F1 │F2 │F3 │F4 │F5 │       │F6 │F7 │F8 │F9 │F10│   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Bot│   │   │   │   │F11│       │F12│Mut│Vl↑│Br↑│   │ ▽ │
+      * │Bot│OS⇄│   │   │   │F11│       │F12│Mut│Vl↑│Br↑│Ly⇄│ ▽ │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │   │   │   │   │   │       │   │   │Vl↓│Br↓│   │   │
+      * │   │OS?│   │   │   │   │       │   │Scr│Vl↓│Br↓│Ly?│   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       * Fn keys on the top row (F1-F10), F11/F12 continue on the inner home columns
       * Bot=QK_BOOT at the Tab position (sole bootloader access; the BASE combo was removed)
       * Volume (middle col) and Brightness (ring col) as vertical pairs: up on home, down below
-      * Mut=Mute; ▽ at 23 = Bspc (via SYMBOLS); thumbs ▽ as everywhere (Esc/Shift/Space/Ent)
+      * OS⇄/OS?=toggle/print OS (left, as the old combos), Ly⇄/Ly?=toggle/print default layout
+      * (right, as the old combos) — switch on home row, print below it; Scr=PrtScr (Linux;
+      * macOS screenshots stay on Cmd+Shift+3/4); Mut=Mute
+      * ▽ at 23 = Bspc (via SYMBOLS); thumbs ▽ as everywhere (Esc/Shift/Space/Ent)
       */
     [ADJUST] = LAYOUT_split_3x6_3(
         KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_NO,
-        QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,                             KC_F12,  KC_MUTE, KC_VOLU, KC_BRIU, KC_NO,   _______,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_VOLD, KC_BRID, KC_NO,   KC_NO,
+        QK_BOOT, SW_OS,   KC_NO,   KC_NO,   KC_NO,   KC_F11,                             KC_F12,  KC_MUTE, KC_VOLU, KC_BRIU, SW_LYT,  _______,
+        KC_NO,   PR_OS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_PSCR, KC_VOLD, KC_BRID, PR_LYT,  KC_NO,
                                             _______, _______, _______,                  _______, _______, _______
     )
 };
@@ -440,6 +431,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        // System actions on ADJUST (moved off the old base-layer combos)
+        case SW_OS:
+            if (record->event.pressed) {
+                toggle_os_platform();
+            }
+            return false;
+
+        case PR_OS:
+            if (record->event.pressed) {
+                send_string(get_os_platform_name());
+            }
+            return false;
+
+        case SW_LYT:
+            if (record->event.pressed) {
+                if (get_highest_layer(default_layer_state) == BASE) {
+                    default_layer_set(1UL << BASE_ALT);
+                } else {
+                    default_layer_set(1UL << BASE);
+                }
+            }
+            return false;
+
+        case PR_LYT:
+            if (record->event.pressed) {
+                send_string(get_highest_layer(default_layer_state) == BASE ? XC_LAYOUT_NAME : XC_SECONDARY_LAYOUT_NAME);
+            }
+            return false;
+
 #ifdef XC_ALT_BASE_SYMBOLS
         // Alt-symbol shifted behavior for mod-tap keys (positions 32-33)
         // Mod-tap uses basic keycodes; custom shift handled here instead of key overrides
@@ -475,34 +495,6 @@ bool is_swapper_ignored_key(uint16_t keycode) {
 // Combo event handler
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-        case COMBO_SWITCH_OS:
-            if (pressed) {
-                toggle_os_platform();
-            }
-            break;
-        case COMBO_PRINT_OS:
-            if (pressed) {
-                send_string(get_os_platform_name());
-            }
-            break;
-        case COMBO_SWITCH_LAYOUT:
-            if (pressed) {
-                if (get_highest_layer(default_layer_state) == BASE) {
-                    default_layer_set(1UL << BASE_ALT);
-                } else {
-                    default_layer_set(1UL << BASE);
-                }
-            }
-            break;
-        case COMBO_PRINT_LAYOUT:
-            if (pressed) {
-                if (get_highest_layer(default_layer_state) == BASE) {
-                    send_string(XC_LAYOUT_NAME);
-                } else {
-                    send_string(XC_SECONDARY_LAYOUT_NAME);
-                }
-            }
-            break;
         case COMBO_COMPOSE:
             if (pressed) {
                 compose_pending = true;

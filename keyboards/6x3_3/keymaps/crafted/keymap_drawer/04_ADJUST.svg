@@ -6,6 +6,9 @@
 <svg id="mdi:brightness-7">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-brightness-7" viewBox="0 0 24 24"><path d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
 </svg>
+<svg id="mdi:monitor-screenshot">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-monitor-screenshot" viewBox="0 0 24 24"><path d="M9,6H5V10H7V8H9M19,10H17V12H15V14H19M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2" /></svg>
+</svg>
 <svg id="mdi:restart">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-restart" viewBox="0 0 24 24"><path d="M12,4C14.1,4 16.1,4.8 17.6,6.3C20.7,9.4 20.7,14.5 17.6,17.6C15.8,19.5 13.3,20.2 10.9,19.9L11.4,17.9C13.1,18.1 14.9,17.5 16.2,16.2C18.5,13.9 18.5,10.1 16.2,7.7C15.1,6.6 13.5,6 12,6V10.6L7,5.6L12,0.6V4M6.3,17.6C3.7,15 3.3,11 5.1,7.9L6.6,9.4C5.5,11.6 5.9,14.4 7.8,16.2C8.3,16.7 8.9,17.1 9.6,17.4L9,19.4C8,19 7.1,18.4 6.3,17.6Z" /></svg>
 </svg>
@@ -213,8 +216,11 @@ path.combo {
 <use href="#mdi:restart" xlink:href="#mdi:restart" x="-7" y="-7" height="14" width="14.0" class="key system tap glyph mdi:restart"/>
 <text x="0" y="26" class="key system hold">Boot</text>
 </g>
-<g transform="translate(90, 105)" class="key keypos-13">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(90, 105)" class="key system keypos-13">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">
+<tspan x="0" dy="-0.6em">OS</tspan><tspan x="0" dy="1.2em">⇄</tspan>
+</text>
 </g>
 <g transform="translate(150, 98)" class="key keypos-14">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -245,8 +251,11 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
 <use href="#mdi:brightness-7" xlink:href="#mdi:brightness-7" x="-7" y="-7" height="14" width="14.0" class="key system tap glyph mdi:brightness-7"/>
 </g>
-<g transform="translate(750, 105)" class="key keypos-22">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(750, 105)" class="key system keypos-22">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">
+<tspan x="0" dy="-0.6em">Lyt</tspan><tspan x="0" dy="1.2em">⇄</tspan>
+</text>
 </g>
 <g transform="translate(810, 105)" class="key trans keypos-23">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key trans"/>
@@ -255,8 +264,11 @@ path.combo {
 <g transform="translate(30, 165)" class="key keypos-24">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(90, 165)" class="key keypos-25">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(90, 165)" class="key system keypos-25">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">
+<tspan x="0" dy="-0.6em">OS</tspan><tspan x="0" dy="1.2em">?</tspan>
+</text>
 </g>
 <g transform="translate(150, 158)" class="key keypos-26">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -273,8 +285,9 @@ path.combo {
 <g transform="translate(510, 165)" class="key keypos-30">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
 </g>
-<g transform="translate(570, 158)" class="key keypos-31">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(570, 158)" class="key system keypos-31">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<use href="#mdi:monitor-screenshot" xlink:href="#mdi:monitor-screenshot" x="-7" y="-7" height="14" width="14.0" class="key system tap glyph mdi:monitor-screenshot"/>
 </g>
 <g transform="translate(630, 150)" class="key system keypos-32">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
@@ -284,8 +297,11 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
 <use href="#mdi:brightness-5" xlink:href="#mdi:brightness-5" x="-7" y="-7" height="14" width="14.0" class="key system tap glyph mdi:brightness-5"/>
 </g>
-<g transform="translate(750, 165)" class="key keypos-34">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(750, 165)" class="key system keypos-34">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>
+<text x="0" y="0" class="key system tap">
+<tspan x="0" dy="-0.6em">Lyt</tspan><tspan x="0" dy="1.2em">?</tspan>
+</text>
 </g>
 <g transform="translate(810, 165)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
