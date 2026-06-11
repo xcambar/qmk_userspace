@@ -3,6 +3,9 @@
 <svg id="mdi:backspace-outline">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-backspace-outline" viewBox="0 0 24 24"><path d="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z" /></svg>
 </svg>
+<svg id="mdi:layers-triple-outline">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-layers-triple-outline" viewBox="0 0 24 24"><path d="M12 16.54L19.37 10.8L21 12.07L12 19.07L3 12.07L4.62 10.81L12 16.54M12 14L3 7L12 0L21 7L12 14M12 2.53L6.26 7L12 11.47L17.74 7L12 2.53M12 21.47L19.37 15.73L21 17L12 24L3 17L4.62 15.74L12 21.47" /></svg>
+</svg>
 <svg id="mdi:lock-outline">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-lock-outline" viewBox="0 0 24 24"><path d="M12,17C10.89,17 10,16.1 10,15C10,13.89 10.89,13 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10C4,8.89 4.89,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" /></svg>
 </svg>
@@ -315,8 +318,10 @@ path.combo {
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(360, 255)" class="key keypos-38">
-<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key"/>
+<g transform="translate(360, 255)" class="key layer keypos-38">
+<rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key layer"/>
+<use href="#mdi:layers-triple-outline" xlink:href="#mdi:layers-triple-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-triple-outline"/>
+<text x="0" y="26" class="key layer hold">ADJUST</text>
 </g>
 <g transform="translate(480, 255)" class="key held keypos-39">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key held"/>

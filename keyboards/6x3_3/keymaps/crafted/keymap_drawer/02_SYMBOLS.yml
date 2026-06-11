@@ -49,7 +49,7 @@ layers:
         - [
               { t: "▽", type: trans },
               { t: "▽", type: trans },
-              "",
+              { t: $$mdi:layers-triple-outline$$, h: "ADJUST", type: layer },
               { type: held },
               { t: "▽", type: trans },
               { t: "▽", type: trans },

@@ -63,7 +63,8 @@ enum layers {
     BASE_ALT,
     FAVS,
     SYMBOLS,
-    NAV_DEL
+    NAV_DEL,
+    ADJUST
 };
 
 // Include semantic keys header
@@ -232,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_PGUP, SK_LINEBEG, KC_UP, SK_LINEEND, KC_NO,   KC_NO,
         KC_ESC,  QK_LLCK, MO(NAV_DEL), MM_GUICTRL, SEL_LATCH, SW_WIN,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_DEL,
         _______, SK_UNDO, SK_CUT,  SK_COPY, SK_PSTE, KC_NO,                              KC_NO,   SK_WORDPRV, KC_NO, SK_WORDNXT, KC_NO,   _______,
-                                            _______, _______, KC_NO,                  KC_NO,   _______, _______
+                                            _______, _______, KC_NO,                  _______, _______, _______
     ),
      /*
       * Layer 3 - SYMBOLS: numpad on the left, symbol field on the right
@@ -263,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,     MD_FENCE, KC_7,     KC_8,     KC_9,    KC_NO,                              SL_GRV,  SL_LBRC, SL_EQL,   SL_RBRC,  XC_QUOT,  KC_NO,
         _______,   QK_LLCK,  KC_4,     KC_5,     KC_6,    KC_0,                               SL_BSLS, SL_LPRN, SL_AT,    SL_RPRN,  SL_SCLN,  KC_BSPC,
         _______,   ARROW_OP, KC_1,     KC_2,     KC_3,    KC_NO,                              SL_DLR,  SL_AMPR, XC_COMM,  XC_DOT,   XC_MINS,  _______,
-                                                  _______, _______, KC_NO,                  KC_NO,   _______, _______
+                                                  _______, _______, _______,                  KC_NO,   _______, _______
     ),
      /*
       * NAV_DEL Layer (Layer 4) - Deletion sub-layer, active only while Dl⊙ is held on FAVS
@@ -283,6 +284,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                            _______, SK_DELLINEBEG, _______, SK_DELLINEEND, _______, _______,
         _______, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______,                            _______, KC_BSPC, _______, KC_DEL,  _______, _______,
         _______, _______, _______, _______, _______, _______,                            _______, SK_DELWORDPRV, _______, SK_DELWORDNXT, _______, _______,
+                                            _______, _______, _______,                  _______, _______, _______
+    ),
+     /*
+      * ADJUST Layer (Layer 5) - tri-layer: hold both inner thumbs (FAVS + SYMBOLS)
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │F1 │F2 │F3 │F4 │F5 │       │F6 │F7 │F8 │F9 │F10│   │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │Bot│   │   │   │   │F11│       │F12│Mut│Vl↑│Br↑│   │ ▽ │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │   │       │   │   │Vl↓│Br↓│   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      * Fn keys on the top row (F1-F10), F11/F12 continue on the inner home columns
+      * Bot=QK_BOOT at the Tab position — same spot as the BASE Tab+Bspc boot combo
+      * Volume (middle col) and Brightness (ring col) as vertical pairs: up on home, down below
+      * Mut=Mute; ▽ at 23 = Bspc (via SYMBOLS); thumbs ▽ as everywhere (Esc/Shift/Space/Ent)
+      */
+    [ADJUST] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_NO,
+        QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,                             KC_F12,  KC_MUTE, KC_VOLU, KC_BRIU, KC_NO,   _______,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_VOLD, KC_BRID, KC_NO,   KC_NO,
                                             _______, _______, _______,                  _______, _______, _______
     )
 };
@@ -308,6 +329,9 @@ static void sel_latch_off(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // ADJUST tri-layer: active while both FAVS and SYMBOLS are held
+    state = update_tri_layer_state(state, FAVS, SYMBOLS, ADJUST);
+
     // Latch lifecycle: released on leaving FAVS; delete hold (NAV_DEL) wins over select
     if (!layer_state_cmp(state, FAVS) || layer_state_cmp(state, NAV_DEL)) {
         sel_latch_off();
