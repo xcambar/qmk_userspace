@@ -233,12 +233,13 @@ path.combo {
 </g>
 <g transform="translate(210, 90)" class="key modifier keypos-15">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<use href="#mdi:star-four-points-box" xlink:href="#mdi:star-four-points-box" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:star-four-points-box"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+<text x="0" y="26" class="key modifier hold">Latch</text>
 </g>
 <g transform="translate(270, 98)" class="key modifier keypos-16">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key modifier"/>
-<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
-<text x="0" y="26" class="key modifier hold">Latch</text>
+<use href="#mdi:star-four-points-box" xlink:href="#mdi:star-four-points-box" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:star-four-points-box"/>
+<text x="0" y="26" class="key modifier hold"><tspan style="font-size: 88%">GUI/Ctrl</tspan></text>
 </g>
 <g transform="translate(330, 105)" class="key system keypos-17">
 <rect rx="6" ry="6" x="-28" y="-28" width="56" height="56" class="key system"/>

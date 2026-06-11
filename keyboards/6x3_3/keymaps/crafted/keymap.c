@@ -46,14 +46,8 @@
 // Weak corners feature
 #include "feature_weak_corners.h"
 
-// Callum-style oneshot core (no oneshot keys left; still used by mod_morph)
-#include "features/oneshot.h"
-
 // Callum-style swapper
 #include "features/swapper.h"
-
-// Modifier morph (GUI/Ctrl toggle)
-#include "features/mod_morph.h"
 
 // OS control for platform-aware features
 #include "features/os_control.h"
@@ -210,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │   │   │   │   │   │       │PgU│L← │ ↑ │L→ │   │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Esc│Lck│Dl⊙│G/C│Sl⊙│SWn│       │PgD│ ← │ ↓ │ → │   │Del│
+      * │Esc│Lck│Dl⊙│Sl⊙│G/C│SWn│       │PgD│ ← │ ↓ │ → │   │Del│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │Udo│Cut│Cpy│Pst│   │       │   │W← │   │W→ │   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -220,7 +214,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
       * Thumbs ▽ = base Esc / Shift / Space / Enter (36/37/40/41)
-      * G/C=MM_GUICTRL (morphing GUI/Ctrl), SWn=Switch Window
+      * G/C=MM_GUICTRL: plain momentary GUI (macOS) / Ctrl (Linux) — same index finger
+      * as the BASE T-morph, so the modifier lives on one finger across layers
+      * SWn=Switch Window
       * Lck=Layer Lock (keep FAVS without holding the thumb)
       * Sl⊙=Select latch: tap to hold Shift until FAVS is released (or tap again/Esc)
       * Dl⊙=Delete hold: momentary NAV_DEL sub-layer (hold-only, destructive op)
@@ -229,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [FAVS] = LAYOUT_split_3x6_3(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_PGUP, SK_LINEBEG, KC_UP, SK_LINEEND, KC_NO,   KC_NO,
-        KC_ESC,  QK_LLCK, MO(NAV_DEL), MM_GUICTRL, SEL_LATCH, SW_WIN,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_DEL,
+        KC_ESC,  QK_LLCK, MO(NAV_DEL), SEL_LATCH, MM_GUICTRL, SW_WIN,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_DEL,
         _______, SK_UNDO, SK_CUT,  SK_COPY, SK_PSTE, KC_NO,                              KC_NO,   SK_WORDPRV, KC_NO, SK_WORDNXT, KC_NO,   _______,
                                             _______, _______, KC_NO,                  _______, _______, _______
     ),
@@ -381,9 +377,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Update swapper
     update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
 
-    // Update oneshot morphing modifier
-    update_mod_morph_oneshot(MM_GUICTRL, keycode, record);
-
     // OS morph: home-row index mod-taps (positions 16/19) use GUI on macOS, Ctrl on Linux
     // On macOS, LGUI_T/RGUI_T hold behavior is correct as-is; on Linux, swap to Ctrl
     if (get_os_platform() != OS_MacOS && !record->tap.count) {
@@ -408,6 +401,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+
+        case MM_GUICTRL: {
+            // Plain momentary morph: GUI on macOS, Ctrl elsewhere (mirrors the BASE index morph)
+            static uint8_t mm_mod = KC_NO;
+            if (record->event.pressed) {
+                mm_mod = (get_os_platform() == OS_MacOS) ? KC_LGUI : KC_LCTL;
+                register_code(mm_mod);
+            } else if (mm_mod != KC_NO) {
+                unregister_code(mm_mod);
+                mm_mod = KC_NO;
+            }
+            return false;
+        }
 
         case KC_ESC:
             // Esc bails out of an active selection latch (mirrors oneshot cancel)
@@ -452,39 +458,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
     return true;
-}
-
-// Define keys that cancel oneshot modifiers
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-        case KC_ESC:
-            return true;
-        default:
-            return false;
-    }
-}
-
-// Define keys that should be ignored by oneshot logic (allows stacking modifiers)
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-        case MM_GUICTRL:
-        case KC_LSFT:
-        case KC_RSFT:
-        case KC_LCTL:
-        case KC_RCTL:
-        case KC_LALT:
-        case KC_RALT:
-        case KC_LGUI:
-        case KC_RGUI:
-        case MO(FAVS):
-        case MO(SYMBOLS):
-        case MO(NAV_DEL):
-        case SEL_LATCH:
-        case QK_LAYER_LOCK:
-            return true;
-        default:
-            return false;
-    }
 }
 
 // Define keys that should be ignored by swapper (allows changing direction)
@@ -555,11 +528,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 }
 
-#if ONESHOT_MOD_TIMEOUT > 0
-void matrix_scan_user(void) {
-    check_mod_morph_timeout();
-}
-#endif
 
 // Caps Word: same as QMK default, plus AS_UNDS so SCREAMING_SNAKE survives the
 // custom underscore keycode (default would deactivate on an unknown keycode)

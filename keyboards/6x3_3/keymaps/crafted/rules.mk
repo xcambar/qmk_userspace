@@ -11,11 +11,9 @@ CAPS_WORD_ENABLE = yes
 #AUTO_SHIFT_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
 
-# Callum-style oneshot modifiers and swapper
+# Platform-aware features and swapper
 SRC += features/os_control.c
-SRC += features/oneshot.c
 SRC += features/swapper.c
-SRC += features/mod_morph.c
 SRC += features/semantic_keys.c
 SRC += features/dead_keys.c
 SRC += features/alt_symbols.c

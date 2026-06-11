@@ -14,13 +14,6 @@
 // Flow Tap: disable hold during fast typing bursts (QMK May 2025)
 #define FLOW_TAP_TERM 150
 
-// Callum-style oneshot mod timeout (ms) - auto-cancel queued mods after delay
-#define ONESHOT_MOD_TIMEOUT 2000
-
-// Retro tapping - tap layer key when released without pressing other keys
-#define RETRO_TAPPING
-#define RETRO_TAPPING_PER_KEY
-
 // Tapping force hold - prevents accidental taps when rolling
 #define TAPPING_FORCE_HOLD_PER_KEY
 
