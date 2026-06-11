@@ -59,10 +59,6 @@ combos:
       key: K
       layers:
           - "Base (Gallium East)"
-    - key_positions: [12, 23]
-      key: QK_BOOT (Tab+Bsp)
-      layers:
-          - "Base (Gallium East)"
     - key_positions: [37, 40]
       key: Compose
       align: bottom

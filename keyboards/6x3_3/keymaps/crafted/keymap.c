@@ -92,7 +92,6 @@ enum combo_events {
 #endif
 };
 
-const uint16_t PROGMEM boot_combo[] = {KC_TAB, KC_BSPC, COMBO_END};  // Tab + Backspace
 const uint16_t PROGMEM switch_os[] = {_04_, LCTL_T(_28_), COMBO_END};  // Left hand: toggle OS and mod morph
 const uint16_t PROGMEM print_os[] = {_03_, LCTL_T(_28_), _04_, COMBO_END};  // Left hand: print OS name
 const uint16_t PROGMEM switch_layout[] = {_07_, RCTL_T(_31_), COMBO_END};  // Right hand mirror: toggle default layout
@@ -106,7 +105,6 @@ combo_t key_combos[] = {
     COMBO_ACTION(print_layout),  // COMBO_PRINT_LAYOUT
     COMBO_ACTION(compose_combo), // COMBO_COMPOSE
     XC_WEAK_CORNERS_COMBOS       // COMBO_WC_TL/TR/BL/BR (when XC_WEAK_CORNERS)
-    COMBO(boot_combo, QK_BOOT),
 };
 
 #ifdef XC_WEAK_CORNERS
@@ -186,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * S/␣=SFT_SPC: Hold for Shift, Tap for Space (if no other key pressed)
       * Chordal Hold: opposite-hands rule prevents same-hand roll misfires
       * Weak corners: [Q] [P] [B] [N] - only when XC_WEAK_CORNERS enabled, else actual keys
-      * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on), Tab+Bsp→QK_BOOT
+      * Combos: W+E→Q I+O→P C+V→B M+,→N (when weak corners on); boot lives on ADJUST
       */
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
@@ -296,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * │   │   │   │   │   │   │       │   │   │Vl↓│Br↓│   │   │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       * Fn keys on the top row (F1-F10), F11/F12 continue on the inner home columns
-      * Bot=QK_BOOT at the Tab position — same spot as the BASE Tab+Bspc boot combo
+      * Bot=QK_BOOT at the Tab position (sole bootloader access; the BASE combo was removed)
       * Volume (middle col) and Brightness (ring col) as vertical pairs: up on home, down below
       * Mut=Mute; ▽ at 23 = Bspc (via SYMBOLS); thumbs ▽ as everywhere (Esc/Shift/Space/Ent)
       */

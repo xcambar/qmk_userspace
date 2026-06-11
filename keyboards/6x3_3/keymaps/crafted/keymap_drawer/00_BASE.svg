@@ -361,14 +361,6 @@ path.combo {
 <text x="600" y="154" class="combo tap">K</text>
 </g>
 <g class="combo combopos-4">
-<path d="M420,105 l-370,0" class="combo"/>
-<path d="M420,105 l370,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="94" width="28" height="22" class="combo"/>
-<text x="420" y="105" class="combo tap">
-<tspan x="420" dy="-0.6em" style="font-size: 78%">QK_BOOT</tspan><tspan x="420" dy="1.2em" style="font-size: 78%">(Tab+Bsp)</tspan>
-</text>
-</g>
-<g class="combo combopos-5">
 <path d="M420,271 h-114 a6.0,6.0 0 0 1 -6.0,-6.0 v-5" class="combo"/>
 <path d="M420,271 h114 a6.0,6.0 0 0 0 6.0,-6.0 v-5" class="combo"/>
 <rect rx="6" ry="6" x="406" y="260" width="28" height="22" class="combo"/>
