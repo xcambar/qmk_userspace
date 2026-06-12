@@ -1,1 +1,0 @@
-../crafted/feature_weak_corners.h
