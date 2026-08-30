@@ -93,8 +93,8 @@ const key_override_t* key_overrides[] = {
 // Luz shared mod system: chordal_hold_layout (positional) + the Cmd/Ctrl morph
 #include "luz/mods.h"
 
-// Snapshot the morph keycodes for LUZ_MORPH_KEY. SYMBOLS 18 is transparent onto BASE 18,
-// so `-` keeps its position on both layers and no third snapshot is needed.
+// Snapshot the morph keycodes for LUZ_MORPH_KEY. SYMBOLS 18 repeats `-` as a plain SY_MINS,
+// so `-` keeps its position on both layers while the morph stays BASE-only.
 static const uint16_t morph_l = LGUI_T(KC_K);
 static const uint16_t morph_r = RGUI_T(KC_MINS);
 
@@ -107,8 +107,8 @@ static const uint16_t morph_r = RGUI_T(KC_MINS);
 #define SY_COMM_MODTAP RALT_T(KC_COMM)
 #define SY_DOT_MODTAP  RGUI_T(KC_DOT)
 
-// BASE pos 18 doubles as the right morph: tap -, hold Cmd/Ctrl. SYMBOLS 18 is transparent
-// onto it, so `-` keeps the same position on both layers.
+// BASE pos 18 doubles as the right morph: tap -, hold Cmd/Ctrl. SYMBOLS 18 repeats `-` as a
+// plain SY_MINS, so `-` keeps the same position on both layers.
 #define SY_MINS_MODTAP RGUI_T(KC_MINS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -142,8 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * keycode, and KC_R is an alpha, so Flow Tap engages: EXTEND cannot be entered within
       * FLOW_TAP_TERM (150ms) of a keystroke. LT(SYMBOLS, KC_ENT) is exempt because KC_ENT is
       * not a flow-tap key. An is_flow_tap_key() override would remove this.
-      * pos 18 is RGUI_T(KC_MINS): tap -, hold morph. SYMBOLS 18 is transparent onto it, so
-      * `-` keeps the same position on both layers.
+      * pos 18 is RGUI_T(KC_MINS): tap -, hold morph. SYMBOLS 18 repeats `-` as a plain
+      * SY_MINS, so `-` keeps the same position on both layers and the morph stays BASE-only.
       * Bottom-row mod-taps: F/A=Alt, G/G=GUI, M/C=Ctrl | '/C=Ctrl, ./G=GUI, ,/A=Alt
       */
     [BASE] = LAYOUT_split_3x6_3(

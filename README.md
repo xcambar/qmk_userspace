@@ -52,8 +52,8 @@ your workflow onto them, on any layer, without disturbing the shared frame.
 
 **What's open, precisely.** The blank positions on every layer; the fills on the navigation
 layer (the supplied editing commands are a default, not a requirement); which symbols a variant
-privileges onto its base layer, and where; and what sits under the Cmd/Ctrl morph on the left
-thumb — nothing in Gallium and Colemak-DH, the letter `R` in Enthium.
+privileges onto its base layer, and where; and what sits under the navigation-layer hold on the
+left thumb — nothing in Gallium and Colemak-DH, the letter `R` in Enthium.
 
 **What isn't.** The layer set and how you reach it, the mod positions, the symbol vocabulary and
 its shift pairings, and the Compose chord's position. [`LUZ.spec.md`](./LUZ.spec.md) opens with

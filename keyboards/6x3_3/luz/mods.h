@@ -36,7 +36,8 @@
 // fix for both):
 //   1. The default is_flow_tap_key() covers KC_A-Z, KC_DOT, KC_COMM, KC_SCLN, KC_SLSH and
 //      KC_SPC only, so mod-taps tapping anything else get no protection: Enthium's
-//      RGUI_T(KC_MINS) at 18 and RCTL_T(KC_QUOT) at 31, and RGUI_T(KC_BSLS) on SYMBOLS 18.
+//      RGUI_T(KC_MINS) at 18 and RCTL_T(KC_QUOT) at 31. (SYMBOLS carries no mod-taps at all
+//      since the morph was removed from it, so BASE is the whole exposure.)
 //   2. Conversely, Enthium's LT(EXTEND, KC_R) at 38 taps an ALPHA, so Flow Tap *does*
 //      engage — which means EXTEND cannot be entered within FLOW_TAP_TERM of a keystroke.
 //      LT(SYMBOLS, KC_ENT) is unaffected because KC_ENT is not a flow-tap key.

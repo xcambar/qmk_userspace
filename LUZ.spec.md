@@ -25,7 +25,7 @@ deliberately **enumerated** — a conformance checklist, not a vague licence:
 | BASE alpha placement | the layer set, their order, and how each is reached |
 | which symbols are privileged onto BASE, and where | the symbol *vocabulary* and its shift pairings |
 | the SYMBOLS right-hand field | the SYMBOLS left-hand numpad |
-| SYMBOLS position 18's tap (it doubles as the right morph) | Shift plain on 37; the morph mirrored on 17/18 |
+| BASE position 18's tap (it doubles as the right morph) | Shift plain on 37; the morph mirrored on 17/18 |
 | what sits under a pinned hold — the morph's taps, and the EXTEND hold on 38 | mod positions: 37, 17/18, 26–28, 31–33 |
 | the Compose combo's two operands | Compose at positions 5+6, and everything it emits |
 | EXTEND's fills (the `SK_*` set is a default) | the EXTEND cluster's geometry and sub-mode rules |
@@ -86,10 +86,10 @@ happens in one file.
    (`ADJUST → SYMBOLS → EXTEND → BASE`).
 2. **Cross-layer consistency.** The same output lives at the same physical position on
    every layer it appears, even at the cost of an empty slot elsewhere. A glyph never
-   migrates between layers. Shift obeys this too — 17 and 18 on both BASE and SYMBOLS.
-   The single exception is EXTEND, whose Shift is position 16 (the Select-mode trigger),
-   because the nav cluster owns 18 for the PgUp/PgDn pair. That exception is deliberate
-   and is the only one.
+   migrates between layers. Shift obeys this by staying *out* of the overlays entirely: the
+   plain `KC_LSFT` at 37 is transparent everywhere above BASE, so it is at 37 on every layer.
+   EXTEND carries a *second* Shift at position 16, which is an addition rather than a
+   relocation — it is the Select-mode trigger, not a Shift you reach for to capitalise.
 3. **Privileged base keys fall through.** The privileged BASE symbols *and the envelope*
    (Tab, Backspace) stay reachable on overlay layers via transparency rather than being
    re-declared. Note that the envelope's *positions* are per-variant — 12/23 in Gallium and
@@ -119,8 +119,8 @@ The shared half lives in [`keyboards/6x3_3/luz/symbols.h`](keyboards/6x3_3/luz/s
 - **All-layer override scope.** The unshifted/shifted behavior is delivered by key
   overrides live on every layer (`~0`), so a symbol behaves identically wherever it is
   physically placed — nothing gates it by layer.
-- **Mod-tap shift handling.** A variant may place a punctuation symbol on a mod-tap (on BASE, or
-  on SYMBOLS where position 18 doubles as the right morph);
+- **Mod-tap shift handling.** A variant may place a punctuation symbol on a BASE mod-tap
+  (BASE is the only layer that carries mod-taps at all);
   since a mod-tap's tap can't ride a key override, `SYM_MODTAP_SHIFT` supplies the shifted
   partner from `process_record_user`, reading the same `SY_*_SHIFTED` constants the table
   uses. The mechanism is shared; *which* symbols sit on mod-taps is per-layout.
@@ -296,8 +296,9 @@ every letter keeps the same modifier under the opposite hand.
 
 Luz imposes **nothing** on the thumb cluster beyond what other conventions already require:
 the layer model pins the two inner thumbs (EXTEND on the left inner, SYMBOLS layer-tap on the
-right inner), the mod system puts the Cmd/Ctrl morph on 37, and Space sits on 40. What a variant
-puts *under* a pinned hold is free. Thumb 37 is a plain `KC_LSFT` in every variant. Thumb 38 is
+right inner), the mod system puts the plain Shift on 37, and Space sits on 40. What a variant
+puts *under* a pinned hold is free. Thumb 37 is a plain `KC_LSFT` in every variant, so nothing
+sits under it at all. Thumb 38 is
 the EXTEND hold: `MO(EXTEND)` in Gallium and Colemak-DH, and `LT(EXTEND, KC_R)` in Enthium, which
 gives `R` the best thumb key on the board. That tap costs Enthium one thing worth knowing:
 `is_flow_tap_key()` matches on the *tap* keycode, and `KC_R` is an alpha, so Flow Tap engages and
