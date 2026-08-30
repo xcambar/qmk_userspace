@@ -13,6 +13,7 @@
 // could not survive Shift moving onto a letter.
 //
 //   Gallium     V + J
+//   Colemak-DH  B + J
 //   Enthium     X + =
 //
 // Usage in keymap.c, before key_combos[]:

@@ -15,6 +15,7 @@ Luz ships as layout-specific **variants**:
 |--------------------|--------------|----------------------------------------|
 | **Luz for Gallium**| Gallium East | `keyboards/6x3_3/keymaps/luz_for_gallium`      |
 | **Luz for Enthium**| Enthium      | `keyboards/6x3_3/keymaps/luz_for_enthium`      |
+| **Luz for Colemak-DH**| Colemak Mod-DH (matrix) | `keyboards/6x3_3/keymaps/luz_for_colemak_dh` |
 
 A *variant* is a layout dropped into the Luz frame. What varies is deliberately small and
 deliberately **enumerated** — a conformance checklist, not a vague licence:
@@ -91,7 +92,8 @@ happens in one file.
    and is the only one.
 3. **Privileged base keys fall through.** The privileged BASE symbols *and the envelope*
    (Tab, Backspace) stay reachable on overlay layers via transparency rather than being
-   re-declared. Note that the envelope's *positions* are per-variant — 12/23 in Gallium, 24/35 in Enthium — so the transparent positions differ between variants even
+   re-declared. Note that the envelope's *positions* are per-variant — 12/23 in Gallium and
+   Colemak-DH, 24/35 in Enthium — so the transparent positions differ between variants even
    though the rule does not. Getting this wrong is silent: the key simply isn't there. This no longer applies
    to the outer thumbs: 36 and 41 are blank, and what used to fall through from them is
    reachable elsewhere (`Esc` on EXTEND at 12, `Enter` as the tap of `LT(SYMBOLS)` at 39).
@@ -180,6 +182,7 @@ keystroke*. Being able to write accents, diacritics and other common symbols is 
   | Variant | Chord |
   |---------|-------|
   | Luz for Gallium | `V` + `J` |
+  | Luz for Colemak-DH | `B` + `J` |
   | Luz for Enthium | `X` + `=` |
 
   A combo operand must be a key you never type in sequence with the other operand. The historic
@@ -238,7 +241,7 @@ positional, shareable parts live in
   reasons it lives at 17/18 rather than the home row:
     1. 17/18 is the lightest pair in every layout (~0.8–4.4% of English letters), because the
        inner index column is where layouts put their least frequent keys.
-    2. More sharply, the index home pair spans a common **cross-hand bigram** in both
+    2. More sharply, the index home pair spans a common **cross-hand bigram** in two of three
        variants — `th` in Gallium (T at 16, H at 19) and `he` in Enthium — and cross-hand is
        exactly the case Chordal Hold does *not* guard. A morph there turns "The" after a pause
        into `⌘H`.
@@ -277,6 +280,16 @@ mod *positions* above still hold (index morph on the index home keys; the Alt/GU
 the bottom row). Enthium mirrors the hands, but because the scheme is itself mirror-symmetric,
 every letter keeps the same modifier under the opposite hand.
 
+> [!NOTE]
+> **Open tension, surfaced by Luz for Colemak-DH.** The rule above ("a variant must place its
+> alphas so the mod positions still hold") assumes the variant author controls the alphas. A
+> variant adopting a *published* layout does not: Colemak Mod-DH's bottom row is fixed at
+> `z x c d v` / `k h , . /`, which puts ~13.3% of English letters under a bottom-row mod-tap
+> against ~6.8% for Gallium East — `H` alone carries almost the whole Gallium load. The natural
+> mitigation is a longer per-variant `TAPPING_TERM`, which the tap-hold tuning contract above
+> currently forbids. This is recorded, not resolved; see
+> [`luz_for_colemak_dh/README.md`](keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md).
+
 ---
 
 ## The thumb cluster — *deliberately not a convention*
@@ -285,7 +298,7 @@ Luz imposes **nothing** on the thumb cluster beyond what other conventions alrea
 the layer model pins the two inner thumbs (EXTEND on the left inner, SYMBOLS layer-tap on the
 right inner), the mod system puts the Cmd/Ctrl morph on 37, and Space sits on 40. What a variant
 puts *under* a pinned hold is free. Thumb 37 is a plain `KC_LSFT` in every variant. Thumb 38 is
-the EXTEND hold: `MO(EXTEND)` in Gallium and `LT(EXTEND, KC_R)` in Enthium, which
+the EXTEND hold: `MO(EXTEND)` in Gallium and Colemak-DH, and `LT(EXTEND, KC_R)` in Enthium, which
 gives `R` the best thumb key on the board. That tap costs Enthium one thing worth knowing:
 `is_flow_tap_key()` matches on the *tap* keycode, and `KC_R` is an alpha, so Flow Tap engages and
 EXTEND cannot be entered within `FLOW_TAP_TERM` of a keystroke. `LT(SYMBOLS, KC_ENT)` is exempt

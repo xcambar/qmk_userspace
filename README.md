@@ -11,6 +11,7 @@ Luz isn't itself a layout; it's the *framework* a layout drops into. Each concre
 |---------|---------|--------|
 | **Luz for Gallium** | Gallium East | [`luz_for_gallium`](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) — the daily driver |
 | **Luz for Enthium** | Enthium | [`luz_for_enthium`](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) — work in progress |
+| **Luz for Colemak-DH** | Colemak Mod-DH (matrix) | [`luz_for_colemak_dh`](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md) — the portability test |
 
 New variants are very welcome - see [Contributing variants](#contributing-variants).
 
@@ -19,7 +20,7 @@ New variants are very welcome - see [Contributing variants](#contributing-varian
 ## What you get, out of the box
 
 > [!NOTE]
-> The diagrams below are simplified to highlight each feature; they don't show every key. For a complete overview, see each variant's README ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) · [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md)).
+> The diagrams below are simplified to highlight each feature; they don't show every key. For a complete overview, see each variant's README ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) · [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) · [Luz for Colemak-DH](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md)).
 
 - **Bottom-row mods, a plain thumb Shift, and an OS-aware Cmd/Ctrl.** Mods sit on the bottom row, under the less frequent letters, which reduces misfires. **Shift is a single plain key on the thumb** — not a dual-function key at all, so the modifier you hold most often has no timing to get wrong, and because thumbs are exempt from the handedness rule that one key works for both hands. Double-tap it for Caps Word. The **Cmd/Ctrl key adapts to the OS** (`⌘C` on macOS, `Ctrl-C` on Linux) and sits on the inner index column, the lightest pair in any layout. The home row itself carries no dual-function keys at all.
 
@@ -52,7 +53,7 @@ your workflow onto them, on any layer, without disturbing the shared frame.
 **What's open, precisely.** The blank positions on every layer; the fills on the navigation
 layer (the supplied editing commands are a default, not a requirement); which symbols a variant
 privileges onto its base layer, and where; and what sits under the Cmd/Ctrl morph on the left
-thumb — nothing in Gallium, the letter `R` in Enthium.
+thumb — nothing in Gallium and Colemak-DH, the letter `R` in Enthium.
 
 **What isn't.** The layer set and how you reach it, the mod positions, the symbol vocabulary and
 its shift pairings, and the Compose chord's position. [`LUZ.spec.md`](./LUZ.spec.md) opens with
@@ -63,7 +64,7 @@ without reading any code.
 
 ## Contributing variants
 
-Luz is built to grow, and **new variants are very welcome.** If your favourite alpha layout (Graphite, Focal, Canary, Colemak-DH…) doesn't have one yet, take the existing variants as working examples to copy, and [`LUZ.spec.md`](./LUZ.spec.md) is the contract a variant follows.
+Luz is built to grow, and **new variants are very welcome.** If your favourite alpha layout (Graphite, Focal, Canary, Dvorak…) doesn't have one yet, take the existing variants as working examples to copy, and [`LUZ.spec.md`](./LUZ.spec.md) is the contract a variant follows.
 
 Open an issue to discuss, or send a pull request: community-driven variants are exactly how Luz is meant to spread.
 
@@ -89,7 +90,7 @@ qmk userspace-compile
 
 - [`LUZ.spec.md`](./LUZ.spec.md) — the exact, implementation-facing contract: every layer, keycode, position, and rule.
 - [`TUNING.md`](./TUNING.md) — four tap-hold settings left deliberately open, with the arguments on each side.
-- The variant READMEs ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md), [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md)) — diagrams and per-layout specifics.
+- The variant READMEs ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md), [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md), [Luz for Colemak-DH](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md)) — diagrams and per-layout specifics.
 - [`keyboards/6x3_3/luz/`](./keyboards/6x3_3/luz/) — the shared code the variants compile against.
 
 ## Inspiration

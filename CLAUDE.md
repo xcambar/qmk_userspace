@@ -15,12 +15,14 @@ Keymaps live in `keyboards/6x3_3/keymaps/` and are symlinked to both keyboards:
 keyboards/6x3_3/keymaps/
 ├── luz_for_gallium/   # Luz for Gallium (the daily driver; dead keys, semantic keys, symbols, etc.)
 ├── luz_for_enthium/   # Luz for Enthium (WIP; same Luz conventions on the Enthium layout)
+├── luz_for_colemak_dh/ # Luz for Colemak-DH (matrix); the portability test variant
 └── zen/               # Minimal QWERTY keymap (3 layers: BASE, CODE, NAV)
 
 # kaly symlinks each keymap individually:
 keyboards/kaly/kaly42/keymaps/
 ├── luz_for_gallium -> ../../../6x3_3/keymaps/luz_for_gallium
 ├── luz_for_enthium -> ../../../6x3_3/keymaps/luz_for_enthium
+├── luz_for_colemak_dh -> ../../../6x3_3/keymaps/luz_for_colemak_dh
 └── zen -> ../../../6x3_3/keymaps/zen
 
 # cantor symlinks the WHOLE keymaps dir (so it picks up all of them):
@@ -38,12 +40,15 @@ while the human-facing name is "Luz for Gallium".
         ["kaly/kaly42", "luz_for_gallium"],
         ["kaly/kaly42", "zen"],
         ["kaly/kaly42", "luz_for_enthium"],
+        ["kaly/kaly42", "luz_for_colemak_dh"],
         ["42keebs/cantor_pro/v3/left", "luz_for_gallium"],
         ["42keebs/cantor_pro/v3/right", "luz_for_gallium"],
         ["42keebs/cantor_pro/v3/left", "zen"],
         ["42keebs/cantor_pro/v3/right", "zen"],
         ["42keebs/cantor_pro/v3/left", "luz_for_enthium"],
-        ["42keebs/cantor_pro/v3/right", "luz_for_enthium"]
+        ["42keebs/cantor_pro/v3/right", "luz_for_enthium"],
+        ["42keebs/cantor_pro/v3/left", "luz_for_colemak_dh"],
+        ["42keebs/cantor_pro/v3/right", "luz_for_colemak_dh"]
     ]
 }
 ```
@@ -61,6 +66,7 @@ qmk compile -kb kaly/kaly42 -km luz_for_gallium
 qmk compile -kb kaly/kaly42 -km zen
 qmk compile -kb 42keebs/cantor_pro/v3/left -km luz_for_gallium
 qmk compile -kb 42keebs/cantor_pro/v3/left -km zen
+qmk compile -kb kaly/kaly42 -km luz_for_colemak_dh
 ```
 
 ## Key Position Reference (split_3x6_3)

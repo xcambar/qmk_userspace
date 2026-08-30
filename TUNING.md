@@ -43,7 +43,8 @@ A mod-tap whose tap keycode is outside the default set gets **zero** Flow Tap co
 | Enthium | BASE 18 | `RGUI_T(KC_MINS)` | one half of the morph pair |
 | Enthium | BASE 31 | `RCTL_T(KC_QUOT)` | `'` is constant in French — *l'*, *d'*, *qu'*, *n'*, *s'* |
 
-Gallium is fully covered: every one of its mod-tap taps is an alpha, a comma or a dot.
+Gallium and Colemak-DH are fully covered: every one of their mod-tap taps is an alpha, a comma
+or a dot.
 
 ### Gap B — a layer key that gets protection it may not want
 
@@ -98,7 +99,7 @@ Position 39 is the **only** tap-hold key in the framework where auto-repeat matt
 else you would ever hold down to repeat is a plain keycode and is unaffected by any value of this
 setting:
 
-- Backspace — plain `KC_BSPC` (23 in Gallium, 35 in Enthium)
+- Backspace — plain `KC_BSPC` (23 in Gallium/Colemak, 35 in Enthium)
 - Delete, the arrows, PgUp/PgDn — all plain on EXTEND
 - Space — plain at 40
 
@@ -142,7 +143,8 @@ layout maximises.
    specifically *pause > 150 ms, then a mod-tap letter, then an opposite-hand letter* — which is
    exactly what starting to type after thinking looks like. Gallium's worst case is `W` at 27
    (GUI, left hand): *we, with, was, what, when* followed by a right-hand vowel → `⌘E`. `G` at 17
-   does the same for *go, get, good*.
+   does the same for *go, get, good*. Colemak-DH escapes it — its bottom-row `H` is right-hand,
+   and H-words continue with right-hand vowels, so those chords stay same-hand and safe.
 2. **Punctuation rolled into Space.** `get_chordal_hold_default` returns true whenever *either*
    key is `'*'`, and the thumbs are — so Enthium's `.` and `,` mod-taps at 32/33 are chord-eligible
    against Space. `. ` after a sentence-end pause could become `Alt+Space`.
@@ -155,7 +157,7 @@ layout maximises.
 
 - **On 39:** `KC_ENT` is not a flow-tap key, so Flow Tap never protects it. Rolling Enter into the
   next character — plausible at speed — would give SYMBOLS + that letter. This works today.
-- **On 38:** only Enthium has an `LT` there; Gallium has a bare `MO` with no
+- **On 38:** only Enthium has an `LT` there; Gallium and Colemak-DH have a bare `MO` with no
   tap/hold decision, so **the 240 ms problem is Enthium-only.** And enabling it on
   `LT(EXTEND, KC_R)` trades that delay for word-initial-`r` misfires — *rien*, *rue*, *rendre* →
   EXTEND + letter.
