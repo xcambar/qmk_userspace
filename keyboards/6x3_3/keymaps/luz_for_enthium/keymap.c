@@ -17,22 +17,25 @@
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
  * │     │  Z  │  P  │  D  │  L  │  X  │       │  =  │  U  │  O  │  Y  │  Q  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │  W  │  S  │  N  │  T  │ H/⌘ │  K  │       │  -  │ E/⌘ │  A  │  I  │  C  │  B  │
+ * │  W  │  S  │  N  │  T  │  H  │ K/⌘ │       │ -/⌘ │  E  │  A  │  I  │  C  │  B  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ Tab │  V  │ F/A │ G/⌘ │ M/C │  J  │       │  /  │ '/C │ ./⌘ │ ,/A │  :  │ Bsp │
+ * │ Tab │  V  │ F/A │ G/G │ M/C │  J  │       │  /  │ '/C │ ./G │ ,/A │  :  │ Bsp │
  * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
  *               ┌───┐                   ┌───┐
- *               │ R ├───┐           ┌───┤Spc│
- *               └───┤Sft├───┐   ┌───┤SYM├───┘
- *                   └───┤FAV│   │Ent├───┘  Esc   R on the LEFT thumb, Esc on the right
+ *               │   ├───┐           ┌───┤   │
+ *               └───┤ ⇧ ├───┐   ┌───┤Spc├───┘
+ *                   └───┤R/F│   │SYM├───┘   R/F=tap R, hold EXTEND; SYM=SYMBOLS layer-tap
  *                       └───┘   └───┘
  *
- * The thumb cluster is unchanged EXCEPT R<->Esc were swapped to follow the alphas
- * (R now left outer pos 36, Esc now right outer pos 41). Mod/morph furniture stays
- * position-bound, so left keys keep left-hand mods (Enthium's mod scheme is already
- * mirror-symmetric, so every letter keeps the same modifier under the opposite hand):
- *   - home-row index morph: H/⌘ (pos 16) and E/⌘ (pos 19) = GUI (Ctrl on Linux)
- *   - bottom-row mod-taps: F/A G/⌘ M/C (left) | '/C ./⌘ ,/A (right); the `'`/`.`/`,` taps
+ * The thumb cluster follows the Luz frame: 37 is the plain Shift, 39 the SYMBOLS layer-tap
+ * (tap = Enter), 40 Space. Enthium's one liberty is 38, where the EXTEND hold carries R as
+ * its tap, giving R the best key on the board; 36 and 41 are blank in every variant.
+ * Mod/morph furniture stays position-bound, so left keys keep left-hand mods (Enthium's mod
+ * scheme is already mirror-symmetric, so every letter keeps the same modifier under the
+ * opposite hand):
+ *   - inner-index morph: K/⌘ (pos 17) and -/⌘ (pos 18) = GUI (Ctrl on Linux). NOT the home
+ *     row: 16/19 would put it under H/E, a common cross-hand bigram (see luz/mods.h).
+ *   - bottom-row mod-taps: F/A G/G M/C (left) | '/C ./G ,/A (right); the `'`/`.`/`,` taps
  *     get `"`/`!`/`?` from SYM_MODTAP_SHIFT (pos 31/32/33) — all have basic unshifted glyphs
  * Relocated non-alphas: Tab bottom-left (pos 24), Bspc bottom-right (pos 35); home-row
  * outers carry W (pos 12) and B (pos 23); top corners (pos 0/11) are dead.
@@ -40,7 +43,8 @@
  * 30), '→" (pos 31), .→! (pos 32), ,→? (pos 33), :→; (pos 34). Standalone `_` and `;` are
  * reached as Shift+`-` and Shift+`:`. SYMBOLS repeats these at the same positions
  * (cross-layer consistency) and adds the other 9 pairs.
- * Sft/Spc tapped together (combo) arm Compose for accents (E/A/U/O/C/N/W, Esc cancels).
+ * X + = pressed together (the cross-hand inner-index combo at positions 5+6) arms Compose
+ * for accents (E/A/U/O/C/N/W, Esc cancels).
  */
 
 #include QMK_KEYBOARD_H
