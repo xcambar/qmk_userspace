@@ -91,8 +91,8 @@ YAML rows: three rows of 12 keys, then a thumb row of 6.
   ADJUST has two (38 and 39).
 - Mod-taps → `{ t: X, h: Mod, type: modtap }` (e.g., `LALT_T(KC_Q)` → `{ t: Q, h: LAlt, type: modtap }`).
   The `modtap` type highlights **only the hold legend** (key body stays plain); reserve
-  `type: modifier` for keys that are modifiers outright — the plain `KC_LSFT` at SYMBOLS 17
-  and the `LZ_CMD` morph at BASE 37.
+  `type: modifier` for keys that are modifiers outright — the plain `KC_LSFT` on thumb 37,
+  which is a modifier on BASE and transparent (so still 37) on every overlay.
 - Shifted-pair symbol customs (`SY_*`) → `{ t: x, s: y, type: symbol }`,
   e.g., `SY_LPRN` → `{ t: "(", s: "<" }`, `SY_SLSH` → `{ t: "/", s: "|" }`
 
@@ -106,7 +106,8 @@ YAML rows: three rows of 12 keys, then a thumb row of 6.
 | `MO(EXTEND_TABS)` (EXTEND pos 3) | `s: hold`, `t: $$mdi:tab$$`, `h: tabs`, type `nav tabmode mode` — blue `nav` key, purple legends via `.key.tabmode.tap, .key.tabmode.hold, .key.tabmode.shifted { fill: #9a5fa1 }` (legend-position selectors like `delhold`/`selmode` — **not** `:not(rect)`, which the color Inkscape PDF path silently drops), italic "hold" via `.key.mode.shifted`. Trigger for the EXTEND_TABS sub-layer; per-key roles in the README modes table |
 | nav cluster (right hand) | each movement key carries **only** its movement glyph — no corner hints. The Select / Delete / Tabs sub-modes reuse these same positions, but those roles are documented in the README "Navigation modes" table, deliberately **not** as on-key glyphs (keeps the cluster legible). `delhint`/`selhint`/`tabhint` tokens + their CSS were removed when the hints were dropped |
 | `QK_LLCK` | `$$mdi:lock-outline$$`, h: "Layer Lock", type layer |
-| `LZ_CMD` | `$$mdi:apple-keyboard-command$$`, h: "⌘/Ctrl", type `modifier` — the Cmd/Ctrl morph on thumb 37 (plain key; Enthium renders it as a `modtap` with `R` as the tap) |
+| Cmd/Ctrl morph (`LGUI_T`/`RGUI_T` at BASE 17/18) | `{ t: <letter>, h: $$mdi:apple-keyboard-command$$, type: modtap }` — a mirrored **mod-tap** pair on the inner index column, not a plain key. It is BASE-only: SYMBOLS 17/18 carry symbols, so never render a morph above BASE |
+| `KC_LSFT` (thumb 37) | `{ t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: modifier }` — **position 37, on every layer.** It is a plain key on BASE and transparent above, so a diagram that draws it at 38 (the EXTEND hold) is wrong |
 | `MD_FENCE` | t: ` ``` `, type symbol |
 | `ARROW_OP` | `{ t: "->", s: "=>" }`, type symbol |
 | `SW_OS` / `PR_OS` | "OS ⇄" / "OS ?", type system |

@@ -51,8 +51,8 @@ layers:
           ]
         - [
               { type: none },
-              { type: none },
               { t: $$mdi:apple-keyboard-shift$$, type: modifier },
+              { type: none },
               { type: none },
               { type: none },
               { type: none },

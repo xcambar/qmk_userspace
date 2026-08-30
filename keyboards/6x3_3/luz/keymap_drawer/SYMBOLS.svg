@@ -305,12 +305,12 @@ svg.keymap { fill: #36322e; }
 <g transform="translate(240, 225)" class="key none keypos-36">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
-<g transform="translate(300, 240)" class="key none keypos-37">
-<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
-</g>
-<g transform="translate(360, 255)" class="key modifier keypos-38">
+<g transform="translate(300, 240)" class="key modifier keypos-37">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+</g>
+<g transform="translate(360, 255)" class="key none keypos-38">
+<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
 <g transform="translate(480, 255)" class="key none keypos-39">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
