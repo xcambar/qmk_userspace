@@ -255,6 +255,8 @@ static bool sw_win_active = false;
 layer_state_t layer_state_set_user(layer_state_t state) {
     // ADJUST tri-layer: active while both EXTEND and SYMBOLS are held
     state = update_tri_layer_state(state, EXTEND, SYMBOLS, ADJUST);
+    // Layer-scoped mod latch: leaving SYMBOLS releases whatever it is holding (mod_latch.h)
+    luz_mod_latch_layer_state(state);
     return state;
 }
 
@@ -304,6 +306,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OS morph: home-row index mod-taps (positions 16/19) use GUI on macOS, Ctrl on Linux
     LUZ_MORPH_KEY(keycode, record, morph_l, KC_LCTL);
     LUZ_MORPH_KEY(keycode, record, morph_r, KC_RCTL);
+
+    // Layer-scoped mod latch: under SYMBOLS, releasing a held mod-tap latches the mod for
+    // the life of the layer instead of releasing it (Shift excluded; see luz/mod_latch.h).
+    if (!luz_mod_latch_process(keycode, record)) {
+        return false;
+    }
 
     switch (keycode) {
         case MD_FENCE:

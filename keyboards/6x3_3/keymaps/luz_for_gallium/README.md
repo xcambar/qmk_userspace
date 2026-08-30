@@ -13,6 +13,7 @@ in [the README](../../../../README.md). This page covers what's specific to `luz
 - **Select and Delete modes** in the navigation cluster
 - **Compose key** for diacritics
 - **Numpad on the left hand** keeps the right hand on the mouse
+- **Mods latch on the symbols layer**: hold Ctrl/Alt/Cmd, enter the layer, let go — the mod stays until you leave, so `Ctrl`+digit is one-handed (Shift excluded; Layer Lock releases)
 - **OS-aware keys**: Cut/Copy/Paste, app/window switching, unified Ctrl/Cmd key — consistent across macOS and Linux
 - Symbols reorganized by frequency: opening brackets on the index column, and pairs kept together as much as possible
 

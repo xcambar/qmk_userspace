@@ -26,6 +26,10 @@
 //   - What sits UNDER a pinned hold is free per variant: the morph's taps are letters, and
 //     a variant may attach a tap to the EXTEND hold on 38 (Enthium: LT(EXTEND, KC_R)).
 //   - Chordal Hold (opposite-hands rule) arbitrates every mod-tap; thumbs are exempt.
+//   - LAYER-SCOPED MOD LATCH: while SYMBOLS is up, releasing a held modifier latches it
+//     for the life of the layer instead of releasing it, so Ctrl/Alt/Cmd + a SYMBOLS key
+//     needs only one hand. Shift is excluded and Layer Lock drops the latch. The rule
+//     and its rationale are in luz/mod_latch.h, included below.
 //
 // Companion config (kept in each variant's config.h, identical, part of the contract):
 //   TAPPING_TERM 240, CHORDAL_HOLD, PERMISSIVE_HOLD, FLOW_TAP_TERM 150,
@@ -47,6 +51,7 @@
 #include <stdint.h>
 #include "quantum.h"
 #include "features/os_control.h"
+#include "luz/mod_latch.h"
 
 // Chordal Hold handedness: 'L'=left, 'R'=right, '*'=exempt (thumbs). Purely
 // positional — identical for every variant, so it lives here, not in keymap.c.
@@ -67,10 +72,17 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 // they wrap a per-layout tap. The morph exists on BASE only: modifiers live on BASE and are
 // held BEFORE switching layers, which is already the required pattern for Alt (26/33) since
 // the bottom row is occupied by digits and symbols on SYMBOLS.
+// Off macOS the morph registers its Ctrl by hand, so it also has to honour the layer-scoped
+// mod latch by hand: on release it offers the mod to the latch first and only unregisters
+// when the latch declines (luz_mod_latch_take, mod_latch.h).
 #define LUZ_MORPH_KEY(keycode, record, key, mod) \
     do { \
         if (get_os_platform() != OS_MacOS && !(record)->tap.count && (keycode) == (key)) { \
-            if ((record)->event.pressed) register_code(mod); else unregister_code(mod); \
+            if ((record)->event.pressed) { \
+                register_code(mod); \
+            } else if (!luz_mod_latch_take(MOD_BIT(mod))) { \
+                unregister_code(mod); \
+            } \
             return false; \
         } \
     } while (0)

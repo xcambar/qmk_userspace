@@ -26,7 +26,7 @@ deliberately **enumerated** — a conformance checklist, not a vague licence:
 | which symbols are privileged onto BASE, and where | the symbol *vocabulary* and its shift pairings |
 | the SYMBOLS right-hand field | the SYMBOLS left-hand numpad |
 | BASE position 18's tap (it doubles as the right morph) | Shift plain on 37; the morph mirrored on 17/18 |
-| what sits under a pinned hold — the morph's taps, and the EXTEND hold on 38 | mod positions: 37, 17/18, 26–28, 31–33 |
+| what sits under a pinned hold — the morph's taps, and the EXTEND hold on 38 | mod positions: 37, 17/18, 26–28, 31–33, and the mod latch on SYMBOLS |
 | the Compose combo's two operands | Compose at positions 5+6, and everything it emits |
 | EXTEND's fills (the `SK_*` set is a default) | the EXTEND cluster's geometry and sub-mode rules |
 
@@ -261,6 +261,48 @@ positional, shareable parts live in
   the mod-tap resolves as a hold; `is_flow_tap_key()` also returns false while Ctrl/GUI/Alt is
   held, so the layer-tap underneath resolves normally. One rule instead of two.
 
+### The layer-scoped mod latch
+
+The bullet above has a cost: a chord that needs a modifier *and* a SYMBOLS key occupies both
+hands for its whole duration, and the chords that need it most — `Ctrl`/`Alt`/`Cmd` + a digit —
+are the repeated ones. Numeric entry in a spreadsheet is the case that names the problem: the
+numpad is on the left hand precisely so the right hand is free, and a two-handed modifier hold
+takes that back.
+
+So Luz reads the modifier release differently while SYMBOLS is up:
+
+> **While SYMBOLS is active, releasing a held modifier latches it for the life of the layer.**
+> It is released when the layer is.
+
+```
+hold Alt          Alt registered
+hold SYMBOLS
+release Alt       Alt STILL registered   ← latched
+  … type on SYMBOLS one-handed, with Alt applied …
+release SYMBOLS   Alt released
+```
+
+The gesture is **timing-independent** — not a tap, a double-tap or a one-shot, so there is no
+term to learn and no window to miss. It is the ordinary hold, read differently because a layer
+is up. Three limits are part of the rule:
+
+1. **SYMBOLS only.** EXTEND is a layer of whole commands whose `SK_*` keys build their own
+   chords; a latched modifier there would corrupt them. ADJUST inherits the latch because it
+   *is* the SYMBOLS thumb plus the EXTEND thumb — releasing the SYMBOLS thumb ends both the
+   layer and the latch, which is the same rule rather than an exception to it.
+2. **Shift never latches.** Shift is the one modifier used *inside* ordinary typing on this
+   layer — every `SY_*` symbol's shifted partner is reached with it — so a latched Shift would
+   turn the whole symbol field over to its shifted face until the layer ended.
+3. **Layer Lock drops the latch.** `QK_LLCK` turns the chord into a mode; a modifier held
+   across that boundary would outlive every cue that it is down. Locking is the explicit
+   "I am staying here" gesture, so it is the right place to let the modifiers go.
+
+The rule is safe to state positionally because **no Luz layer above BASE places a mod-tap
+anywhere**: a mod-tap release seen while SYMBOLS is up always belongs to a key pressed on BASE.
+An implementation on other firmware should reproduce the rule, not the mechanism — there is no
+direct ZMK equivalent (a `&sl`-style sticky behaviour is consumed by the next key, where this
+persists for the layer).
+
 ### Shared (the contract) → `luz/mods.h`
 
 - **Chordal Hold handedness array** (`chordal_hold_layout`) — purely positional (`L`/`R`/`*`,
@@ -269,6 +311,11 @@ positional, shareable parts live in
   that expands inside `process_record_user` (same idiom as `SYM_MODTAP_SHIFT`): on a non-macOS
   platform it registers Ctrl for the held index morph keys. The per-layout `morph_l`/`morph_r`
   snapshots stay in `keymap.c` because they wrap that layout's index letter.
+- **The layer-scoped mod latch** — [`keyboards/6x3_3/luz/mod_latch.h`](keyboards/6x3_3/luz/mod_latch.h),
+  pulled in by `mods.h` because it is part of the mod contract rather than a variant feature. A
+  `keymap.c` wires it with two calls: `luz_mod_latch_process()` in `process_record_user` (after
+  the morph) and `luz_mod_latch_layer_state()` in `layer_state_set_user` (after the tri-layer
+  update). The Layer Lock hook is defined in the header, since it is identical everywhere.
 - **Tap-hold tuning** (in each `config.h`, identical, part of the contract): `TAPPING_TERM 240`,
   `CHORDAL_HOLD`, `PERMISSIVE_HOLD`, `FLOW_TAP_TERM 150`. Chordal Hold's opposite-hands rule
   prevents same-hand roll misfires; Flow Tap suppresses holds during fast typing bursts.
