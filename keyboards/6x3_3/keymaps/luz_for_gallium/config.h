@@ -26,9 +26,9 @@
 // it only adds boot latency here and isn't needed for the wake resync.
 #define SPLIT_WATCHDOG_ENABLE
 
-// Caps Word: double-tap Left Shift to turn it on (QMK-native; pos 37 is plain KC_LSFT,
-// which the built-in detector requires — it wouldn't work with a mod-tap/Space-Cadet shift).
-// NOTE: do NOT also enable CAPS_WORD_INVERT_ON_SHIFT — it strands a real Left Shift on the
-// activating double-tap (its handle_shift swallows the Shift release once Caps Word is on),
-// leaving Shift stuck down. Without it, Shift simply ends Caps Word (and Space ends it too).
+// Caps Word: double-tap Left Shift. Thumb 37 is a plain KC_LSFT, which is what the
+// built-in detector requires (process_caps_word.c accepts only KC_LSFT and OSM(MOD_LSFT)).
+// BOTH_SHIFTS is not usable: it tests `mods == MOD_MASK_SHIFT` and Luz now has a single
+// Shift key. NOTE: do NOT also enable CAPS_WORD_INVERT_ON_SHIFT — its handle_shift swallows
+// the Shift release once Caps Word is on, leaving Shift stuck down.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

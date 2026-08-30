@@ -23,10 +23,10 @@ layers:
               S,
               N,
               T,
-              { t: H, h: "⌘/Ctrl", type: modtap },
-              K,
-              { t: "-", s: "_", type: symbol },
-              { t: E, h: "⌘/Ctrl", type: modtap },
+              H,
+              { t: K, h: "⌘/Ctrl", type: modtap },
+              { t: "-", s: "_", h: "⌘/Ctrl", type: symbol modtap },
+              E,
               A,
               I,
               C,
@@ -47,18 +47,18 @@ layers:
               { t: $$mdi:backspace-outline$$, type: editing },
           ]
         - [
-              R,
-              { t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: editing },
-              { t: $$mdi:layers-outline$$, h: "2", type: layer },
+              { type: none },
+              { t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: modifier },
+              { t: R, h: "2", type: layer },
               { t: $$mdi:keyboard-return$$, h: "1", type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
-              { t: $$mdi:keyboard-esc$$, type: editing },
+              { type: none },
           ]
 
 combos:
-    - key_positions: [37, 40]
+    - key_positions: [5, 6]
       key: { t: Compose, type: state }
-      align: bottom
+      align: top
       layers:
           - "0 · Base (Enthium)"
 

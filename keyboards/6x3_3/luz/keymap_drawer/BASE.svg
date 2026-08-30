@@ -208,19 +208,19 @@ svg.keymap { fill: #36322e; }
 <g transform="translate(210, 90)" class="key none keypos-15">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
-<g transform="translate(270, 98)" class="key modtap keypos-16">
+<g transform="translate(270, 98)" class="key none keypos-16">
+<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
+</g>
+<g transform="translate(330, 105)" class="key modtap keypos-17">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modtap"/>
 <text x="0" y="26" class="key modtap hold">⌘/Ctrl</text>
 </g>
-<g transform="translate(330, 105)" class="key none keypos-17">
-<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
-</g>
-<g transform="translate(510, 105)" class="key none keypos-18">
-<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
-</g>
-<g transform="translate(570, 98)" class="key modtap keypos-19">
+<g transform="translate(510, 105)" class="key modtap keypos-18">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modtap"/>
 <text x="0" y="26" class="key modtap hold">⌘/Ctrl</text>
+</g>
+<g transform="translate(570, 98)" class="key none keypos-19">
+<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
 <g transform="translate(630, 90)" class="key none keypos-20">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
@@ -282,6 +282,7 @@ svg.keymap { fill: #36322e; }
 <g transform="translate(300, 240)" class="key modifier keypos-37">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modifier"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+<text x="0" y="26" class="key modifier hold"><tspan style="font-size: 78%">2x: CWord</tspan></text>
 </g>
 <g transform="translate(360, 255)" class="key none keypos-38">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>

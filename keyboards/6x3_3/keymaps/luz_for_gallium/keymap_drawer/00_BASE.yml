@@ -23,10 +23,10 @@ layers:
               N,
               R,
               S,
-              { t: T, h: "⌘/Ctrl", type: modtap },
-              G,
-              Y,
-              { t: H, h: "⌘/Ctrl", type: modtap },
+              T,
+              { t: G, h: "⌘/Ctrl", type: modtap },
+              { t: Y, h: "⌘/Ctrl", type: modtap },
+              H,
               E,
               A,
               I,
@@ -47,18 +47,18 @@ layers:
               { t: "/", s: "|", type: symbol },
           ]
         - [
-              { t: $$mdi:keyboard-esc$$, type: editing },
-              { t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: editing },
+              { type: none },
+              { t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: modifier },
               { t: $$mdi:layers-outline$$, h: "2", type: layer },
               { t: $$mdi:keyboard-return$$, h: "1", type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
-              { t: $$mdi:keyboard-return$$, type: editing },
+              { type: none },
           ]
 
 combos:
-    - key_positions: [37, 40]
+    - key_positions: [5, 6]
       key: { t: Compose, type: state }
-      align: bottom
+      align: top
       layers:
           - "0 · Base (Gallium East)"
 

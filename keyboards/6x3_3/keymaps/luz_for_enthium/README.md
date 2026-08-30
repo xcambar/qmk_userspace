@@ -58,21 +58,21 @@ EXTEND cursor layer + Select / Delete / Tabs sub-modes
 <details>
 <summary><strong>Compose &amp; diacritics</strong></summary>
 
-Type `Shift + Space` while on BASE, then a key.
+Press `X + =` together (the cross-hand inner-index pair, positions 5+6) while on BASE, then a key.
 
 <!-- BEGIN DIACRITICS TABLE -->
 
 | Key | Produces | Example |
 |-----|----------|---------|
-| `e` | ´ acute (dead key) | `Shift+Space`, `e`, `e` → é |
-| `a` | \` grave (dead key) | `Shift+Space`, `a`, `e` → è |
-| `u` | ¨ diaeresis (dead key) | `Shift+Space`, `u`, `e` → ë |
-| `o` | ˆ circumflex (dead key) | `Shift+Space`, `o`, `e` → ê |
-| `c` | ç | `Shift+Space`, `c` → ç |
-| `n` | ñ | `Shift+Space`, `n` → ñ |
-| `w` | € (euro) | `Shift+Space`, `w` → € |
+| `e` | ´ acute (dead key) | `X + =`, `e`, `e` → é |
+| `a` | \` grave (dead key) | `X + =`, `a`, `e` → è |
+| `u` | ¨ diaeresis (dead key) | `X + =`, `u`, `e` → ë |
+| `o` | ˆ circumflex (dead key) | `X + =`, `o`, `e` → ê |
+| `c` | ç | `X + =`, `c` → ç |
+| `n` | ñ | `X + =`, `n` → ñ |
+| `w` | € (euro) | `X + =`, `w` → € |
 
-Armed from the **base layer** with Shift + Space. Dead keys wait for a base letter, so the same accent works on any vowel; any unlisted key cancels.
+Armed from the **base layer** with X + =. Dead keys wait for a base letter, so the same accent works on any vowel; any unlisted key cancels.
 
 <!-- END DIACRITICS TABLE -->
 

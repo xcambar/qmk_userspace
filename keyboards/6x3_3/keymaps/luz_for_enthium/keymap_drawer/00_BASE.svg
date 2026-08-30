@@ -6,9 +6,6 @@
 <svg id="mdi:backspace-outline">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-backspace-outline" viewBox="0 0 24 24"><path d="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z" /><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 <defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
-<svg id="mdi:keyboard-esc">
-<svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-esc" viewBox="0 0 24 24"><path d="M1 7H7V9H3V11H7V13H3V15H7V17H1V7M11 7H15V9H11V11H13C14.11 11 15 11.9 15 13V15C15 16.11 14.11 17 13 17H9V15H13V13H11C9.9 13 9 12.11 9 11V9C9 7.9 9.9 7 11 7M19 7H21C22.11 7 23 7.9 23 9V10H21V9H19V15H21V14H23V15C23 16.11 22.11 17 21 17H19C17.9 17 17 16.11 17 15V9C17 7.9 17.9 7 19 7Z" /><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
-<defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 <svg id="mdi:keyboard-return">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-return" viewBox="0 0 24 24"><path d="M19,7V11H5.83L9.41,7.41L8,6L2,12L8,18L9.41,16.58L5.83,13H21V7H19Z" /><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 <defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
@@ -17,9 +14,6 @@
 <defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 <svg id="mdi:keyboard-tab">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-keyboard-tab" viewBox="0 0 24 24"><path d="M20,18H22V6H20M11.59,7.41L15.17,11H1V13H15.17L11.59,16.58L13,18L19,12L13,6L11.59,7.41Z" /><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
-<defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
-<svg id="mdi:layers-outline">
-<svg xmlns="http://www.w3.org/2000/svg" id="mdi-layers-outline" viewBox="0 0 24 24"><path d="M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z" /><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 <defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>
 </defs>/* end glyphs */
 <style>/* inherit to force styles through use tags */
@@ -237,24 +231,24 @@ svg.keymap { fill: #36322e; }
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key"/>
 <text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key tap">T</text>
 </g>
-<g transform="translate(270, 98)" class="key modtap keypos-16">
-<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modtap"/>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key modtap tap">H</text>
-<text x="0" y="26" class="key modtap hold">⌘/Ctrl</text>
-</g>
-<g transform="translate(330, 105)" class="key keypos-17">
+<g transform="translate(270, 98)" class="key keypos-16">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key"/>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key tap">K</text>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key tap">H</text>
 </g>
-<g transform="translate(510, 105)" class="key symbol keypos-18">
-<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key symbol"/>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key symbol tap">-</text>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="-26" class="key symbol shifted">_</text>
-</g>
-<g transform="translate(570, 98)" class="key modtap keypos-19">
+<g transform="translate(330, 105)" class="key modtap keypos-17">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modtap"/>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key modtap tap">E</text>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key modtap tap">K</text>
 <text x="0" y="26" class="key modtap hold">⌘/Ctrl</text>
+</g>
+<g transform="translate(510, 105)" class="key symbol modtap keypos-18">
+<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key symbol modtap"/>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key symbol modtap tap">-</text>
+<text x="0" y="26" class="key symbol modtap hold">⌘/Ctrl</text>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="-26" class="key symbol modtap shifted">_</text>
+</g>
+<g transform="translate(570, 98)" class="key keypos-19">
+<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key"/>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key tap">E</text>
 </g>
 <g transform="translate(630, 90)" class="key keypos-20">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key"/>
@@ -331,18 +325,17 @@ svg.keymap { fill: #36322e; }
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key editing"/>
 <use href="#mdi:backspace-outline" xlink:href="#mdi:backspace-outline" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:backspace-outline"/>
 </g>
-<g transform="translate(240, 225)" class="key keypos-36">
-<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key"/>
-<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key tap">R</text>
+<g transform="translate(240, 225)" class="key none keypos-36">
+<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
-<g transform="translate(300, 240)" class="key editing keypos-37">
-<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:apple-keyboard-shift"/>
-<text x="0" y="26" class="key editing hold"><tspan style="font-size: 78%">2x: CWord</tspan></text>
+<g transform="translate(300, 240)" class="key modifier keypos-37">
+<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key modifier"/>
+<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-7" height="14" width="14.0" class="key modifier tap glyph mdi:apple-keyboard-shift"/>
+<text x="0" y="26" class="key modifier hold"><tspan style="font-size: 78%">2x: CWord</tspan></text>
 </g>
 <g transform="translate(360, 255)" class="key layer keypos-38">
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key layer"/>
-<use href="#mdi:layers-outline" xlink:href="#mdi:layers-outline" x="-7" y="-7" height="14" width="14.0" class="key layer tap glyph mdi:layers-outline"/>
+<text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="0" class="key layer tap">R</text>
 <text style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" x="0" y="26" class="key layer hold">2</text>
 </g>
 <g transform="translate(480, 255)" class="key layer keypos-39">
@@ -354,15 +347,14 @@ svg.keymap { fill: #36322e; }
 <rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key editing"/>
 <use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-space"/>
 </g>
-<g transform="translate(600, 225)" class="key editing keypos-41">
-<rect x="-25.2" y="-25.5" width="54" height="54" rx="3" ry="3" fill="#3a2f25" opacity="0.16" filter="url(#sh)"/><rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key editing"/>
-<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="-7" y="-7" height="14" width="14.0" class="key editing tap glyph mdi:keyboard-esc"/>
+<g transform="translate(600, 225)" class="key none keypos-41">
+<rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
 <g class="combo state combopos-0">
-<path d="M420,271 h-114 a6.0,6.0 0 0 1 -6.0,-6.0 v-5" class="combo"/>
-<path d="M420,271 h114 a6.0,6.0 0 0 0 6.0,-6.0 v-5" class="combo"/>
-<rect rx="5" ry="5" x="406" y="260" width="28" height="22" class="combo state"/>
-<text x="420" y="271" class="combo state tap">Compose</text>
+<path d="M420,14 h-84 a6.0,6.0 0 0 0 -6.0,6.0 v5" class="combo"/>
+<path d="M420,14 h84 a6.0,6.0 0 0 1 6.0,6.0 v5" class="combo"/>
+<rect rx="5" ry="5" x="406" y="3" width="28" height="22" class="combo state"/>
+<text x="420" y="14" class="combo state tap">Compose</text>
 </g>
 </g>
 </g>

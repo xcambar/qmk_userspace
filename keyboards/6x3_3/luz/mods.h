@@ -13,12 +13,33 @@
 // The scheme (positions per CLAUDE.md's split_3x6_3 map):
 //   - Bottom-row mod-taps, mirrored Alt-GUI-Ctrl outward->inward:
 //       left  26=Alt  27=GUI  28=Ctrl      right 31=Ctrl 32=GUI 33=Alt
-//   - Home-row INDEX morph (16 left, 19 right): a GUI mod-tap that becomes Ctrl on
-//     Linux (see LUZ_INDEX_GUI_MORPH) — the unified Cmd/Ctrl shortcut key.
+//   - SHIFT is a plain modifier on thumb 37 — not a mod-tap at all. Thumbs are '*'
+//     (exempt) in chordal_hold_layout, so one key holds for BOTH hands; the mod you hold
+//     most therefore costs no tap-hold arbitration and needs no mirrored twin.
+//   - Cmd/Ctrl MORPH mirrored on the INNER INDEX column (17 left, 18 right) — GUI on
+//     macOS, Ctrl on Linux, so Cmd-C and Ctrl-C are the same chord. Mirrored because it IS
+//     subject to the opposite-hands rule. 17/18 is the lightest pair in every layout
+//     (~0.8-4.4% of English letters); the home row is not, and in Gallium (T/H) and
+//     Enthium (H/E) positions 16/19 span a common CROSS-HAND bigram — exactly the case
+//     Chordal Hold does not cover — so the morph must not live there.
+//   - The home row (15/16/19/20) carries NO mod-taps.
+//   - What sits UNDER a pinned hold is free per variant: the morph's taps are letters, and
+//     a variant may attach a tap to the EXTEND hold on 38 (Enthium: LT(EXTEND, KC_R)).
 //   - Chordal Hold (opposite-hands rule) arbitrates every mod-tap; thumbs are exempt.
 //
 // Companion config (kept in each variant's config.h, identical, part of the contract):
-//   TAPPING_TERM 240, CHORDAL_HOLD, PERMISSIVE_HOLD, FLOW_TAP_TERM 150.
+//   TAPPING_TERM 240, CHORDAL_HOLD, PERMISSIVE_HOLD, FLOW_TAP_TERM 150,
+//   DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD (thumb 37 is a plain KC_LSFT, which the
+//   built-in detector requires; BOTH_SHIFTS cannot work with a single Shift key).
+//
+// KNOWN GAPS around Flow Tap (an is_flow_tap_key() / get_flow_tap_term() override is the
+// fix for both):
+//   1. The default is_flow_tap_key() covers KC_A-Z, KC_DOT, KC_COMM, KC_SCLN, KC_SLSH and
+//      KC_SPC only, so mod-taps tapping anything else get no protection: Enthium's
+//      RGUI_T(KC_MINS) at 18 and RCTL_T(KC_QUOT) at 31, and RGUI_T(KC_BSLS) on SYMBOLS 18.
+//   2. Conversely, Enthium's LT(EXTEND, KC_R) at 38 taps an ALPHA, so Flow Tap *does*
+//      engage — which means EXTEND cannot be entered within FLOW_TAP_TERM of a keystroke.
+//      LT(SYMBOLS, KC_ENT) is unaffected because KC_ENT is not a flow-tap key.
 
 #pragma once
 
@@ -36,23 +57,19 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                        '*', '*', '*',  '*', '*', '*'
     );
 
-// Home-row index Cmd/Ctrl morph. The index home keys (pos 16/19) are GUI mod-taps;
-// on macOS GUI is correct as-is, on Linux the HOLD should be Ctrl instead. This
-// expands inside process_record_user (like SYM_MODTAP_SHIFT): when the morph key is
-// held (not tapped) on a non-macOS platform, register Ctrl and return false.
-//   morph_l / morph_r are the snapshotted LGUI_T()/RGUI_T() keycodes for pos 16/19,
-//   defined in keymap.c since they wrap a per-layout letter.
-// Needs `keycode` and `record` in scope; get_os_platform() from features/os_control.h.
-#define LUZ_INDEX_GUI_MORPH(keycode, record, morph_l, morph_r) \
+// Cmd/Ctrl morph — the unified shortcut modifier: GUI on macOS, Ctrl on Linux, so
+// Cmd-C and Ctrl-C are the same chord. It is a mirrored pair of GUI mod-taps on the inner
+// index column (17/18); off macOS the HOLD is intercepted here and Ctrl registered instead.
+//
+// One invocation per morph key, inside process_record_user (same idiom as SYM_MODTAP_SHIFT).
+// `key` is the snapshotted LGUI_T()/RGUI_T() keycode — snapshots live in keymap.c because
+// they wrap a per-layout tap. The morph exists on BASE only: modifiers live on BASE and are
+// held BEFORE switching layers, which is already the required pattern for Alt (26/33) since
+// the bottom row is occupied by digits and symbols on SYMBOLS.
+#define LUZ_MORPH_KEY(keycode, record, key, mod) \
     do { \
-        if (get_os_platform() != OS_MacOS && !(record)->tap.count) { \
-            if ((keycode) == (morph_l)) { \
-                if ((record)->event.pressed) register_code(KC_LCTL); else unregister_code(KC_LCTL); \
-                return false; \
-            } \
-            if ((keycode) == (morph_r)) { \
-                if ((record)->event.pressed) register_code(KC_RCTL); else unregister_code(KC_RCTL); \
-                return false; \
-            } \
+        if (get_os_platform() != OS_MacOS && !(record)->tap.count && (keycode) == (key)) { \
+            if ((record)->event.pressed) register_code(mod); else unregister_code(mod); \
+            return false; \
         } \
     } while (0)

@@ -36,6 +36,9 @@
 // Luz shared layer model (BASE + EXTEND/SYMBOLS + EXTEND_DEL/EXTEND_TABS/ADJUST)
 #include "luz/layers.h"
 
+// Luz shared Compose combo macro (operands are per-variant)
+#include "luz/compose.h"
+
 // Include semantic keys header
 #include "features/semantic_keys.h"
 
@@ -50,7 +53,7 @@ enum combo_events {
     COMBO_COMPOSE,
 };
 
-const uint16_t PROGMEM compose_combo[] = {KC_LSFT, KC_SPC, COMBO_END};  // Both inner thumbs tapped together: arm Compose
+LUZ_COMPOSE_COMBO(_05_, _06_);  // Cross-hand inner index, top row (pos 5+6): arm Compose
 
 combo_t key_combos[] = {
     COMBO_ACTION(compose_combo), // COMBO_COMPOSE
@@ -64,12 +67,12 @@ const key_override_t* key_overrides[] = {
     NULL
 };
 
-// Luz shared mod system: chordal_hold_layout (positional) + LUZ_INDEX_GUI_MORPH
+// Luz shared mod system: chordal_hold_layout (positional) + the Cmd/Ctrl morph
 #include "luz/mods.h"
 
-// Snapshot the home-row index morph keycodes (preprocessor expands _16_/_19_ here)
-static const uint16_t gui_morph_l = LGUI_T(_16_);
-static const uint16_t gui_morph_r = RGUI_T(_19_);
+// Snapshot the morph keycodes for LUZ_MORPH_KEY (preprocessor expands _17_/_18_ here).
+static const uint16_t morph_l = LGUI_T(_17_);
+static const uint16_t morph_r = RGUI_T(_18_);
 
 // Mod-tap keycodes for the , / . base positions (32/33), named for SYM_MODTAP_SHIFT
 // (symbols.h). Must equal what the BASE keymap places there so the generated case
@@ -79,33 +82,38 @@ static const uint16_t gui_morph_r = RGUI_T(_19_);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
+      * BASE — Gallium East on the Luz frame
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │[Q]│ W[Q]E │ R │ T │       │ Y │ U | I[P]O │[P]│   │
+      * │   │ B │ L │ C │ D │ V │       │ J │ F │ O │ U │ ' │   │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Tab│ A │ S │ D │F/⌘│ G │       │ H │J/⌘│ K │ L │ ; │Bsp│
+      * │Tab│ N │ R │ S │ T │G/⌘│       │Y/⌘│ H │ E │ A │ I │Bsp│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ Z │X/A│C/G│V/C│[B]│       │[N]│M/C│,/G│./A│ / │ _ │
+      * │   │ X │Q/A│W/G│M/C│ Z │       │ K │P/C│,/G│./A│ - │ / │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │Esc├───┐           ┌───┤Ent│
-      *               └───┤Sft├───┐   ┌───┤Spc├───┘
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤ ⇧ ├───┐   ┌───┤Spc├───┘
       *                   └───┤FAV│   │SYM├───┘       FAV=EXTEND layer, SYM=SYMBOLS layer
       *                       └───┘   └───┘
-      * pos 24 empty (Caps Word now via double-tap Shift); pos 34=SY_MINS (- → _), pos 35=SY_SLSH (/ → |); Esc/Ent on outer thumbs
-      * Esc/Ent fall through on EXTEND and SYMBOLS (transparent thumbs at 36/41); SYMBOLS
-      * also inherits _ at 35, but EXTEND 35 is dead (KC_NO) — nav layer doesn't want it
-      * Sft/Spc are plain keys; tapping both together (combo) arms Compose for accents:
-      * E/A/U/O = acute/grave/diaeresis/circumflex dead key, C=ç, N=ñ, W=€, Esc cancels,
-      * any other key passes through unchanged
-      * Home-row mod-taps: F/⌘=GUI (Ctrl on Linux), J/⌘=GUI (Ctrl on Linux)
-      * Bottom-row mod-taps: X/A=Alt, C/G=GUI, V/C=Ctrl | M/C=Ctrl, ,/G=GUI, ./A=Alt
-      * Chordal Hold: opposite-hands rule prevents same-hand roll misfires
+      * SHIFT is a PLAIN modifier on thumb 37 — not a mod-tap at all. Thumbs are '*' (exempt)
+      * in chordal_hold_layout, so one key holds for BOTH hands: the modifier you hold most
+      * costs no tap-hold arbitration. Double-tap it to arm Caps Word.
+      * CMD/CTRL MORPH is the mirrored pair at 17/18 (⌘ legends below) — mirrored because it
+      * IS subject to the opposite-hands rule, and at 17/18 rather than the old 16/19 because
+      * the index home pair spans a common CROSS-HAND bigram (th in Gallium, he in Enthium),
+      * which is precisely the case Chordal Hold does not guard.
+      * The home row (15/16/19/20) carries no mod-taps.
+      * COMPOSE is the combo on 5+6 (cross-hand inner index, top row) — see luz/compose.h.
+      * pos 36 and 41 are blank; Esc lives on EXTEND (12) and Enter is the tap of
+      * LT(SYMBOLS) at 39, so nothing unique is lost.
+      * pos 34=SY_MINS (- → _), pos 35=SY_SLSH (/ → |)
+      * Bottom-row mod-taps: Q/A=Alt, W/G=GUI, M/C=Ctrl | P/C=Ctrl, ,/G=GUI, ./A=Alt
       */
     [BASE] = LAYOUT_split_3x6_3(
         KC_NO,    _01_,    _02_,    _03_,    _04_,    _05_,                               _06_,    _07_,    _08_,    _09_,    _10_,    KC_NO,
-        KC_TAB,  _13_,    _14_,    _15_,    LGUI_T(_16_), _17_,                           _18_,    RGUI_T(_19_), _20_,    _21_,    _22_,    KC_BSPC,
+        KC_TAB,  _13_,    _14_,    _15_,    _16_,    LGUI_T(_17_),                       RGUI_T(_18_), _19_,    _20_,    _21_,    _22_,    KC_BSPC,
         KC_NO,   _25_,    LALT_T(_26_), LGUI_T(_27_), LCTL_T(_28_), _29_,               _30_,    RCTL_T(_31_), RGUI_T(_32_KC), RALT_T(_33_KC), _34_, SY_SLSH,
-                                            KC_ESC,  KC_LSFT, MO(EXTEND),               LT(SYMBOLS, KC_ENT), KC_SPC,  KC_ENT
+                                            KC_NO,   KC_LSFT, MO(EXTEND),               LT(SYMBOLS, KC_ENT), KC_SPC,  KC_NO
     ),
      /*
       * EXTEND Layer - Favorite shortcuts and navigation
@@ -164,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [SYMBOLS] = LAYOUT_split_3x6_3(
         KC_NO,     MD_FENCE, KC_7,     KC_8,     KC_9,    KC_NO,                              SY_GRV,  SY_LCBR, SY_EQL,   SY_RCBR,  SY_QUOT,  KC_NO,
-        _______,   KC_0,     KC_1,     KC_2,     KC_3,    KC_NO,                              SY_BSLS, SY_LPRN, SY_AT,    SY_RPRN,  SY_COLN,  _______,
+        _______,   KC_0,     KC_1,     KC_2,     KC_3,    KC_NO,                                SY_BSLS, SY_LPRN, SY_AT,    SY_RPRN,  SY_COLN,  _______,
         _______,   ARROW_OP, KC_4,     KC_5,     KC_6,    QK_LLCK,                            SY_DLR,  SY_AMPR, SY_COMM,  SY_DOT,   SY_MINS,  _______,
                                                   _______, _______, _______,                  KC_NO,   _______, _______
     ),
@@ -290,7 +298,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
 
     // OS morph: home-row index mod-taps (positions 16/19) use GUI on macOS, Ctrl on Linux
-    LUZ_INDEX_GUI_MORPH(keycode, record, gui_morph_l, gui_morph_r);
+    LUZ_MORPH_KEY(keycode, record, morph_l, KC_LCTL);
+    LUZ_MORPH_KEY(keycode, record, morph_r, KC_RCTL);
 
     switch (keycode) {
         case MD_FENCE:

@@ -21,7 +21,7 @@ New variants are very welcome - see [Contributing variants](#contributing-varian
 > [!NOTE]
 > The diagrams below are simplified to highlight each feature; they don't show every key. For a complete overview, see each variant's README ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) · [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md)).
 
-- **Bottom-row mods, an OS-aware Cmd/Ctrl, and a thumb Shift.** Mods sit on the bottom row, under the less frequent letters, which reduces misfires. The index home key is a single shortcut modifier that adapts to the OS (`⌘C` on macOS, `Ctrl-C` on Linux). **Shift is a plain, fixed key on the thumb**, present on every layer, so you can hold it to extend a selection while navigating, or shift a  key.
+- **Bottom-row mods, a plain thumb Shift, and an OS-aware Cmd/Ctrl.** Mods sit on the bottom row, under the less frequent letters, which reduces misfires. **Shift is a single plain key on the thumb** — not a dual-function key at all, so the modifier you hold most often has no timing to get wrong, and because thumbs are exempt from the handedness rule that one key works for both hands. Double-tap it for Caps Word. The **Cmd/Ctrl key adapts to the OS** (`⌘C` on macOS, `Ctrl-C` on Linux) and sits on the inner index column, the lightest pair in any layout. The home row itself carries no dual-function keys at all.
 
 Every variant shares this same BASE *frame*:
 
@@ -37,7 +37,7 @@ Every variant shares this same BASE *frame*:
 ![EXTEND — navigation & editing](./keyboards/6x3_3/luz/keymap_drawer/EXTEND.svg)
 ![Navigation modes](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/04_MODES.svg)
 
-- **Diacritics through Compose.** A thumb chord (Shift + Space) arms Compose; the next key adds an accent (`é à ü ô`, `ç`, `ñ`), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
+- **Diacritics through Compose.** A single cross-hand chord on the inner index column arms Compose; the next key adds an accent (`é à ü ô`, `ç`, `ñ`), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
 
 ![Compose & diacritics](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/05_DIACRITICS.svg)
 
@@ -48,6 +48,16 @@ Every variant shares this same BASE *frame*:
 Luz fills the keys you actually need, but it **deliberately leaves blanks** on
 several layers. Those are yours: map whatever suits
 your workflow onto them, on any layer, without disturbing the shared frame.
+
+**What's open, precisely.** The blank positions on every layer; the fills on the navigation
+layer (the supplied editing commands are a default, not a requirement); which symbols a variant
+privileges onto its base layer, and where; and what sits under the Cmd/Ctrl morph on the left
+thumb — nothing in Gallium, the letter `R` in Enthium.
+
+**What isn't.** The layer set and how you reach it, the mod positions, the symbol vocabulary and
+its shift pairings, and the Compose chord's position. [`LUZ.spec.md`](./LUZ.spec.md) opens with
+the full list — it is a conformance checklist, so you can tell whether something is a Luz variant
+without reading any code.
 
 ---
 
@@ -78,6 +88,7 @@ qmk userspace-compile
 ## Going further
 
 - [`LUZ.spec.md`](./LUZ.spec.md) — the exact, implementation-facing contract: every layer, keycode, position, and rule.
+- [`TUNING.md`](./TUNING.md) — four tap-hold settings left deliberately open, with the arguments on each side.
 - The variant READMEs ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md), [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md)) — diagrams and per-layout specifics.
 - [`keyboards/6x3_3/luz/`](./keyboards/6x3_3/luz/) — the shared code the variants compile against.
 

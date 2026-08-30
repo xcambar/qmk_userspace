@@ -16,8 +16,22 @@ Luz ships as layout-specific **variants**:
 | **Luz for Gallium**| Gallium East | `keyboards/6x3_3/keymaps/luz_for_gallium`      |
 | **Luz for Enthium**| Enthium      | `keyboards/6x3_3/keymaps/luz_for_enthium`      |
 
-A *variant* differs from every other variant in exactly one place: **layer 0 (BASE)**.
-Everything above BASE is Luz, and is shared verbatim.
+A *variant* is a layout dropped into the Luz frame. What varies is deliberately small and
+deliberately **enumerated** — a conformance checklist, not a vague licence:
+
+| May vary | Must not vary |
+|----------|---------------|
+| BASE alpha placement | the layer set, their order, and how each is reached |
+| which symbols are privileged onto BASE, and where | the symbol *vocabulary* and its shift pairings |
+| the SYMBOLS right-hand field | the SYMBOLS left-hand numpad |
+| SYMBOLS position 18's tap (it doubles as the right morph) | Shift plain on 37; the morph mirrored on 17/18 |
+| what sits under a pinned hold — the morph's taps, and the EXTEND hold on 38 | mod positions: 37, 17/18, 26–28, 31–33 |
+| the Compose combo's two operands | Compose at positions 5+6, and everything it emits |
+| EXTEND's fills (the `SK_*` set is a default) | the EXTEND cluster's geometry and sub-mode rules |
+
+Everything else — EXTEND, EXTEND_DEL, EXTEND_TABS, ADJUST — is identical in every variant.
+A variant that respects the right-hand column is a Luz variant, whatever firmware it is
+written for.
 
 ---
 
@@ -71,10 +85,16 @@ happens in one file.
    (`ADJUST → SYMBOLS → EXTEND → BASE`).
 2. **Cross-layer consistency.** The same output lives at the same physical position on
    every layer it appears, even at the cost of an empty slot elsewhere. A glyph never
-   migrates between layers.
-3. **Privileged base keys fall through.** Keys placed on the outer thumbs and envelope
-   (Esc, Enter, the privileged base symbols) stay reachable on overlay layers via
-   transparency rather than being re-declared.
+   migrates between layers. Shift obeys this too — 17 and 18 on both BASE and SYMBOLS.
+   The single exception is EXTEND, whose Shift is position 16 (the Select-mode trigger),
+   because the nav cluster owns 18 for the PgUp/PgDn pair. That exception is deliberate
+   and is the only one.
+3. **Privileged base keys fall through.** The privileged BASE symbols *and the envelope*
+   (Tab, Backspace) stay reachable on overlay layers via transparency rather than being
+   re-declared. Note that the envelope's *positions* are per-variant — 12/23 in Gallium, 24/35 in Enthium — so the transparent positions differ between variants even
+   though the rule does not. Getting this wrong is silent: the key simply isn't there. This no longer applies
+   to the outer thumbs: 36 and 41 are blank, and what used to fall through from them is
+   reachable elsewhere (`Esc` on EXTEND at 12, `Enter` as the tap of `LT(SYMBOLS)` at 39).
 
 ---
 
@@ -97,7 +117,8 @@ The shared half lives in [`keyboards/6x3_3/luz/symbols.h`](keyboards/6x3_3/luz/s
 - **All-layer override scope.** The unshifted/shifted behavior is delivered by key
   overrides live on every layer (`~0`), so a symbol behaves identically wherever it is
   physically placed — nothing gates it by layer.
-- **Mod-tap shift handling.** A variant may place a punctuation symbol on a BASE mod-tap;
+- **Mod-tap shift handling.** A variant may place a punctuation symbol on a mod-tap (on BASE, or
+  on SYMBOLS where position 18 doubles as the right morph);
   since a mod-tap's tap can't ride a key override, `SYM_MODTAP_SHIFT` supplies the shifted
   partner from `process_record_user`, reading the same `SY_*_SHIFTED` constants the table
   uses. The mechanism is shared; *which* symbols sit on mod-taps is per-layout.
@@ -150,9 +171,21 @@ keystroke*. Being able to write accents, diacritics and other common symbols is 
 
 ### How it works
 
-- **Arming:** tap the two **middle thumbs together** — `Shift` (pos 37) + `Space` (pos 40).
-  This is the only combo in Luz. It sets a one-shot "compose
-  pending" state; the thumbs otherwise remain plain Shift and Space.
+- **Arming:** a single cross-hand combo on BASE at **positions 5 + 6** (the inner index column,
+  top row). It sets a one-shot "compose pending" state; the member keys otherwise behave
+  normally. The *positions* and the mechanism are the contract; the *operands* are per-variant,
+  since each layout puts different keys there. The shared macro is `LUZ_COMPOSE_COMBO(a, b)` in
+  [`keyboards/6x3_3/luz/compose.h`](keyboards/6x3_3/luz/compose.h).
+
+  | Variant | Chord |
+  |---------|-------|
+  | Luz for Gallium | `V` + `J` |
+  | Luz for Enthium | `X` + `=` |
+
+  A combo operand must be a key you never type in sequence with the other operand. The historic
+  `Shift`+`Space` satisfied that because Shift is not a typed character — a property lost the
+  moment Shift became a mod-tap on a letter. Cross-hand combos cannot be triggered by a roll, and
+  the inner index column is the one column reliably weak across layouts.
 - **Consuming:** the next key picks the result, then compose disarms:
 
   | Key | Result |        | Key | Result |
@@ -194,16 +227,42 @@ positional, shareable parts live in
 - **Bottom-row mod-taps**, mirrored `Alt – GUI – Ctrl` from the outer column inward: left
   `26=Alt 27=GUI 28=Ctrl`, right `31=Ctrl 32=GUI 33=Alt`. Keeping the full trio off the home
   row leaves the home keys clean for typing.
-- **Home-row index morph** (pos 16 / 19): a GUI mod-tap that is the unified **Cmd/Ctrl
-  shortcut key** — GUI on macOS, **Ctrl on Linux** (the hold is rewritten by
-  `LUZ_INDEX_GUI_MORPH`). This is what makes `⌘C`/`^C` and friends the same chord on both OSes.
-- **Thumbs carry no bottom-row-style mod-taps**; the only thumb modifier is plain `Shift` (37).
+- **Shift is a plain modifier on thumb 37** — not a mod-tap at all. `chordal_hold_layout`
+  marks the thumbs `'*'` (exempt from the opposite-hands rule), so **one key holds for both
+  hands**: the modifier you hold most often costs no tap-hold arbitration whatsoever, and needs
+  no mirrored twin.
+- **The home row carries no mod-taps.** Positions 15/16/19/20 are plain letters.
+- **Cmd/Ctrl morph mirrored on the inner index column** — **17** (`LGUI_T`) and **18**
+  (`RGUI_T`): the unified shortcut key, GUI on macOS and Ctrl on Linux, so `⌘C` and `^C` are the
+  same chord. Mirrored because unlike Shift it *is* subject to the opposite-hands rule. Two
+  reasons it lives at 17/18 rather than the home row:
+    1. 17/18 is the lightest pair in every layout (~0.8–4.4% of English letters), because the
+       inner index column is where layouts put their least frequent keys.
+    2. More sharply, the index home pair spans a common **cross-hand bigram** in both
+       variants — `th` in Gallium (T at 16, H at 19) and `he` in Enthium — and cross-hand is
+       exactly the case Chordal Hold does *not* guard. A morph there turns "The" after a pause
+       into `⌘H`.
+- **Caps Word is armed by double-tapping Shift** (`DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD`). This
+  works because 37 is a plain `KC_LSFT`, which is what `process_caps_word.c` requires — it
+  accepts only `KC_LSFT` and `OSM(MOD_LSFT)`. `BOTH_SHIFTS` is not usable: it tests
+  `mods == MOD_MASK_SHIFT`, and Luz has a single Shift key.
+- **Overlay layers need no Shift of their own.** SYMBOLS is held with the right thumb (39), so
+  the left thumb reaches 37 freely and the plain Shift covers the whole symbol layer for both
+  hands. EXTEND is held with the *same* thumb as 37, so its Shift is position 16 — the
+  Select-mode trigger, which is all EXTEND needs.
+- **Modifiers live on BASE and are held *before* switching layers.** No overlay carries a
+  modifier of its own. This is not a limitation to work around — it is already the required
+  pattern for Alt and the bottom-row trio, since on SYMBOLS those positions are occupied by
+  digits and symbols. Holding a morph and *then* pressing the layer thumb works because
+  `get_chordal_hold_default` returns true whenever either key is `'*'`, and the thumbs are, so
+  the mod-tap resolves as a hold; `is_flow_tap_key()` also returns false while Ctrl/GUI/Alt is
+  held, so the layer-tap underneath resolves normally. One rule instead of two.
 
 ### Shared (the contract) → `luz/mods.h`
 
 - **Chordal Hold handedness array** (`chordal_hold_layout`) — purely positional (`L`/`R`/`*`,
   thumbs exempt), so it is defined once here and identical for every variant.
-- **The Cmd/Ctrl morph** — `LUZ_INDEX_GUI_MORPH(keycode, record, morph_l, morph_r)`, a macro
+- **The Cmd/Ctrl morph** — `LUZ_MORPH_KEY(keycode, record, key, mod)`, a macro
   that expands inside `process_record_user` (same idiom as `SYM_MODTAP_SHIFT`): on a non-macOS
   platform it registers Ctrl for the held index morph keys. The per-layout `morph_l`/`morph_r`
   snapshots stay in `keymap.c` because they wrap that layout's index letter.
@@ -224,10 +283,17 @@ every letter keeps the same modifier under the opposite hand.
 
 Luz imposes **nothing** on the thumb cluster beyond what other conventions already require:
 the layer model pins the two inner thumbs (EXTEND on the left inner, SYMBOLS layer-tap on the
-right inner), and the mod system puts a plain `Shift` on one thumb. Everything else — the outer
-thumbs especially — is **free per variant**. Crafted uses `Esc`/`Enter` on the outer thumbs;
-Enthium puts `R` on a thumb to free a base slot and moves `Esc` accordingly. That divergence is
-intended, not drift: the thumbs are where a layout spends its spare keys, so Luz leaves them open.
+right inner), the mod system puts the Cmd/Ctrl morph on 37, and Space sits on 40. What a variant
+puts *under* a pinned hold is free. Thumb 37 is a plain `KC_LSFT` in every variant. Thumb 38 is
+the EXTEND hold: `MO(EXTEND)` in Gallium and `LT(EXTEND, KC_R)` in Enthium, which
+gives `R` the best thumb key on the board. That tap costs Enthium one thing worth knowing:
+`is_flow_tap_key()` matches on the *tap* keycode, and `KC_R` is an alpha, so Flow Tap engages and
+EXTEND cannot be entered within `FLOW_TAP_TERM` of a keystroke. `LT(SYMBOLS, KC_ENT)` is exempt
+because `KC_ENT` is not a flow-tap key.
+
+**Positions 36 and 41 are blank in every variant.** Everything that used to live there is
+duplicated elsewhere — `Esc` on EXTEND at position 12, `Enter` as the tap of `LT(SYMBOLS)` at 39 —
+so nothing unique is lost, and a 40-key build is available whenever a variant wants one.
 
 ---
 
@@ -276,18 +342,28 @@ cluster's geometry and the sub-mode mechanics; what rides on top is the layout's
 ## Status
 
 - [x] **Layer model** — enum, naming, activation, structural rules.
-- [x] **Symbol set** — shared `SY_*` vocabulary + behavior (`luz/symbols.h`); placement
+- [x] **Symbol set** — the `SY_*` vocabulary and its related-shift pairings; placement
   per-layout under shared principles.
-- [x] **Compose** — chord-armed dead-key/diacritic system; the sole Luz combo + the combo rules.
-- [x] **Mod system** — positional mod placement; shared Chordal Hold + Cmd/Ctrl morph
-  (`luz/mods.h`); tap-hold tuning contract.
+- [x] **Compose** — chord-armed dead-key/diacritic system at positions 5+6; the sole Luz combo.
+- [x] **Mod system** — plain Shift on thumb 37, Cmd/Ctrl morph mirrored at 17/18, bottom-row
+  Alt/GUI/Ctrl, and the tap-hold tuning that arbitrates all of them.
 - [x] **Navigation cluster** — modifier-free inverted-T + three reuse-the-cluster sub-modes
   (Select / Delete / Tabs — all holds); fills are suggested, not imposed.
-- [x] **Thumb cluster** — *decided non-convention:* deliberately free per variant.
+- [x] **Thumb cluster** — *mostly* pinned now: 38/39/40 by the layer model and Space, 37 by the
+  mod system, 36/41 blank by rule. What remains free is only what a variant puts *under* the
+  morph on 37.
 
-Conventions take whichever form fits them. Some are backed by shared code (`luz/layers.h`,
-`luz/symbols.h`, `luz/mods.h`) so drift is impossible. Others are documentation contracts by
-design — the navigation cluster fixes a *shape and behavior* but deliberately leaves the fill
-to each variant, so imposing code would remove intended latitude. And some things, like the
-thumb cluster, are deliberately left free. In every case this document is the authority the
-variants are kept against.
+### What kind of authority this document has
+
+**This document is the contract; the code is one implementation of it.** Some conventions
+happen to be backed by shared headers in this repository (`luz/layers.h`, `luz/symbols.h`,
+`luz/mods.h`, `luz/compose.h`) — that is convenient for the QMK variants and it makes drift
+between *them* harder, but it is not what makes a convention binding. A Luz variant written
+for ZMK, Kanata or anything else compiles none of that code and is no less a variant for it.
+
+So where this spec and the C disagree, the spec is wrong and should be corrected — not the
+other way round.
+
+Four tap-hold settings are deliberately left unresolved; the arguments for and against each
+are kept in [`TUNING.md`](./TUNING.md) so they are not re-derived every time one comes up. And where a rule is stated in QMK vocabulary, that is shorthand for a
+behaviour, not a requirement to use QMK.
