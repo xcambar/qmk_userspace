@@ -36,7 +36,7 @@ static const deadkey_map_t deadkey_table[DK_count] = {
     [DK_ndx(DK_GRAVE)] = {LALT(KC_GRV),        RALT(KC_GRV)},         // Mac: Opt+`  | Linux: AltGr+`
     [DK_ndx(DK_CIRC)]  = {LALT(KC_I),          RALT(S(KC_6))},        // Mac: Opt+I  | Linux: AltGr+^
     [DK_ndx(DK_DIAE)]  = {LALT(KC_U),          RALT(S(KC_QUOT))},     // Mac: Opt+U  | Linux: AltGr+"
-    [DK_ndx(DK_TILDE)] = {LALT(KC_N),          RALT(KC_N)},           // Mac: Opt+N  | Linux: AltGr+N
+    [DK_ndx(DK_TILDE)] = {LALT(KC_N),          RALT(S(KC_GRV))},      // Mac: Opt+N  | Linux: AltGr+~
 };
 
 // Get the platform-specific keycode for a dead key (internal helper)

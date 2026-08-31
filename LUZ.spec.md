@@ -201,13 +201,15 @@ keystroke*. Being able to write accents, diacritics and other common symbols is 
 
   | Key | Result |        | Key | Result |
   |-----|--------|--------|-----|--------|
-  | `E` | acute — `é`     || `C` | `ç` |
-  | `A` | grave — `à`     || `N` | `ñ` |
+  | `E` | acute — `é`     || `N` | tilde — `ñ ã õ` |
+  | `A` | grave — `à`     || `C` | `ç` |
   | `U` | diaeresis — `ü` || `W` | `€` |
   | `O` | circumflex — `ô`|| `Esc` | cancel |
 
-  `E`/`A`/`U`/`O` emit **dead keys** (the accent then combines with the next letter, so
-  `compose → E → a` gives `á`); `C`/`N`/`W` emit the character directly. **Plain modifiers
+  `E`/`A`/`U`/`O`/`N` emit **dead keys** (the accent then combines with the next letter, so
+  `compose → E → a` gives `á`); `C`/`W` emit the character directly. `N` is a dead key rather
+  than a literal `ñ` so the tilde reaches every base letter — `ã` and `õ` cost the same three
+  keystrokes as `ñ`, where before they were unreachable and `ñ` was a special case. **Plain modifiers
   don't consume compose**, so a held Shift still composes — `compose → Shift+E → a` →
   `Á`. **Any unmapped key passes through unchanged**, disarming compose.
 

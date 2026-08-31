@@ -39,7 +39,7 @@ Every variant shares this same BASE *frame*:
 ![EXTEND — navigation & editing](./keyboards/6x3_3/luz/keymap_drawer/EXTEND.svg)
 ![Navigation modes](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/04_MODES.svg)
 
-- **Diacritics through Compose.** Press `Shift` then `Space` — both thumbs, the same two keys on every variant — and the next key adds an accent (`é à ü ô`, `ç`, `ñ`), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
+- **Diacritics through Compose.** Press `Shift` then `Space` — both thumbs, the same two keys on every variant — and the next key adds an accent (`é à ü ô ñ`, plus `ç` and `€` outright), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
 
 ![Compose & diacritics](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/05_DIACRITICS.svg)
 

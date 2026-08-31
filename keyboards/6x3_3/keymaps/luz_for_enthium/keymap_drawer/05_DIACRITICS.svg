@@ -32,17 +32,17 @@
 <text x="88.0" y="364.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">o</text>
 <text x="152" y="364.0" font-size="13.5" fill="#36322e">ˆ  circumflex</text>
 <text x="392" y="364.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   o   e   →   ê</text>
-<text x="152" y="393.0" font-size="11.5" font-weight="700" letter-spacing="0.6" fill="#a8671c">DIRECT<tspan dx="8" fill="#8a8076" font-weight="400" letter-spacing="0">— prints the character immediately</tspan></text>
-<rect x="152" y="399.0" width="43.2" height="2" rx="1" fill="#dd9d57"/>
-<text x="88.0" y="424.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">c</text>
-<text x="152" y="424.0" font-size="13.5" fill="#36322e">ç</text>
-<text x="392" y="424.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   c   →   ç</text>
-<rect x="136" y="434" width="804" height="30" fill="#f1ece4"/>
-<text x="88.0" y="454.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">n</text>
-<text x="152" y="454.0" font-size="13.5" fill="#36322e">ñ</text>
-<text x="392" y="454.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   n   →   ñ</text>
+<text x="88.0" y="394.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">n</text>
+<text x="152" y="394.0" font-size="13.5" fill="#36322e">˜  tilde</text>
+<text x="392" y="394.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   n   n   →   ñ</text>
+<text x="152" y="423.0" font-size="11.5" font-weight="700" letter-spacing="0.6" fill="#a8671c">DIRECT<tspan dx="8" fill="#8a8076" font-weight="400" letter-spacing="0">— prints the character immediately</tspan></text>
+<rect x="152" y="429.0" width="43.2" height="2" rx="1" fill="#dd9d57"/>
+<text x="88.0" y="454.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">c</text>
+<text x="152" y="454.0" font-size="13.5" fill="#36322e">ç</text>
+<text x="392" y="454.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   c   →   ç</text>
+<rect x="136" y="464" width="804" height="30" fill="#f1ece4"/>
 <text x="88.0" y="484.0" font-size="14" font-weight="600" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" text-anchor="middle" fill="#36322e">w</text>
 <text x="152" y="484.0" font-size="13.5" fill="#36322e">€  euro</text>
 <text x="392" y="484.0" font-size="12.5" style="font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace" fill="#8a8076">Shift + Space   w   →   €</text>
-<text x="40" y="522" font-size="11.5" fill="#8a8076">Dead keys wait for a base letter, so the same accent works on any vowel (é á í ó ú · è à ì ò ù …). Accents are OS-aware (macOS &amp; Linux).</text>
+<text x="40" y="522" font-size="11.5" fill="#8a8076">Dead keys wait for a base letter, so the same accent works on any base letter (é á í ó ú · è à ì ò ù · ã ñ õ …). Accents are OS-aware (macOS &amp; Linux).</text>
 </svg>

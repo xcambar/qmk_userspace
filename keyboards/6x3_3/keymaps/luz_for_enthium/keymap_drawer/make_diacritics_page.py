@@ -30,11 +30,11 @@ DEAD = [
     ("a", "`", "grave",      "e", "è"),
     ("u", "¨", "diaeresis",  "e", "ë"),
     ("o", "ˆ", "circumflex", "e", "ê"),
+    ("n", "˜", "tilde",      "n", "ñ"),
 ]
 # Direct characters: arm Compose, press this key, done.  (key, char, name)
 DIRECT = [
     ("c", "ç", ""),
-    ("n", "ñ", ""),
     ("w", "€", "euro"),
 ]
 
@@ -57,7 +57,7 @@ if "--md" in sys.argv:
         prod = f"{char} ({name})" if name else char
         md.append(f"| `{key}` | {prod} | `Shift + Space`, `{key}` → {char} |")
     footnote = ("Armed from the **base layer** with Shift + Space. Dead keys wait for a base "
-                "letter, so the same accent works on any vowel; any unlisted key cancels.")
+                "letter, so the same accent works on any base letter; any unlisted key cancels.")
     print("\n".join([*md, "", footnote]))
     sys.exit()
 
@@ -162,8 +162,8 @@ for i, (key, char, name) in enumerate(DIRECT):
 # legend
 ly = y + 28
 add(f'<text x="{MX}" y="{ly}" font-size="11.5" fill="{MUTED}">'
-    'Dead keys wait for a base letter, so the same accent works on any vowel '
-    '(é á í ó ú · è à ì ò ù …). Accents are OS-aware (macOS &amp; Linux).</text>')
+    'Dead keys wait for a base letter, so the same accent works on any base letter '
+    '(é á í ó ú · è à ì ò ù · ã ñ õ …). Accents are OS-aware (macOS &amp; Linux).</text>')
 
 add('</svg>')
 print("\n".join(s))

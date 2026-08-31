@@ -280,7 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_U: compose_pending = false; tap_deadkey_code(DK_DIAE);  return false;
             case KC_O: compose_pending = false; tap_deadkey_code(DK_CIRC);  return false;
             case KC_C: compose_pending = false; tap_semkey_code(SK_CEDIL);  return false;
-            case KC_N: compose_pending = false; tap_semkey_code(SK_NTILDE); return false;
+            case KC_N: compose_pending = false; tap_deadkey_code(DK_TILDE); return false;
             case KC_W: compose_pending = false; tap_semkey_code(SK_EURO);   return false;
             default:
                 compose_pending = false;

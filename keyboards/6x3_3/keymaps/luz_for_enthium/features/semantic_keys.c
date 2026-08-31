@@ -44,7 +44,7 @@ static const semkey_map_t semkey_table[SK_count] = {
 
     [SK_ndx(SK_EURO)]   = {{LALT(S(KC_2)), KC_NO},        {RALT(KC_EQL), KC_E, KC_NO}},         // Euro (€): Mac: Opt+Shift+2 | Linux: AltGr+=, E
     [SK_ndx(SK_CEDIL)]  = {{LALT(KC_C), KC_NO},           {RALT(KC_COMMA), KC_C, KC_NO}},       // Cedilla (ç): Mac: Opt+C | Linux: AltGr+,, C
-    [SK_ndx(SK_NTILDE)] = {{LALT(KC_N), KC_N, KC_NO},     {RALT(LSFT(KC_GRV)), KC_N, KC_NO}},           // Ñ: Mac: Opt+N, N | Linux: AltGr+N, N
+    [SK_ndx(SK_NTILDE)] = {{LALT(KC_N), KC_N, KC_NO},     {RALT(LSFT(KC_GRV)), KC_N, KC_NO}},           // Ñ: Mac: Opt+N, N | Linux: AltGr+~, N
 
     // Navigation keys - taken from HandsDown
     // https://github.com/moutis/HandsDown/blob/ac766b44b1454d72b395ee460bcae9f6fe89a700/moutis_semantickeys.c

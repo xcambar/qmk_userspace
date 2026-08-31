@@ -77,11 +77,11 @@ Press `Shift` then `Space` (the thumb pair, positions 37+40) while on BASE, then
 | `a` | \` grave (dead key) | `Shift + Space`, `a`, `e` → è |
 | `u` | ¨ diaeresis (dead key) | `Shift + Space`, `u`, `e` → ë |
 | `o` | ˆ circumflex (dead key) | `Shift + Space`, `o`, `e` → ê |
+| `n` | ˜ tilde (dead key) | `Shift + Space`, `n`, `n` → ñ |
 | `c` | ç | `Shift + Space`, `c` → ç |
-| `n` | ñ | `Shift + Space`, `n` → ñ |
 | `w` | € (euro) | `Shift + Space`, `w` → € |
 
-Armed from the **base layer** with Shift + Space. Dead keys wait for a base letter, so the same accent works on any vowel; any unlisted key cancels.
+Armed from the **base layer** with Shift + Space. Dead keys wait for a base letter, so the same accent works on any base letter; any unlisted key cancels.
 
 <!-- END DIACRITICS TABLE -->
 
