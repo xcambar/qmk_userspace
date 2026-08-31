@@ -67,21 +67,21 @@ EXTEND cursor layer + Select / Delete / Tabs sub-modes
 <details>
 <summary><strong>Compose &amp; diacritics</strong></summary>
 
-Press `V + J` together (the cross-hand inner-index pair, positions 5+6) while on BASE, then a key.
+Press `Shift` then `Space` (the thumb pair, positions 37+40) while on BASE, then a key. Shift must come first — see [`LUZ.spec.md`](../../../../LUZ.spec.md#compose).
 
 <!-- BEGIN DIACRITICS TABLE -->
 
 | Key | Produces | Example |
 |-----|----------|---------|
-| `e` | ´ acute (dead key) | `V + J`, `e`, `e` → é |
-| `a` | \` grave (dead key) | `V + J`, `a`, `e` → è |
-| `u` | ¨ diaeresis (dead key) | `V + J`, `u`, `e` → ë |
-| `o` | ˆ circumflex (dead key) | `V + J`, `o`, `e` → ê |
-| `c` | ç | `V + J`, `c` → ç |
-| `n` | ñ | `V + J`, `n` → ñ |
-| `w` | € (euro) | `V + J`, `w` → € |
+| `e` | ´ acute (dead key) | `Shift + Space`, `e`, `e` → é |
+| `a` | \` grave (dead key) | `Shift + Space`, `a`, `e` → è |
+| `u` | ¨ diaeresis (dead key) | `Shift + Space`, `u`, `e` → ë |
+| `o` | ˆ circumflex (dead key) | `Shift + Space`, `o`, `e` → ê |
+| `c` | ç | `Shift + Space`, `c` → ç |
+| `n` | ñ | `Shift + Space`, `n` → ñ |
+| `w` | € (euro) | `Shift + Space`, `w` → € |
 
-Armed from the **base layer** with V + J. Dead keys wait for a base letter, so the same accent works on any vowel; any unlisted key cancels.
+Armed from the **base layer** with Shift + Space. Dead keys wait for a base letter, so the same accent works on any vowel; any unlisted key cancels.
 
 <!-- END DIACRITICS TABLE -->
 

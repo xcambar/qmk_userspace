@@ -27,7 +27,7 @@ deliberately **enumerated** — a conformance checklist, not a vague licence:
 | the SYMBOLS right-hand field | the SYMBOLS left-hand numpad |
 | BASE position 18's tap (it doubles as the right morph) | Shift plain on 37; the morph mirrored on 17/18 |
 | what sits under a pinned hold — the morph's taps, and the EXTEND hold on 38 | mod positions: 37, 17/18, 26–28, 31–33, and the mod latch on SYMBOLS |
-| the Compose combo's two operands | Compose at positions 5+6, and everything it emits |
+| *(nothing — Compose is fixed end to end)* | Compose on thumbs 37+40, Shift first, and everything it emits |
 | EXTEND's fills (the `SK_*` set is a default) | the EXTEND cluster's geometry and sub-mode rules |
 
 Everything else — EXTEND, EXTEND_DEL, EXTEND_TABS, ADJUST — is identical in every variant.
@@ -173,22 +173,30 @@ keystroke*. Being able to write accents, diacritics and other common symbols is 
 
 ### How it works
 
-- **Arming:** a single cross-hand combo on BASE at **positions 5 + 6** (the inner index column,
-  top row). It sets a one-shot "compose pending" state; the member keys otherwise behave
-  normally. The *positions* and the mechanism are the contract; the *operands* are per-variant,
-  since each layout puts different keys there. The shared macro is `LUZ_COMPOSE_COMBO(a, b)` in
-  [`keyboards/6x3_3/luz/compose.h`](keyboards/6x3_3/luz/compose.h).
+- **Arming:** a single cross-hand thumb combo on BASE — **`Shift` (37) then `Space` (40)**. It
+  sets a one-shot "compose pending" state; the member keys otherwise behave normally. Unlike
+  every other Luz convention there is no per-variant half: the mod contract puts a plain
+  `KC_LSFT` on 37 and Space on 40 in *every* variant, so the positions, the operands and the
+  behaviour are all shared. The combo is declared outright in
+  [`keyboards/6x3_3/luz/compose.h`](keyboards/6x3_3/luz/compose.h); a `keymap.c` only references
+  it.
 
-  | Variant | Chord |
-  |---------|-------|
-  | Luz for Gallium | `V` + `J` |
-  | Luz for Colemak-DH | `B` + `J` |
-  | Luz for Enthium | `X` + `=` |
+  A combo operand must be a key you never type in sequence with the other operand. Shift
+  satisfies that by not being a typed character at all — which is what makes this pair safe,
+  and what an alpha pair can never quite be.
 
-  A combo operand must be a key you never type in sequence with the other operand. The historic
-  `Shift`+`Space` satisfied that because Shift is not a typed character — a property lost the
-  moment Shift became a mod-tap on a letter. Cross-hand combos cannot be triggered by a roll, and
-  the inner index column is the one column reliably weak across layouts.
+  **`COMBO_MUST_PRESS_IN_ORDER` (Shift first) is part of the contract.** It closes the one
+  sequence that could fire the chord by accident: rolling out of a Space into the next word's
+  capital, right thumb still down while the left reaches for Shift, lands both keys inside
+  `COMBO_TERM` and would otherwise arm Compose and swallow the space. Pressing Shift first is
+  the natural way to make the gesture, so the constraint costs nothing.
+
+  > [!NOTE]
+  > Compose briefly lived on positions 5+6 with per-variant operands (`V`+`J`, `B`+`J`,
+  > `X`+`=`). That was a workaround for Shift becoming a mod-tap on a letter — a design that was
+  > explored and **not** adopted; the shipped rework put plain Shift back on the thumb. The
+  > workaround outlived the problem it solved. Moving it back also retires the last per-variant
+  > difference in what was otherwise shared verbatim.
 - **Consuming:** the next key picks the result, then compose disarms:
 
   | Key | Result |        | Key | Result |
@@ -405,14 +413,15 @@ cluster's geometry and the sub-mode mechanics; what rides on top is the layout's
 - [x] **Layer model** — enum, naming, activation, structural rules.
 - [x] **Symbol set** — the `SY_*` vocabulary and its related-shift pairings; placement
   per-layout under shared principles.
-- [x] **Compose** — chord-armed dead-key/diacritic system at positions 5+6; the sole Luz combo.
+- [x] **Compose** — chord-armed dead-key/diacritic system on thumbs 37+40 (Shift first); the
+  sole Luz combo, and shared end to end — positions, operands and behaviour alike.
 - [x] **Mod system** — plain Shift on thumb 37, Cmd/Ctrl morph mirrored at 17/18, bottom-row
   Alt/GUI/Ctrl, and the tap-hold tuning that arbitrates all of them.
 - [x] **Navigation cluster** — modifier-free inverted-T + three reuse-the-cluster sub-modes
   (Select / Delete / Tabs — all holds); fills are suggested, not imposed.
 - [x] **Thumb cluster** — *mostly* pinned now: 38/39/40 by the layer model and Space, 37 by the
-  mod system, 36/41 blank by rule. What remains free is only what a variant puts *under* the
-  morph on 37.
+  mod system (and, with Compose back on 37+40, by Compose too), 36/41 blank by rule. What
+  remains free is only what a variant puts *under* the EXTEND hold on 38 — `R` in Enthium.
 
 ### What kind of authority this document has
 

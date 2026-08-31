@@ -49,6 +49,15 @@ layers:
               { type: none },
           ]
 
+combos:
+    # Compose — Shift(37) + Space(40). Contractual: same two thumbs in every variant, so the
+    # shared frame can show it. `state` tints it like the Compose accent on the reference page.
+    - key_positions: [37, 40]
+      key: { t: Compose, type: state }
+      align: bottom
+      layers:
+          - "BASE — the Luz frame, on any alpha layout"
+
 draw_config:
     key_h: 60
     combo_h: 22

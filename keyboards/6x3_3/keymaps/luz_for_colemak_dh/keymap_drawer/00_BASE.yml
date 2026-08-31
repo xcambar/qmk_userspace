@@ -56,9 +56,9 @@ layers:
           ]
 
 combos:
-    - key_positions: [5, 6]
+    - key_positions: [37, 40]
       key: { t: Compose, type: state }
-      align: top
+      align: bottom
       layers:
           - "0 · Base (Colemak Mod-DH)"
 

@@ -120,7 +120,7 @@ Semantic (`SK_*`) and dead (`DK_*`) keys are OS-aware; render their *meaning*, n
 
 | key_positions | Output | Note |
 |---------------|--------|------|
-| [5, 6] | Compose | cross-hand inner index, top row; arms the accent compose (`align: top`) |
+| [37, 40] | Compose | the thumb pair Shift+Space (Shift first); arms the accent compose (`align: bottom`) |
 
 Combos go in `00_BASE.yml` only. Use `align:` only for non-adjacent positions.
 

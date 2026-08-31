@@ -40,9 +40,9 @@ DIRECT = [
 
 # formatters shared by the SVG rows and the markdown twin
 def _dead_produces(mark, name):     return f"{mark}  {name}"
-def _dead_example(key, base, res):  return f"B + J   {key}   {base}   →   {res}"
+def _dead_example(key, base, res):  return f"Shift + Space   {key}   {base}   →   {res}"
 def _dir_produces(char, name):      return f"{char}  {name}" if name else char
-def _dir_example(key, char):        return f"B + J   {key}   →   {char}"
+def _dir_example(key, char):        return f"Shift + Space   {key}   →   {char}"
 
 # ── markdown twin (keeps the README "Reference tables" block in sync) ──────────
 # `make_diacritics_page.py --md` prints just the table; build_pdf.sh injects it
@@ -52,11 +52,11 @@ if "--md" in sys.argv:
     md = ["| Key | Produces | Example |", "|-----|----------|---------|"]
     for key, mark, name, base, res in DEAD:
         m = "\\`" if mark == "`" else mark  # bare backtick would open inline code in a cell
-        md.append(f"| `{key}` | {m} {name} (dead key) | `B + J`, `{key}`, `{base}` → {res} |")
+        md.append(f"| `{key}` | {m} {name} (dead key) | `Shift + Space`, `{key}`, `{base}` → {res} |")
     for key, char, name in DIRECT:
         prod = f"{char} ({name})" if name else char
-        md.append(f"| `{key}` | {prod} | `B + J`, `{key}` → {char} |")
-    footnote = ("Armed from the **base layer** with B + J. Dead keys wait for a base "
+        md.append(f"| `{key}` | {prod} | `Shift + Space`, `{key}` → {char} |")
+    footnote = ("Armed from the **base layer** with Shift + Space. Dead keys wait for a base "
                 "letter, so the same accent works on any vowel; any unlisted key cancels.")
     print("\n".join([*md, "", footnote]))
     sys.exit()
@@ -91,7 +91,7 @@ add(f'<style>text{{font-family:{SANS};fill:{INK};}}</style>')
 add(f'<text x="{MX}" y="50" font-size="26" font-weight="600" '
     f'letter-spacing="1.2" fill="{TITLE}">Compose &amp; diacritics</text>')
 add(f'<text x="{MX}" y="78" font-size="13.5" fill="{MUTED}">'
-    'Press B + J on the base layer to arm Compose, then press one key.</text>')
+    'Press Shift + Space on the base layer to arm Compose, then press one key.</text>')
 
 # ── trigger card (full width: Arm | Cancel) ───────────────────────────────────
 add(f'<rect x="{MX+1.5}" y="{CARD_TOP+2.5}" width="{CW}" height="{CARD_H}" '
@@ -105,7 +105,7 @@ add(f'<line x1="{MIDX:.1f}" y1="{CARD_TOP+14}" x2="{MIDX:.1f}" y2="{CARD_TOP+CAR
 add(f'<text x="{MX+18}" y="{CARD_TOP+28}" font-size="13" font-weight="700" '
     f'fill="{A_INK}">Arm</text>')
 add(f'<text x="{MX+18}" y="{CARD_TOP+50}" font-size="14.5" fill="{INK}">'
-    '<tspan font-weight="600">B + J</tspan>'
+    '<tspan font-weight="600">Shift + Space</tspan>'
     '<tspan dx="12" fill="' + MUTED + '" font-size="12.5">from the base layer</tspan></text>')
 # Cancel
 add(f'<text x="{MIDX+18:.1f}" y="{CARD_TOP+28}" font-size="13" font-weight="700" '

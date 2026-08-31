@@ -297,6 +297,12 @@ svg.keymap { fill: #36322e; }
 <g transform="translate(600, 225)" class="key none keypos-41">
 <rect rx="5" ry="5" x="-28" y="-28" width="56" height="56" class="key none"/>
 </g>
+<g class="combo state combopos-0">
+<path d="M420,271 h-114 a6.0,6.0 0 0 1 -6.0,-6.0 v-5" class="combo"/>
+<path d="M420,271 h114 a6.0,6.0 0 0 0 6.0,-6.0 v-5" class="combo"/>
+<rect rx="5" ry="5" x="406" y="260" width="28" height="22" class="combo state"/>
+<text x="420" y="271" class="combo state tap">Compose</text>
+</g>
 </g>
 </g>
 <defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#efefef"/><rect width="4" height="8" fill="#c8c8c8"/></pattern></defs></svg>

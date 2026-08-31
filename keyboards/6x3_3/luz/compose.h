@@ -2,26 +2,37 @@
 // ----------------------------------------------------------------------------
 // Canonical file at keyboards/6x3_3/luz/compose.h, shared by every Luz variant.
 //
-// Compose is armed by a single cross-hand combo on BASE — the only combo in Luz.
-// The MECHANISM is the contract; the OPERANDS are per-variant, because they depend
-// on what each layout places at the combo positions.
+// Compose is armed by a single cross-hand combo on BASE — the only combo in Luz — and
+// the whole thing is contractual: the POSITIONS, the OPERANDS and the behaviour are the
+// same in every variant. Nothing here is per-layout, so nothing here belongs in keymap.c.
 //
-// Luz uses positions 5 and 6 (the inner index column, top row): cross-hand, so no
-// roll can trigger them, and every layout puts a low-frequency key there. A combo
-// operand must be a key you never type in sequence with the other operand — this is
-// why the historic Shift+Space worked (Shift is not a typed character) and why it
-// could not survive Shift moving onto a letter.
+//     SHIFT (thumb 37) + SPACE (thumb 40)
 //
-//   Gallium     V + J
-//   Colemak-DH  B + J
-//   Enthium     X + =
+// Why the thumbs and not two alphas: a combo operand must be a key you never type in
+// sequence with the other operand. Shift is a MODIFIER, not a typed character, which is
+// exactly what makes the pair safe — and since the mod contract puts a plain KC_LSFT on
+// 37 and Space on 40 in every variant, the operands are identical everywhere. An alpha
+// pair (the old positions 5+6) could not be: each layout puts different letters there, so
+// the chord, the reference page and the README differed per variant for no gain.
 //
-// Usage in keymap.c, before key_combos[]:
-//     LUZ_COMPOSE_COMBO(_05_, _06_);
+// COMBO_MUST_PRESS_IN_ORDER (each variant's config.h) closes the one hazard: SHIFT must be
+// pressed FIRST. Without it, rolling out of a Space into the next word's capital — right
+// thumb still down, left thumb reaching for Shift — fires the combo within COMBO_TERM and
+// swallows the space. Pressing Shift first is the natural way to make the gesture, so the
+// constraint costs nothing and removes the only sequence that could trigger it by accident.
+//
+// Cost of putting the combo on these two keys: their presses are buffered for up to
+// COMBO_TERM. In practice the buffer is dumped by the very next keystroke (a letter is not
+// a combo key), and QMK replays the queued keyrecord with its ORIGINAL event.time — so
+// held-Shift capitalisation keeps its ordering and the DOUBLE_TAP_SHIFT Caps Word detector
+// (process_caps_word.c, which compares record->event.time) is unaffected.
+//
+// Nothing to do in keymap.c but reference it:
+//     combo_t key_combos[] = { COMBO_ACTION(compose_combo) };
 
 #pragma once
 
 #include "quantum.h"
 
-#define LUZ_COMPOSE_COMBO(a, b) \
-    const uint16_t PROGMEM compose_combo[] = {a, b, COMBO_END}
+// Order matters: COMBO_MUST_PRESS_IN_ORDER requires KC_LSFT (37) before KC_SPC (40).
+const uint16_t PROGMEM compose_combo[] = {KC_LSFT, KC_SPC, COMBO_END};

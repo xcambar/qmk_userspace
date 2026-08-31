@@ -43,8 +43,8 @@
  * 30), '→" (pos 31), .→! (pos 32), ,→? (pos 33), :→; (pos 34). Standalone `_` and `;` are
  * reached as Shift+`-` and Shift+`:`. SYMBOLS repeats these at the same positions
  * (cross-layer consistency) and adds the other 9 pairs.
- * X + = pressed together (the cross-hand inner-index combo at positions 5+6) arms Compose
- * for accents (E/A/U/O/C/N/W, Esc cancels).
+ * Shift then Space (the thumb combo at 37+40, shared by every variant) arms Compose for
+ * accents (E/A/U/O/C/N/W, Esc cancels).
  */
 
 #include QMK_KEYBOARD_H
@@ -63,7 +63,7 @@
 // Luz shared layer model (BASE + EXTEND/SYMBOLS + EXTEND_DEL/EXTEND_TABS/ADJUST)
 #include "luz/layers.h"
 
-// Luz shared Compose combo macro (operands are per-variant)
+// Luz shared Compose combo — Shift(37)+Space(40), identical in every variant
 #include "luz/compose.h"
 
 // Include semantic keys header
@@ -79,8 +79,6 @@
 enum combo_events {
     COMBO_COMPOSE,
 };
-
-LUZ_COMPOSE_COMBO(KC_X, SY_EQL);  // Cross-hand inner index, top row (pos 5+6): arm Compose
 
 combo_t key_combos[] = {
     COMBO_ACTION(compose_combo), // COMBO_COMPOSE
@@ -138,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * the index home pair spans a common CROSS-HAND bigram (th in Gallium, he in Enthium),
       * which is precisely the case Chordal Hold does not guard.
       * The home row (15/16/19/20) carries no mod-taps.
-      * COMPOSE is the combo on 5+6 (cross-hand inner index, top row) — see luz/compose.h.
+      * COMPOSE is the thumb combo Shift(37)+Space(40), in that order — see luz/compose.h.
       * pos 36 and 41 are blank; Esc lives on EXTEND (12) and Enter is the tap of
       * LT(SYMBOLS) at 39, so nothing unique is lost.
       * THUMB 38 IS LT(EXTEND, KC_R) here: R gets the best thumb key, and 37 is freed for the

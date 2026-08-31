@@ -39,7 +39,7 @@ Every variant shares this same BASE *frame*:
 ![EXTEND — navigation & editing](./keyboards/6x3_3/luz/keymap_drawer/EXTEND.svg)
 ![Navigation modes](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/04_MODES.svg)
 
-- **Diacritics through Compose.** A single cross-hand chord on the inner index column arms Compose; the next key adds an accent (`é à ü ô`, `ç`, `ñ`), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
+- **Diacritics through Compose.** Press `Shift` then `Space` — both thumbs, the same two keys on every variant — and the next key adds an accent (`é à ü ô`, `ç`, `ñ`), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
 
 ![Compose & diacritics](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/05_DIACRITICS.svg)
 
@@ -57,7 +57,7 @@ privileges onto its base layer, and where; and what sits under the navigation-la
 left thumb — nothing in Gallium and Colemak-DH, the letter `R` in Enthium.
 
 **What isn't.** The layer set and how you reach it, the mod positions, the symbol vocabulary and
-its shift pairings, and the Compose chord's position. [`LUZ.spec.md`](./LUZ.spec.md) opens with
+its shift pairings, and Compose in its entirety — chord and output alike. [`LUZ.spec.md`](./LUZ.spec.md) opens with
 the full list — it is a conformance checklist, so you can tell whether something is a Luz variant
 without reading any code.
 
