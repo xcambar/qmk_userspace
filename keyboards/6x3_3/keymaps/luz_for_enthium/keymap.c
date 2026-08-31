@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*
- * Enthium keymap — a fork of `luz_for_gallium` for the Enthium alpha layout.
+ * Luz for Enthium — the Luz conventions on the Enthium alpha layout.
  * https://github.com/sunaku/enthium
  *
  * Unlike luz_for_gallium, this keymap hosts a SINGLE base layout, so the `_XX_`

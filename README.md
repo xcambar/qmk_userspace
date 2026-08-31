@@ -9,10 +9,10 @@ Luz isn't itself a layout; it's the *framework* a layout drops into. Each concre
 
 | Variant | Letters | Keymap |
 |---------|---------|--------|
-| **Luz for Gallium** | Gallium East | [`luz_for_gallium`](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) — the daily driver |
-| **Luz for Enthium** | Enthium | [`luz_for_enthium`](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) — work in progress |
-| **Luz for Colemak-DH** | Colemak Mod-DH (matrix) | [`luz_for_colemak_dh`](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md) — the portability test |
-| **Luz for QWERTY** | QWERTY | [`luz_for_qwerty`](./keyboards/6x3_3/keymaps/luz_for_qwerty/README.md) — no new alphas to learn |
+| **Luz for Gallium** | Gallium East | [`luz_for_gallium`](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) |
+| **Luz for Enthium** | Enthium | [`luz_for_enthium`](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) |
+| **Luz for Colemak-DH** | Colemak Mod-DH (matrix) | [`luz_for_colemak_dh`](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md) |
+| **Luz for QWERTY** | QWERTY | [`luz_for_qwerty`](./keyboards/6x3_3/keymaps/luz_for_qwerty/README.md) |
 
 New variants are very welcome - see [Contributing variants](#contributing-variants).
 
@@ -23,25 +23,23 @@ New variants are very welcome - see [Contributing variants](#contributing-varian
 > [!NOTE]
 > The diagrams below are simplified to highlight each feature; they don't show every key. For a complete overview, see each variant's README ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) · [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) · [Luz for Colemak-DH](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md) · [Luz for QWERTY](./keyboards/6x3_3/keymaps/luz_for_qwerty/README.md)).
 
-### BASE — the frame every variant shares
+### BASE layer — alphas, mods & layers
 
-- **Bottom-row mods, a plain thumb Shift, and an OS-aware Cmd/Ctrl.** Mods sit on the bottom row, under the less frequent letters, which reduces misfires. **Shift is a single plain key on the thumb** — not a dual-function key at all, so the modifier you hold most often has no timing to get wrong, and because thumbs are exempt from the handedness rule that one key works for both hands. Double-tap it for Caps Word. The **Cmd/Ctrl key adapts to the OS** (`⌘C` on macOS, `Ctrl-C` on Linux) and sits on the inner index column, the lightest pair in any layout. The home row itself carries no dual-function keys at all.
+- **Bottom-row mods** Mods sit under the less frequent letters.
+- **A lightweight thumb cluster** Plain Shift with Caps Word on double tap, layer holds, Enter, Space.
+- **OS-dependent Cmd/Ctrl key** (`⌘C` on macOS, `Ctrl-C` on Linux) sits on the inner index column, the lightest pair in any layout. The home row itself carries no dual-function keys at all.
 
 ![BASE — the Luz frame](./keyboards/6x3_3/luz/keymap_drawer/BASE.svg)
 
-### SYMBOLS — numbers & symbols
+### Numbers & Symbols
 
-Held on the right inner thumb; its tap is Enter.
-
-- **A rethought symbol vocabulary.** The symbol set is redesigned for mnemonics and frequency, and every symbol's Shift gives a *related* glyph (`(` shifts to `<`, `{` to `[`, `=` to `+`). Learn the logic once and it holds everywhere.
-- **Digits on the left hand.** The symbols layer turns the left hand into a number pad: `1 2 3` across the home row with `0` beside them, `4 5 6` below, `7 8 9` above. Deliberately *not* the calculator arrangement, which puts `4 5 6` on the home row — the digits you reach for most sit under your fingers instead. Tap Layer Lock (also left hand) and you can key figures in with the right hand off the keyboard entirely.
-- **Modifiers that stay put while you're on the symbols layer.** Hold `Ctrl` (or `Alt`, or `Cmd`), enter the symbols layer, and you can *let the modifier go* — it stays held until you leave the layer. So no finger stays pinned on a modifier while the rest of that hand works the number pad, which is what `Ctrl`+digit otherwise asks of you. There's no timing to it: it's the ordinary hold, read differently because a layer is up. Shift is deliberately left out (you need it for the shifted symbols), and locking the layer releases everything.
+- **A rethought symbol vocabulary.** The symbol set is redesigned for mnemonics and frequency, and every symbol's Shift gives a *related* glyph (`(` shifts to `<`, `{` to `[`, `=` to `+`).
+- **Digits on the left hand.** The symbols layer turns the left hand into a number pad: `1 2 3` across the home row with `0` beside them, `4 5 6` below, `7 8 9` above. Arranged so that the digits you reach for most sit under your fingers.
+- **Modifiers that stay put while you're on the symbols layer.** Hold `Ctrl` (or `Alt`, or `Cmd`) on the base layer, enter the symbols layer, and the modifiers stay held until you leave the layer. Shift is the exception, because it's first-class on the symbols layer. No finger stays pinned on a modifier while the rest of that hand works the number pad. Releasing the layer releases everything.
 
 ![SYMBOLS — numbers & symbols](./keyboards/6x3_3/luz/keymap_drawer/SYMBOLS.svg)
 
-### EXTEND — navigation & editing
-
-Held on the left inner thumb.
+### Navigation & Editing
 
 - **A cursor cluster that doubles as an editor.** The right hand is a modifier-free inverted-T of arrows, with distance-from-home meaning distance-moved (character, word, line, page). **Triggers on the left hand** add extra modes onto that same cluster: one turns the motions into **select**, one into **delete** (by character/word/line), one drives **browser tabs**: the right hand keeps moving, the left hand picks the mode.
 
@@ -58,21 +56,17 @@ Not a layer: a chord armed from BASE, consumed by the next key.
 
 ---
 
-## Room to grow
+## Make it personal
 
 Luz fills the keys you actually need, but it **deliberately leaves blanks** on
 several layers. Those are yours: map whatever suits
 your workflow onto them, on any layer, without disturbing the shared frame.
 
-**What's open, precisely.** The blank positions on every layer; the fills on the navigation
-layer (the supplied editing commands are a default, not a requirement); which symbols a variant
-privileges onto its base layer, and where; and what sits under the navigation-layer hold on the
-left thumb — nothing in Gallium and Colemak-DH, the letter `R` in Enthium.
-
-**What isn't.** The layer set and how you reach it, the mod positions, the symbol vocabulary and
-its shift pairings, and Compose in its entirety — chord and output alike. [`LUZ.spec.md`](./LUZ.spec.md) opens with
-the full list — it is a conformance checklist, so you can tell whether something is a Luz variant
-without reading any code.
+Go further whenever you like — swap the editing commands on the navigation layer, privilege
+different symbols onto your base layer, tuck something under the navigation thumb. And if you
+ever want to check that a change still leaves you compatible with the other variants,
+[`LUZ.spec.md`](./LUZ.spec.md) opens with a short checklist you can read in a minute. It's
+there to keep your keymap portable, not to fence it in.
 
 ---
 

@@ -14,7 +14,7 @@ Keymaps live in `keyboards/6x3_3/keymaps/` and are symlinked to both keyboards:
 ```
 keyboards/6x3_3/keymaps/
 ├── luz_for_gallium/   # Luz for Gallium (the daily driver; dead keys, semantic keys, symbols, etc.)
-├── luz_for_enthium/   # Luz for Enthium (WIP; same Luz conventions on the Enthium layout)
+├── luz_for_enthium/   # Luz for Enthium (same Luz conventions on the Enthium layout)
 ├── luz_for_colemak_dh/ # Luz for Colemak-DH (matrix); the portability test variant
 ├── luz_for_qwerty/    # Luz for QWERTY; the framework demo — Luz conventions, familiar alphas
 └── zen/               # Minimal QWERTY keymap (3 layers: BASE, CODE, NAV)

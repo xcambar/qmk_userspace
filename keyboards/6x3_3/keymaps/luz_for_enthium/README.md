@@ -1,4 +1,4 @@
-# Luz for Enthium *(WIP)*
+# Luz for Enthium
 
 `luz_for_enthium` ports the [Luz](../../../../README.md) conventions onto the **Enthium** alpha
 layout, with the hands mirrored. EXTEND, its Select / Delete / Tabs sub-modes and ADJUST are shared
@@ -8,9 +8,6 @@ right-hand field for this layout, as the spec allows.
 The shared interaction model — layers, mods, symbols, Compose, navigation — is documented in
 [the README](../../../../README.md) and specified in [`LUZ.spec.md`](../../../../LUZ.spec.md).
 This page covers what's specific to this variant.
-
-> [!NOTE]
-> Work in progress — the layout is still settling, so details here may change.
 
 ## Main features
 
