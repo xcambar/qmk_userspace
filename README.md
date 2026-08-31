@@ -23,11 +23,15 @@ New variants are very welcome - see [Contributing variants](#contributing-varian
 > [!NOTE]
 > The diagrams below are simplified to highlight each feature; they don't show every key. For a complete overview, see each variant's README ([Luz for Gallium](./keyboards/6x3_3/keymaps/luz_for_gallium/README.md) · [Luz for Enthium](./keyboards/6x3_3/keymaps/luz_for_enthium/README.md) · [Luz for Colemak-DH](./keyboards/6x3_3/keymaps/luz_for_colemak_dh/README.md) · [Luz for QWERTY](./keyboards/6x3_3/keymaps/luz_for_qwerty/README.md)).
 
+### BASE — the frame every variant shares
+
 - **Bottom-row mods, a plain thumb Shift, and an OS-aware Cmd/Ctrl.** Mods sit on the bottom row, under the less frequent letters, which reduces misfires. **Shift is a single plain key on the thumb** — not a dual-function key at all, so the modifier you hold most often has no timing to get wrong, and because thumbs are exempt from the handedness rule that one key works for both hands. Double-tap it for Caps Word. The **Cmd/Ctrl key adapts to the OS** (`⌘C` on macOS, `Ctrl-C` on Linux) and sits on the inner index column, the lightest pair in any layout. The home row itself carries no dual-function keys at all.
 
-Every variant shares this same BASE *frame*:
-
 ![BASE — the Luz frame](./keyboards/6x3_3/luz/keymap_drawer/BASE.svg)
+
+### SYMBOLS — numbers & symbols
+
+Held on the right inner thumb; its tap is Enter.
 
 - **A rethought symbol vocabulary.** The symbol set is redesigned for mnemonics and frequency, and every symbol's Shift gives a *related* glyph (`(` shifts to `<`, `{` to `[`, `=` to `+`). Learn the logic once and it holds everywhere.
 - **Digits on the left hand.** The symbols layer turns the left hand into a number pad: `1 2 3` across the home row with `0` beside them, `4 5 6` below, `7 8 9` above. Deliberately *not* the calculator arrangement, which puts `4 5 6` on the home row — the digits you reach for most sit under your fingers instead. Tap Layer Lock (also left hand) and you can key figures in with the right hand off the keyboard entirely.
@@ -35,10 +39,18 @@ Every variant shares this same BASE *frame*:
 
 ![SYMBOLS — numbers & symbols](./keyboards/6x3_3/luz/keymap_drawer/SYMBOLS.svg)
 
+### EXTEND — navigation & editing
+
+Held on the left inner thumb.
+
 - **A cursor cluster that doubles as an editor.** The right hand is a modifier-free inverted-T of arrows, with distance-from-home meaning distance-moved (character, word, line, page). **Triggers on the left hand** add extra modes onto that same cluster: one turns the motions into **select**, one into **delete** (by character/word/line), one drives **browser tabs**: the right hand keeps moving, the left hand picks the mode.
 
 ![EXTEND — navigation & editing](./keyboards/6x3_3/luz/keymap_drawer/EXTEND.svg)
 ![Navigation modes](./keyboards/6x3_3/keymaps/luz_for_gallium/keymap_drawer/04_MODES.svg)
+
+### Compose — accents, without a layer of its own
+
+Not a layer: a chord armed from BASE, consumed by the next key.
 
 - **Diacritics through Compose.** Press `Shift` then `Space` — both thumbs, the same two keys on every variant — and the next key adds an accent (`é à ü ô ñ`, plus `ç` and `€` outright), so writing beyond plain ASCII is first-class, not an afterthought. Whatever Compose doesn't cover stays reachable on AltGr, for completeness.
 
