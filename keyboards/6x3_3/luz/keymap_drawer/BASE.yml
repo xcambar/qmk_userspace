@@ -3,9 +3,11 @@ layout:
     layout_name: LAYOUT_split_3x6_3
 
 # Generic Luz BASE — the shared furniture every variant carries, with the alpha keys left
-# blank (those are layout-specific). Shows only: the mod-taps (inner-index Cmd/Ctrl +
-# bottom-row Alt/GUI/Ctrl), the plain Shift on thumb 37, and Space on the right thumb.
-# 36 and 41 are blank on every variant. The home row carries no mod-taps.
+# blank (those are layout-specific). Shows the mod-taps (inner-index Cmd/Ctrl + bottom-row
+# Alt/GUI/Ctrl), the plain Shift on 37, Space on 40, the Compose combo, and the two layer
+# thumbs: EXTEND held on 38, SYMBOLS held on 39 with Enter as its tap. Those three — the two
+# holds and the Enter under one of them — are as contractual as the mods, so the frame has to
+# carry them. 36 and 41 are blank on every variant. The home row carries no mod-taps.
 layers:
     "BASE — the Luz frame, on any alpha layout":
         - [
@@ -43,8 +45,8 @@ layers:
         - [
               { type: none },
               { t: $$mdi:apple-keyboard-shift$$, h: "2x: CWord", type: modifier },
-              { type: none },
-              { type: none },
+              { t: $$mdi:layers-outline$$, h: EXTEND, type: layer },
+              { t: $$mdi:keyboard-return$$, h: SYMBOLS, type: layer },
               { t: $$mdi:keyboard-space$$, type: editing },
               { type: none },
           ]

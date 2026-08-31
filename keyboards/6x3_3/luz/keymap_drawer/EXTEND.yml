@@ -67,7 +67,7 @@ layers:
         - [
               { type: none },
               { type: none },
-              { type: none },
+              { type: held },
               { type: none },
               { type: none },
               { type: none },
