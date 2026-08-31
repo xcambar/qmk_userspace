@@ -5,6 +5,7 @@
         ["kaly/kaly42", "zen"],
         ["kaly/kaly42", "luz_for_enthium"],
         ["kaly/kaly42", "luz_for_colemak_dh"],
+        ["kaly/kaly42", "luz_for_qwerty"],
         ["42keebs/cantor_pro/v3/left", "luz_for_gallium"],
         ["42keebs/cantor_pro/v3/right", "luz_for_gallium"],
         ["42keebs/cantor_pro/v3/left", "zen"],
@@ -12,6 +13,8 @@
         ["42keebs/cantor_pro/v3/left", "luz_for_enthium"],
         ["42keebs/cantor_pro/v3/right", "luz_for_enthium"],
         ["42keebs/cantor_pro/v3/left", "luz_for_colemak_dh"],
-        ["42keebs/cantor_pro/v3/right", "luz_for_colemak_dh"]
+        ["42keebs/cantor_pro/v3/right", "luz_for_colemak_dh"],
+        ["42keebs/cantor_pro/v3/left", "luz_for_qwerty"],
+        ["42keebs/cantor_pro/v3/right", "luz_for_qwerty"]
     ]
 }

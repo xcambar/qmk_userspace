@@ -16,6 +16,7 @@ Luz ships as layout-specific **variants**:
 | **Luz for Gallium**| Gallium East | `keyboards/6x3_3/keymaps/luz_for_gallium`      |
 | **Luz for Enthium**| Enthium      | `keyboards/6x3_3/keymaps/luz_for_enthium`      |
 | **Luz for Colemak-DH**| Colemak Mod-DH (matrix) | `keyboards/6x3_3/keymaps/luz_for_colemak_dh` |
+| **Luz for QWERTY**  | QWERTY       | `keyboards/6x3_3/keymaps/luz_for_qwerty`       |
 
 A *variant* is a layout dropped into the Luz frame. What varies is deliberately small and
 deliberately **enumerated** — a conformance checklist, not a vague licence:
