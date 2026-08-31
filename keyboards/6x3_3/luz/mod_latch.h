@@ -9,10 +9,12 @@
 // Modifiers live on BASE only: the bottom-row mod-taps (26/27/28 | 31/32/33) and the
 // morph pair (17/18) are letters and symbols on SYMBOLS, so a chord that needs both a
 // modifier and a SYMBOLS key must be built by holding the modifier FIRST and entering
-// the layer under it. That works, but it forces a two-handed hold for the whole
-// duration of the chord — and the chords that need it most (Ctrl+digit, Alt+digit,
-// Cmd+digit) are exactly the ones you repeat: numeric entry in a spreadsheet, where
-// one hand should be free.
+// the layer under it. That works, but the modifier then has to stay physically held for the
+// whole chord, pinning a finger — and on SYMBOLS the mods are on the bottom row while the
+// digits sit on the same hand's ring/middle/index, so holding left Ctrl at 28 while pressing
+// 5 at 27 asks two adjacent fingers of one hand to do different jobs. These are also the
+// chords you repeat rather than perform once: Ctrl/Alt/Cmd + a digit, keying figures into a
+// spreadsheet.
 //
 // THE RULE
 // --------
@@ -22,7 +24,7 @@
 //     hold Alt  ->  Alt registered
 //     hold SYMBOLS
 //     release Alt  ->  Alt STAYS registered   (latched)
-//     ... type on SYMBOLS, one-handed, with Alt applied ...
+//     ... type on SYMBOLS with no finger pinned on Alt ...
 //     release SYMBOLS  ->  Alt released
 //
 // The gesture is timing-independent: it is not a tap, a double-tap or a one-shot, so

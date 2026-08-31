@@ -157,7 +157,10 @@ is free, but governed by these Luz **principles**:
 1. **Privileged symbols sit on BASE positions; the rest live on SYMBOLS.** "Privileged" is
    purely a placement choice — the high-frequency punctuation a variant wants without a
    layer hold.
-2. **Numpad on the left hand** (on SYMBOLS), keeping the right hand free for the mouse.
+2. **Digits on the left hand** (on SYMBOLS), so a locked layer lets figures be keyed in with
+   one hand and the other left on the mouse. `1 2 3` sit on the home row with `0` beside them,
+   `4 5 6` below and `7 8 9` above — a calculator's rows with the middle and bottom swapped, so
+   the digits typed most often are the ones on home.
 3. **Opening brackets on the index column**, with bracket pairs kept visually together
    (open over open, close over close).
 4. **Symbols arranged by frequency** within the SYMBOLS field.
@@ -274,11 +277,12 @@ positional, shareable parts live in
 
 ### The layer-scoped mod latch
 
-The bullet above has a cost: a chord that needs a modifier *and* a SYMBOLS key occupies both
-hands for its whole duration, and the chords that need it most — `Ctrl`/`Alt`/`Cmd` + a digit —
-are the repeated ones. Numeric entry in a spreadsheet is the case that names the problem: the
-numpad is on the left hand precisely so the right hand is free, and a two-handed modifier hold
-takes that back.
+The bullet above has a cost: the modifier must stay physically held for as long as the chord
+lasts, which pins a finger. On SYMBOLS that bites, because the mods sit on the bottom row and
+the digits on the same hand's ring, middle and index — so holding left `Ctrl` at 28 while
+pressing `5` at 27 asks two adjacent fingers of one hand to do different jobs at once. And
+these are the chords you repeat rather than perform once: `Ctrl`/`Alt`/`Cmd` + a digit, over
+and over, keying figures into a spreadsheet.
 
 So Luz reads the modifier release differently while SYMBOLS is up:
 
@@ -289,7 +293,7 @@ So Luz reads the modifier release differently while SYMBOLS is up:
 hold Alt          Alt registered
 hold SYMBOLS
 release Alt       Alt STILL registered   ← latched
-  … type on SYMBOLS one-handed, with Alt applied …
+  … type on SYMBOLS with no finger pinned on Alt …
 release SYMBOLS   Alt released
 ```
 

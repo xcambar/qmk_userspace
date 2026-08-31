@@ -30,8 +30,8 @@ Every variant shares this same BASE *frame*:
 ![BASE — the Luz frame](./keyboards/6x3_3/luz/keymap_drawer/BASE.svg)
 
 - **A rethought symbol vocabulary.** The symbol set is redesigned for mnemonics and frequency, and every symbol's Shift gives a *related* glyph (`(` shifts to `<`, `{` to `[`, `=` to `+`). Learn the logic once and it holds everywhere.
-- **Numpad on the left hand.** On the symbols layer the left hand becomes a calculator-style number pad, so you can key in figures one-handed and keep the right hand on the mouse.
-- **Modifiers that stay put while you're on the symbols layer.** Hold `Ctrl` (or `Alt`, or `Cmd`), enter the symbols layer, and you can *let the modifier go* — it stays held until you leave the layer. So `Ctrl`+digit, `Alt`+digit and friends need one hand instead of two, which is the whole point of putting the numpad there. There's no timing to it: it's the ordinary hold, read differently because a layer is up. Shift is deliberately left out (you need it for the shifted symbols), and locking the layer releases everything.
+- **Digits on the left hand.** The symbols layer turns the left hand into a number pad: `1 2 3` across the home row with `0` beside them, `4 5 6` below, `7 8 9` above. Deliberately *not* the calculator arrangement, which puts `4 5 6` on the home row — the digits you reach for most sit under your fingers instead. Tap Layer Lock (also left hand) and you can key figures in with the right hand off the keyboard entirely.
+- **Modifiers that stay put while you're on the symbols layer.** Hold `Ctrl` (or `Alt`, or `Cmd`), enter the symbols layer, and you can *let the modifier go* — it stays held until you leave the layer. So no finger stays pinned on a modifier while the rest of that hand works the number pad, which is what `Ctrl`+digit otherwise asks of you. There's no timing to it: it's the ordinary hold, read differently because a layer is up. Shift is deliberately left out (you need it for the shifted symbols), and locking the layer releases everything.
 
 ![SYMBOLS — numbers & symbols](./keyboards/6x3_3/luz/keymap_drawer/SYMBOLS.svg)
 
